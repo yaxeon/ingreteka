@@ -1,33 +1,28 @@
-const records: IUser[] = [
-  { id: "1", email: "ingreteka@mail.ru", password: "ingreteka" }
-];
+import { Document, Schema, Model, model } from "mongoose";
 
-export interface IUser {
-  id: string;
-  email: string;
-  password: string;
+export interface IUserModel extends Document {
+  email?: string;
+  username?: string;
+  roles: string[];
+  createdAt: Date;
+  instagramId: string;
 }
 
-export interface IUserModel {
-  findById(id: string, cb: any): void;
-  findByEmail(email: string, cb: any): void;
-}
-
-export const UserModel: IUserModel = {
-  findById(id, cb) {
-    const user = records.find(record => record.id === id);
-
-    if (user) {
-      return cb(null, user);
-    }
-    return cb(null, null);
+export const UserSchema: Schema = new Schema(
+  {
+    email: String,
+    username: String,
+    roles: [String],
+    createdAt: { type: Date, default: Date.now },
+    instagramId: String
   },
-  findByEmail(email, cb) {
-    const user = records.find(record => record.email === email);
-
-    if (user) {
-      return cb(null, user);
-    }
-    return cb(null, null);
+  {
+    versionKey: false
   }
-};
+);
+
+export const User: Model<IUserModel> = model<IUserModel>(
+  "User",
+  UserSchema,
+  "users"
+);

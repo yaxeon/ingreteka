@@ -1,11 +1,13 @@
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
+import passport from "passport";
 
 dotenv.config();
 
-import { passport } from "./config/passport";
-import { sessions } from "./config/sessions";
+import "./db";
+import { sessions as sessionsConfig } from "./auth/sessions";
+import { routes as instagramRoutes } from "./auth/instagram";
 
 // Create Express server
 const app = express();
@@ -13,23 +15,14 @@ const app = express();
 // Express configuration
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(sessions);
+app.use(sessionsConfig);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/auth/instagram", passport.authenticate("instagram"));
-
-app.get(
-  "/auth/instagram/callback",
-  passport.authenticate("instagram", { failureRedirect: "/login" }),
-  (req, res) => {
-    res.redirect("/");
-  }
-);
-
 app.get("/", (req, res) => {
-  res.json({ user: req.user });
+  res.json({ user: req.user ? req.user.toObject() : null });
 });
 
+app.use("/auth/instagram", instagramRoutes);
 
 app.listen(8080);
