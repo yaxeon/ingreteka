@@ -1,0 +1,8 @@
+  type User {
+    username: String!
+    roles: [String]!
+  }
+
+  type Query {
+    profile: User
+  }

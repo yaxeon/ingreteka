@@ -1,28 +1,36 @@
-import bodyParser from "body-parser";
-import dotenv from "dotenv";
-import express from "express";
-import passport from "passport";
+require("dotenv").config();
 
-dotenv.config();
+import debug from "debug";
+import passport from "passport";
+import { GraphQLServer } from "graphql-yoga";
 
 import "./db";
 import { sessions as sessionsConfig } from "./auth/sessions";
 import { routes as instagramRoutes } from "./auth/instagram";
+import { resolvers } from "./graphql/resolvers";
+import { context } from "./graphql/context";
 
-// Create Express server
-const app = express();
+const appLogger = debug("guide:app");
 
-// Express configuration
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(sessionsConfig);
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.get("/", (req, res) => {
-  res.json({ user: req.user ? req.user.toObject() : null });
+const server = new GraphQLServer({
+  typeDefs: `${__dirname}/graphql/schema.graphql`,
+  resolvers,
+  context
 });
 
-app.use("/auth/instagram", instagramRoutes);
+server.use(sessionsConfig);
+server.use(passport.initialize());
+server.use(passport.session());
 
-app.listen(8080);
+server.use("/auth/instagram", instagramRoutes);
+
+server.start(
+  {
+    port: 8080,
+    playground: false,
+    uploads: false,
+    subscriptions: false,
+    endpoint: "/graphql"
+  },
+  () => appLogger("Server is running")
+);

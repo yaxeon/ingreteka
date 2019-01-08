@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import debug from "debug";
 
 const { MONGO_URL = "" } = process.env;
+
+const dbLogger = debug("guide:db");
 
 mongoose.connect(
   MONGO_URL,
@@ -9,8 +12,10 @@ mongoose.connect(
 
 const db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "connection error:"));
+db.on("error", err => {
+  dbLogger("Error %o", err);
+});
 
 db.once("open", function() {
-  console.log("connection opened");
+  dbLogger("Connection open");
 });

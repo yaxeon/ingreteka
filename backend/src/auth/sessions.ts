@@ -17,8 +17,8 @@ const sessions = session({
     maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
   },
   store,
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false
 });
 
 export { sessions };
