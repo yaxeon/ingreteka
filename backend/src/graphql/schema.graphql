@@ -1,8 +1,15 @@
-  type User {
-    username: String!
-    roles: [String]!
-  }
+directive @auth(roles: [String]) on FIELD_DEFINITION
 
-  type Query {
-    profile: User
-  }
+enum UserRole {
+  ADMIN
+  USER
+}
+
+type User {
+  username: String!
+  roles: [UserRole]!
+}
+
+type Query {
+  profile: User @auth(roles: ["USER"])
+}

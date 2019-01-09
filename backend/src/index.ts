@@ -9,13 +9,17 @@ import { sessions as sessionsConfig } from "./auth/sessions";
 import { routes as instagramRoutes } from "./auth/instagram";
 import { resolvers } from "./graphql/resolvers";
 import { context } from "./graphql/context";
+import { AuthDirective } from "./graphql/AuthDirective";
 
 const appLogger = debug("guide:app");
 
 const server = new GraphQLServer({
   typeDefs: `${__dirname}/graphql/schema.graphql`,
   resolvers,
-  context
+  context,
+  schemaDirectives: {
+    auth: AuthDirective
+  }
 });
 
 server.use(sessionsConfig);

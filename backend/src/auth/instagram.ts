@@ -13,7 +13,7 @@ const {
 const routes = Router();
 
 passport.serializeUser<IUserModel, string>((user, done) => {
-  done(null, user._id);
+  done(null, user.id);
 });
 
 passport.deserializeUser<IUserModel | null, string>((id, done) => {
@@ -30,24 +30,24 @@ passport.use(
       callbackURL: INSTAGRAM_CLIENT_CALLBACK
     },
     (accessToken, refreshToken, profile, done) => {
-      User.findOne({ auth: { instagramId: profile.id } }, user => {
-        if (user === null) {
-          User.create({
-            username: profile.username,
-            roles: [],
-            auth: { instagramId: profile.id }
-          })
-            .then(user => {
-              done(null, user);
-            })
-            .catch(err => {
-              done(err);
-            });
-
-          return;
+      User.findOne({ instagramId: profile.id }, (err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (user) {
+          return done(null, user);
         }
 
-        done(null, user);
+        User.create(
+          {
+            username: profile.username,
+            roles: [],
+            instagramId: profile.id
+          },
+          (err: any, user: any) => {
+            done(err, user);
+          }
+        );
       });
     }
   )
