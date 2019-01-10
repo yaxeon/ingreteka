@@ -19,7 +19,6 @@ app.use(
 app.use(
   proxy("/graphql", {
     target: BACKEND_URL,
-    cookieDomainRewrite: "localhost",
     changeOrigin: true
   })
 );
