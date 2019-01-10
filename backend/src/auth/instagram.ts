@@ -1,8 +1,8 @@
-import passport from "passport";
 import { Router } from "express";
+import passport from "passport";
 import { Strategy as InstagramStrategy } from "passport-instagram";
 
-import { User, IUserModel } from "../models/user";
+import { IUserModel, User } from "../models/user";
 
 const {
   INSTAGRAM_CLIENT_ID = "",
@@ -17,7 +17,7 @@ passport.serializeUser<IUserModel, string>((user, done) => {
 });
 
 passport.deserializeUser<IUserModel | null, string>((id, done) => {
-  User.findById(id, function(err, user) {
+  User.findById(id, (err, user) => {
     done(err, user);
   });
 });
@@ -30,6 +30,7 @@ passport.use(
       callbackURL: INSTAGRAM_CLIENT_CALLBACK
     },
     (accessToken, refreshToken, profile, done) => {
+      
       User.findOne({ instagramId: profile.id }, (err, user) => {
         if (err) {
           return done(err);
@@ -42,11 +43,10 @@ passport.use(
           {
             username: profile.username,
             roles: [],
-            instagramId: profile.id
+            instagramId: profile.id,
+            picture: profile._json.data.profile_picture
           },
-          (err: any, user: any) => {
-            done(err, user);
-          }
+          done
         );
       });
     }

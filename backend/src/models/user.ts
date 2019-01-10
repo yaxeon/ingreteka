@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model } from "mongoose";
+import { Document, Model, model, Schema } from "mongoose";
 
 enum UserRole {
   USER = "USER",
@@ -11,6 +11,7 @@ export interface IUserModel extends Document {
   roles: UserRole[];
   createdAt: Date;
   instagramId: string;
+  picture: string;
 }
 
 export const UserSchema: Schema = new Schema(
@@ -19,7 +20,8 @@ export const UserSchema: Schema = new Schema(
     username: String,
     roles: [{ type: String, enum: [UserRole.USER, UserRole.ADMIN] }],
     createdAt: { type: Date, default: Date.now },
-    instagramId: String
+    instagramId: String,
+    picture: String
   },
   {
     versionKey: false

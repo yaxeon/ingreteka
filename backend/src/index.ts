@@ -1,20 +1,22 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
 import debug from "debug";
-import passport from "passport";
 import { GraphQLServer } from "graphql-yoga";
+import passport from "passport";
 
 import "./db";
-import { sessions as sessionsConfig } from "./auth/sessions";
-import { routes as instagramRoutes } from "./auth/instagram";
-import { resolvers } from "./graphql/resolvers";
-import { context } from "./graphql/context";
-import { AuthDirective } from "./graphql/AuthDirective";
 
-const appLogger = debug("guide:app");
+import { routes as instagramRoutes } from "./auth/instagram";
+import { sessions as sessionsConfig } from "./auth/sessions";
+import { AuthDirective } from "./graphql/AuthDirective";
+import { context } from "./graphql/context";
+import { resolvers } from "./graphql/resolvers";
+
+const appLogger = debug("ingreteka:backend");
 
 const server = new GraphQLServer({
-  typeDefs: `${__dirname}/graphql/schema.graphql`,
+  typeDefs: `${__dirname}/../schema.graphql`,
   resolvers,
   context,
   schemaDirectives: {

@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { User, IUserModel } from "../models/user";
+import { IUserModel, User } from "../models/user";
 
 export interface IContextGraphql {
   user: IUserModel | null;

@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
 import debug from "debug";
+import mongoose from "mongoose";
 
 const { MONGO_URL = "" } = process.env;
 
-const dbLogger = debug("guide:db");
+const dbLogger = debug("ingreteka:db");
 
 mongoose.connect(
   MONGO_URL,
@@ -16,6 +16,6 @@ db.on("error", err => {
   dbLogger("Error %o", err);
 });
 
-db.once("open", function() {
+db.once("open", () => {
   dbLogger("Connection open");
 });

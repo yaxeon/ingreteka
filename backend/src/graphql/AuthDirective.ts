@@ -1,8 +1,8 @@
-import { SchemaDirectiveVisitor } from "graphql-tools";
 import { defaultFieldResolver, GraphQLField } from "graphql";
+import { SchemaDirectiveVisitor } from "graphql-tools";
 
 export class AuthDirective extends SchemaDirectiveVisitor {
-  visitFieldDefinition(field: GraphQLField<any, any>) {
+  public visitFieldDefinition(field: GraphQLField<any, any>) {
     const { resolve = defaultFieldResolver } = field;
     const { roles: expectedRoles = [] } = this.args;
 
@@ -10,7 +10,7 @@ export class AuthDirective extends SchemaDirectiveVisitor {
       const [, , context] = args;
 
       if (
-        expectedRoles.length === 0 ||
+        context.user &&
         expectedRoles.some((role: string) => context.user.roles.includes(role))
       ) {
         // Call original resolver if role check has passed
