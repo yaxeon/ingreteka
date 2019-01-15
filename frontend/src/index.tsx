@@ -7,13 +7,15 @@ import { Router } from "react-router-dom";
 import createBrowserHistory from "history/createBrowserHistory";
 import { AppContainer } from "./containers/AppContainer";
 import { configureStore } from "./store";
+import { api } from "./api";
 import { theme } from "./theme";
 import * as serviceWorker from "./serviceWorker";
 
 const history = createBrowserHistory();
 
 const { store } = configureStore(undefined, {
-  history
+  history,
+  api
 });
 
 ReactDOM.render(

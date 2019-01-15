@@ -2,11 +2,13 @@ import { History } from "history";
 import { applyMiddleware, compose, createStore, Middleware } from "redux";
 import { createEpicMiddleware } from "redux-observable";
 import { Action } from "./actions";
+import { Api } from "./api";
 import { rootEpic } from "./epics";
 import { rootReducer, State } from "./reducers";
 
 export interface Dependencies {
   history: History;
+  api: Api;
 }
 
 const composeEnhancers =
