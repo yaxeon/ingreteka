@@ -7,15 +7,17 @@ import { Router } from "react-router-dom";
 import createBrowserHistory from "history/createBrowserHistory";
 import { AppContainer } from "./containers/AppContainer";
 import { configureStore } from "./store";
-import { api } from "./api";
+import { ApiClient } from "./api";
 import { theme } from "./theme";
 import * as serviceWorker from "./serviceWorker";
 
 const history = createBrowserHistory();
 
+const gqlClient = new ApiClient({ uri: "/graphql" });
+
 const { store } = configureStore(undefined, {
   history,
-  api
+  gqlClient
 });
 
 ReactDOM.render(

@@ -1,24 +1,26 @@
-import ApolloClient from "apollo-boost";
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { HttpLink } from "apollo-link-http";
+import { ApolloLink } from "apollo-link";
+
 import gql from "graphql-tag";
+import { from } from "rxjs";
 
-export const client = new ApolloClient({
-  uri: "/graphql"
-});
+export class ApiClient {
+  private client: ApolloClient<{}>;
 
-const login = () =>
-  client.query({
-    query: gql`
-      {
-        profile {
-          username
-          roles
-        }
-      }
-    `
-  });
+  constructor(options: HttpLink.Options) {
+    this.client = new ApolloClient({
+      link: ApolloLink.from([new HttpLink(options)]),
+      cache: new InMemoryCache()
+    });
+  }
 
-export interface Api {
-  login: () => Promise<any>;
+  query$ = (query: string, variables = {}) =>
+    from(
+      this.client.query<any>({
+        query: gql(query),
+        variables
+      })
+    );
 }
-
-export const api: Api = { login };
