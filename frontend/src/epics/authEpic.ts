@@ -1,7 +1,7 @@
 import { combineEpics, Epic } from "redux-observable";
 import { filter, switchMap, map } from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
-import getProfile from "../api/query/getProfile";
+import { getProfile } from "../api/method/getProfile";
 import { Action } from "../actions";
 import * as actions from "../actions/authActions";
 import { init } from "../actions/appActions";
@@ -16,9 +16,12 @@ export const loginEpic: Epic<Action, Action, State, Dependencies> = (
   action$.pipe(
     filter(isActionOf(init)),
     switchMap(action =>
-      gqlClient.query$(getProfile).pipe(
+      getProfile(gqlClient).pipe(
         map(({ data }) => {
-          return actions.login.success(data.profile);
+          if (data.profile) {
+            return actions.login(data.profile);
+          }
+          return actions.logout();
         })
       )
     )

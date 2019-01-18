@@ -12,7 +12,7 @@ const initialState: State = {};
 
 export const authReducer: Reducer<State, Action> = (state = initialState, action) => {
   switch (action.type) {
-    case getType(actions.login.success):
+    case getType(actions.login):
       return {
         user: action.payload
       };

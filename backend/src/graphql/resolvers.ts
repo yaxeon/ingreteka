@@ -6,9 +6,9 @@ export const resolvers = {
       if (!user) {
         return null;
       }
-      const { username, roles } = user.toObject();
+      const { username, roles, picture } = user.toObject();
 
-      return { username, roles };
+      return { username, roles, picture };
     }
   }
 };
