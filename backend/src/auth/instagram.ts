@@ -35,7 +35,8 @@ passport.use(
           return done(err);
         }
         if (user) {
-          user.update({ picture: profile._json.data.profile_picture }, done);
+          user.picture = profile._json.data.profile_picture;
+          return user.save(done);
         }
 
         User.create(
