@@ -7,6 +7,9 @@ import Home from "@material-ui/icons/Home";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Search from "@material-ui/icons/Search";
 import Favorite from "@material-ui/icons/Favorite";
+import Avatar from "@material-ui/core/Avatar";
+
+import { UserContainer } from "../containers/UserContainer";
 
 type ClassKey = "root" | "toolbar";
 
@@ -34,9 +37,19 @@ export const Footer = enhance(({ classes }: Props) => (
       <IconButton>
         <Favorite />
       </IconButton>
-      <IconButton>
-        <AccountCircle />
-      </IconButton>
+      <UserContainer>
+        {({ user }) => {
+          if (!user) {
+            return (
+              <IconButton component="a" href="/auth/ingreteka">
+                <AccountCircle />
+              </IconButton>
+            );
+          }
+
+          return <Avatar src={user.picture} />;
+        }}
+      </UserContainer>
     </Toolbar>
   </AppBar>
 ));
