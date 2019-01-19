@@ -41,7 +41,7 @@ export const Footer = enhance(({ classes }: Props) => (
         {({ user }) => {
           if (!user) {
             return (
-              <IconButton component="a" href="/auth/ingreteka">
+              <IconButton component="a" href="/auth/instagram">
                 <AccountCircle />
               </IconButton>
             );
