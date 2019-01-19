@@ -30,13 +30,12 @@ passport.use(
       callbackURL: INSTAGRAM_CLIENT_CALLBACK
     },
     (accessToken, refreshToken, profile, done) => {
-      
       User.findOne({ instagramId: profile.id }, (err, user) => {
         if (err) {
           return done(err);
         }
         if (user) {
-          return done(null, user);
+          user.update({ picture: profile._json.data.profile_picture }, done);
         }
 
         User.create(
