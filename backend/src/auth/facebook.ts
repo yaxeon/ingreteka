@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { Strategy as FacebookStrategy } from "passport-facebook";
 
-import { IUserModel, User } from "../models/user";
+import { IUserModel, User, UserRole } from "../models/user";
 
 const {
   FACEBOOK_CLIENT_ID = "",
@@ -51,7 +51,7 @@ passport.use(
 
         User.create(
           {
-            roles: [],
+            roles: [UserRole.USER],
             facebookId: profile.id,
             username,
             email,
