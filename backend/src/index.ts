@@ -7,7 +7,7 @@ import passport from "passport";
 
 import "./db";
 
-import { routes as instagramRoutes } from "./auth/instagram";
+import { routes as facebookRoutes } from "./auth/facebook";
 import { sessions as sessionsConfig } from "./auth/sessions";
 import { AuthDirective } from "./graphql/AuthDirective";
 import { context } from "./graphql/context";
@@ -28,7 +28,7 @@ server.use(sessionsConfig);
 server.use(passport.initialize());
 server.use(passport.session());
 
-server.use("/auth/instagram", instagramRoutes);
+server.use("/auth/facebook", facebookRoutes);
 
 server.start(
   {

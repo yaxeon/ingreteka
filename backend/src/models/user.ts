@@ -10,8 +10,8 @@ export interface IUserModel extends Document {
   username?: string;
   roles: UserRole[];
   createdAt: Date;
-  instagramId: string;
-  picture: string;
+  facebookId?: string;
+  picture?: string;
 }
 
 export const UserSchema: Schema = new Schema(
@@ -20,7 +20,7 @@ export const UserSchema: Schema = new Schema(
     username: String,
     roles: [{ type: String, enum: [UserRole.USER, UserRole.ADMIN] }],
     createdAt: { type: Date, default: Date.now },
-    instagramId: String,
+    facebookId: String,
     picture: String
   },
   {
