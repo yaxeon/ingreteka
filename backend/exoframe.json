@@ -1,0 +1,14 @@
+{
+  "name": "ingreteka:backend",
+  "project": "ingreteka:backend",
+  "domain": "backend.ingreteka.yaxeon.ru",
+  "restart": "always",
+  "hostname": "backend.ingreteka",
+  "env": {
+    "FACEBOOK_CLIENT_CALLBACK": "https://ingreteka.yaxeon.ru/auth/facebook/callback"
+  },
+  "labels": {
+    "traefik.port": "8080"
+  },
+  "template": "dockerfile"
+}
