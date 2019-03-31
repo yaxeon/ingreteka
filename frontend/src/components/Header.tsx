@@ -5,14 +5,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
+import { Logo } from "./Logo";
+
 type ClassKey = "toolbar";
 
 interface Props extends WithStyles<ClassKey> {}
 
-const enhance = withStyles<ClassKey>(theme => ({
-  toolbar: {
-    height: theme.spacing.unit * 10
-  }
+const enhance = withStyles<ClassKey>(() => ({
+  toolbar: {}
 }));
 
 export const Header = enhance(({ classes }: Props) => (
@@ -21,6 +21,7 @@ export const Header = enhance(({ classes }: Props) => (
       <IconButton>
         <MenuIcon />
       </IconButton>
+      <Logo />
     </Toolbar>
   </AppBar>
 ));

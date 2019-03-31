@@ -1,3 +1,3 @@
 import { createStandardAction } from "typesafe-actions";
 
-export const init = createStandardAction("INIT")<void>();
+export const init = createStandardAction("INIT")();

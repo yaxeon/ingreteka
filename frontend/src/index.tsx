@@ -4,7 +4,7 @@ import { MuiThemeProvider } from "@material-ui/core";
 import { Provider } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Router } from "react-router-dom";
-import createBrowserHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from "history";
 import { AppContainer } from "./containers/AppContainer";
 import { configureStore } from "./store";
 import { ApiClient } from "./api";
