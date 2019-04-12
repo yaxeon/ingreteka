@@ -2,14 +2,9 @@ import React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Home from "@material-ui/icons/Home";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Search from "@material-ui/icons/Search";
-import Favorite from "@material-ui/icons/Favorite";
-import Avatar from "@material-ui/core/Avatar";
 
-import { UserContainer } from "../containers/UserContainer";
+import { IconHome } from "./icons/IconHome";
+import { FooterMenuItem } from "./FooterMenuItem";
 
 type ClassKey = "root" | "toolbar";
 
@@ -28,28 +23,18 @@ const enhance = withStyles<ClassKey>(theme => ({
 export const Footer = enhance(({ classes }: Props) => (
   <AppBar position="fixed" className={classes.root}>
     <Toolbar className={classes.toolbar}>
-      <IconButton>
-        <Home />
-      </IconButton>
-      <IconButton>
-        <Search />
-      </IconButton>
-      <IconButton>
-        <Favorite />
-      </IconButton>
-      <UserContainer>
-        {({ user }) => {
-          if (!user) {
-            return (
-              <IconButton component="a" href="/auth/facebook">
-                <AccountCircle />
-              </IconButton>
-            );
-          }
-
-          return <Avatar src={user.picture} />;
-        }}
-      </UserContainer>
+      <FooterMenuItem path="/" label="Главная">
+        <IconHome />
+      </FooterMenuItem>
+      <FooterMenuItem path="/" label="Поиск">
+        <IconHome />
+      </FooterMenuItem>
+      <FooterMenuItem path="/" label="Бренды">
+        <IconHome />
+      </FooterMenuItem>
+      <FooterMenuItem path="/" label="Избранное">
+        <IconHome />
+      </FooterMenuItem>
     </Toolbar>
   </AppBar>
 ));

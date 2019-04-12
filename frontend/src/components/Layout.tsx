@@ -1,7 +1,6 @@
 import React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 
-import { Header } from "./Header";
 import { Footer } from "./Footer";
 
 type ClassKey = "root";
@@ -21,7 +20,6 @@ const enhance = withStyles<ClassKey>(theme => ({
 
 export const Layout = enhance(({ children, classes }: Props) => (
   <div className={classes.root}>
-    <Header />
     {children}
     <Footer />
   </div>
