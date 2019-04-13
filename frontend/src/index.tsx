@@ -10,6 +10,7 @@ import { configureStore } from "./store";
 import { ApiClient } from "./api";
 import { theme } from "./theme";
 import * as serviceWorker from "./serviceWorker";
+import "./style.css";
 
 const history = createBrowserHistory();
 

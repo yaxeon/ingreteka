@@ -11,12 +11,9 @@ const enhance = withStyles<ClassKey>(theme => ({
   wrapper: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    height: theme.spacing.unit * 8,
     flexGrow: 1
   },
   image: {
-    height: theme.spacing.unit * 7,
     display: "block"
   }
 }));

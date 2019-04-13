@@ -15,6 +15,12 @@ export const theme = createMuiTheme({
     }
   },
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    htmlFontSize: 12,
+    fontFamily: ["Noto Sans", "Roboto", "Arial", "sans-serif"].join(","),
+    h3: {
+      fontSize: "1.4rem",
+      fontWeight: 600
+    }
   }
 });

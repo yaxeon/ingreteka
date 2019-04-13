@@ -1,14 +1,16 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography/Typography";
 import { withStyles, WithStyles, colors } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
-type ClassKey = "root" | "label";
+import { IconFooter } from "./icons/types";
+
+type ClassKey = "root";
 
 interface Props extends WithStyles<ClassKey> {
   path: string;
   label: string;
-  children: React.ReactNode;
+  icon: IconFooter;
 }
 
 const enhance = withStyles<ClassKey>(theme => ({
@@ -19,20 +21,22 @@ const enhance = withStyles<ClassKey>(theme => ({
     justifyContent: "center",
     textDecoration: "none",
     height: theme.spacing.unit * 7,
+    width: theme.spacing.unit * 10,
     color: colors.grey[900]
-  },
-  label: {
-    fontFamily: "Noto Sans"
   }
 }));
 
 export const FooterMenuItem = enhance(
-  ({ classes, path, label, children }: Props) => (
-    <Link className={classes.root} to={path}>
-      {children}
-      <Typography variant="caption" className={classes.label}>
-        {label}
-      </Typography>
-    </Link>
+  ({ classes, path, label, icon: Icon }: Props) => (
+    <Route
+      exact
+      path={path}
+      children={({ match }) => (
+        <Link className={classes.root} to={path}>
+          <Icon active={!!match} />
+          <Typography variant="caption">{label}</Typography>
+        </Link>
+      )}
+    />
   )
 );

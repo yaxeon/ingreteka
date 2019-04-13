@@ -4,6 +4,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
 import { IconHome } from "./icons/IconHome";
+import { IconBrand } from "./icons/IconBrand";
+import { IconSearch } from "./icons/IconSearch";
+import { IconFavorite } from "./icons/IconFavorite";
 import { FooterMenuItem } from "./FooterMenuItem";
 
 type ClassKey = "root" | "toolbar";
@@ -16,25 +19,17 @@ const enhance = withStyles<ClassKey>(theme => ({
     bottom: 0
   },
   toolbar: {
-    justifyContent: "space-around"
+    justifyContent: "space-between"
   }
 }));
 
 export const Footer = enhance(({ classes }: Props) => (
   <AppBar position="fixed" className={classes.root}>
     <Toolbar className={classes.toolbar}>
-      <FooterMenuItem path="/" label="Главная">
-        <IconHome />
-      </FooterMenuItem>
-      <FooterMenuItem path="/" label="Поиск">
-        <IconHome />
-      </FooterMenuItem>
-      <FooterMenuItem path="/" label="Бренды">
-        <IconHome />
-      </FooterMenuItem>
-      <FooterMenuItem path="/" label="Избранное">
-        <IconHome />
-      </FooterMenuItem>
+      <FooterMenuItem path="/" icon={IconHome} label="Главная" />
+      <FooterMenuItem path="/search" icon={IconSearch} label="Поиск" />
+      <FooterMenuItem path="/brands" icon={IconBrand} label="Бренды" />
+      <FooterMenuItem path="/favorite" icon={IconFavorite} label="Избранное" />
     </Toolbar>
   </AppBar>
 ));

@@ -1,23 +1,20 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 
-import { CategoryItem } from "../components/CategoryItem";
+import { SelectionItem } from "../components/SelectionItem";
 import { HeaderMenu } from "../components/HeaderMenu";
-import categoryImage from "../svg/category/eco.svg";
+import { selections } from "../json/selections";
 
 export const CategoryPage = () => (
   <React.Fragment>
     <HeaderMenu />
-    <Grid container spacing={24}>
-      <Grid item xs={4}>
-        <CategoryItem label="Для лица" image={categoryImage} path="" />
-      </Grid>
-      <Grid item xs={4}>
-        <CategoryItem label="Для лица" image={categoryImage} path="" />
-      </Grid>
-      <Grid item xs={4}>
-        <CategoryItem label="Для лица" image={categoryImage} path="" />
-      </Grid>
-    </Grid>
+    {selections.map(({ image, title, path, description }) => (
+      <SelectionItem
+        key={path}
+        image={image}
+        path={path}
+        title={title}
+        description={description}
+      />
+    ))}
   </React.Fragment>
 );

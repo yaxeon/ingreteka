@@ -9,8 +9,10 @@ type ClassKey = "toolbar";
 
 interface Props extends WithStyles<ClassKey> {}
 
-const enhance = withStyles<ClassKey>(() => ({
-  toolbar: {}
+const enhance = withStyles<ClassKey>(theme => ({
+  toolbar: {
+    height: theme.spacing.unit * 8
+  }
 }));
 
 export const HeaderLogo = enhance(({ classes }: Props) => (
