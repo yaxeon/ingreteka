@@ -17,11 +17,11 @@ const enhance = withStyles<ClassKey>(theme => ({
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",
-    height: theme.spacing.unit * 14,
+    height: theme.spacing.unit * 18,
     textDecoration: "none"
   },
   image: {
-    height: theme.spacing.unit * 8,
+    maxWidth: theme.spacing.unit * 12,
     display: "block"
   },
   label: {

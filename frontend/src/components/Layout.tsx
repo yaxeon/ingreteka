@@ -11,10 +11,10 @@ interface Props extends WithStyles<ClassKey> {
 
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    paddingTop: 12 * theme.spacing.unit,
+    paddingTop: 10 * theme.spacing.unit,
     paddingBottom: 10 * theme.spacing.unit,
-    paddingLeft: 4 * theme.spacing.unit,
-    paddingRight: 4 * theme.spacing.unit
+    paddingLeft: 2 * theme.spacing.unit,
+    paddingRight: 2 * theme.spacing.unit
   }
 }));
 

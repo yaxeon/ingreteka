@@ -8,7 +8,7 @@ import { categories } from "../json/categories";
 export const HomePage = () => (
   <React.Fragment>
     <HeaderLogo />
-    <Grid container spacing={24}>
+    <Grid container spacing={16}>
       {categories.map(({ title, image, path }) => (
         <Grid item xs={4} key={path}>
           <CategoryItem label={title} image={image} path={path} />

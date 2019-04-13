@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Link } from "react-router-dom";
 
-type ClassKey = "image" | "wrapper" | "link";
+type ClassKey = "image" | "wrapper" | "title";
 
 interface Props extends WithStyles<ClassKey> {
   image: string;
@@ -23,8 +23,10 @@ const enhance = withStyles<ClassKey>(theme => ({
   wrapper: {
     marginBottom: theme.spacing.unit * 4
   },
-  link: {
-    textDecoration: "none"
+  title: {
+    textDecoration: "none",
+    display: "block",
+    marginBottom: theme.spacing.unit
   }
 }));
 
@@ -35,7 +37,7 @@ export const SelectionItem = enhance(
         <CardMedia className={classes.image} image={image} title={title} />
       </Grid>
       <Grid item xs={8}>
-        <Link to={path} className={classes.link}>
+        <Link to={path} className={classes.title}>
           <Typography variant="h3">{title}</Typography>
         </Link>
         <Typography variant="body2">{description}</Typography>
