@@ -5,7 +5,8 @@
   "restart": "always",
   "hostname": "backend.ingreteka",
   "env": {
-    "FACEBOOK_CLIENT_CALLBACK": "https://ingreteka.yaxeon.ru/auth/facebook/callback"
+    "MONGO_URL": "@mongo_ingreteka",
+    "COOKIE_SECRET": "@cookie_secret"
   },
   "labels": {
     "traefik.port": "8080"
