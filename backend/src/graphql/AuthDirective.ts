@@ -1,5 +1,5 @@
 import { defaultFieldResolver, GraphQLField } from "graphql";
-import { SchemaDirectiveVisitor } from "graphql-tools";
+import { SchemaDirectiveVisitor } from "apollo-server";
 
 export class AuthDirective extends SchemaDirectiveVisitor {
   public visitFieldDefinition(field: GraphQLField<any, any>) {

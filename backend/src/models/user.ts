@@ -1,35 +1,51 @@
 import { Document, Model, model, Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 export enum UserRole {
   USER = "USER",
   ADMIN = "ADMIN"
 }
 
-export interface IUserModel extends Document {
-  email?: string;
+export interface UserModel extends Document {
+  email: string;
   username?: string;
+  password?: string;
   roles: UserRole[];
   createdAt: Date;
-  facebookId?: string;
-  picture?: string;
+  verifyPassword(password: string): boolean;
 }
 
 export const UserSchema: Schema = new Schema(
   {
-    email: String,
-    username: String,
+    email: {
+      type: String,
+      lowercase: true,
+      unique: true,
+      required: true
+    },
+    username: {
+      type: String
+    },
+    password: {
+      type: String,
+      required: true
+    },
     roles: [{ type: String, enum: [UserRole.USER, UserRole.ADMIN] }],
-    createdAt: { type: Date, default: Date.now },
-    facebookId: String,
-    picture: String
+    createdAt: { type: Date, default: Date.now }
   },
   {
     versionKey: false
   }
 );
 
-export const User: Model<IUserModel> = model<IUserModel>(
+UserSchema.methods.verifyPassword = function(password: string) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+export const User: Model<UserModel> = model<UserModel>(
   "User",
   UserSchema,
   "users"
 );
+
+export const hashPassword = (password: string) => bcrypt.hashSync(password, 8);

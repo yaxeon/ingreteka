@@ -2,41 +2,37 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import debug from "debug";
-import { GraphQLServer } from "graphql-yoga";
+import express from "express";
 import passport from "passport";
+import { ApolloServer } from "apollo-server-express";
 
 import "./db";
+import "./auth/local";
 
-import { routes as facebookRoutes } from "./auth/facebook";
 import { sessions as sessionsConfig } from "./auth/sessions";
 import { AuthDirective } from "./graphql/AuthDirective";
 import { context } from "./graphql/context";
 import { resolvers } from "./graphql/resolvers";
+import { typeDefs } from "./graphql/types";
 
 const appLogger = debug("ingreteka:backend");
 
-const server = new GraphQLServer({
-  typeDefs: `${__dirname}/../schema.graphql`,
+const server = new ApolloServer({
+  typeDefs,
   resolvers,
   context,
   schemaDirectives: {
     auth: AuthDirective
-  }
+  },
+  playground: true
 });
 
-server.use(sessionsConfig);
-server.use(passport.initialize());
-server.use(passport.session());
+const app = express();
 
-server.use("/auth/facebook", facebookRoutes);
+app.use(sessionsConfig);
+app.use(passport.initialize());
+app.use(passport.session());
 
-server.start(
-  {
-    port: 8080,
-    playground: false,
-    uploads: false,
-    subscriptions: false,
-    endpoint: "/graphql"
-  },
-  () => appLogger("Server is running")
-);
+server.applyMiddleware({ app, path: "/graphql" });
+
+app.listen({ port: 8080 }, () => appLogger("Server is running"));
