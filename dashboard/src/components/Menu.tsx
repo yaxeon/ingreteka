@@ -1,30 +1,55 @@
 import React from "react";
-import Drawer from "@material-ui/core/Drawer";
-import { withStyles, WithStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import {
+  withStyles,
+  WithStyles,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText
+} from "@material-ui/core";
 
-type ClassKey = "root" | "paper";
+type ClassKey = "paper";
 
-interface Props extends WithStyles<ClassKey> {}
+interface Props extends WithStyles<ClassKey> {
+  open: boolean;
+  onClose: () => void;
+}
 
-export const drawerWidth = 240;
-
-const enhance = withStyles<ClassKey>(theme => ({
-  root: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
+const enhance = withStyles<ClassKey>(() => ({
   paper: {
-    width: drawerWidth
+    width: 240,
+    "&  a": {
+      textDecoration: "none"
+    }
   }
 }));
 
-export const Menu = enhance(({ classes }: Props) => (
+interface MenuItemProps {
+  to: string;
+  title: string;
+}
+
+const MenuItem = ({ to, title }: MenuItemProps) => (
+  <Link to={to}>
+    <ListItem button>
+      <ListItemText primary={title} />
+    </ListItem>
+  </Link>
+);
+
+export const Menu = enhance(({ classes, open, onClose }: Props) => (
   <Drawer
-    className={classes.root}
-    variant="permanent"
+    open={open}
     classes={{
       paper: classes.paper
     }}
+    onClose={onClose}
     anchor="left"
-  />
+  >
+    <List component="nav" onClick={onClose}>
+      <MenuItem to="/" title="Dashboard" />
+      <MenuItem to="/sections" title="Sections" />
+    </List>
+  </Drawer>
 ));

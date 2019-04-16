@@ -1,28 +1,25 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { withStyles, WithStyles } from "@material-ui/core";
+import React, { useState } from "react";
+import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 
-import { drawerWidth } from "./Menu";
+import { Menu } from "./Menu";
 
-type ClassKey = "root";
+export const Header = () => {
+  const [open, setVisible] = useState(false);
 
-interface Props extends WithStyles<ClassKey> {}
-
-const enhance = withStyles<ClassKey>(theme => ({
-  root: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth
-  }
-}));
-
-export const Header = enhance(({ classes }: Props) => (
-  <AppBar position="absolute" className={classes.root}>
-    <Toolbar>
-      <Typography variant="h6" color="inherit" noWrap>
-        Ingreteka Guide Dashboard
-      </Typography>
-    </Toolbar>
-  </AppBar>
-));
+  return (
+    <React.Fragment>
+      <AppBar position="absolute">
+        <Toolbar>
+          <IconButton onClick={() => setVisible(true)} color="inherit">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" noWrap>
+            Ingreteka Guide Dashboard
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Menu open={open} onClose={() => setVisible(false)} />
+    </React.Fragment>
+  );
+};

@@ -1,14 +1,13 @@
-import React, { PureComponent } from "react";
+import React from "react";
 
 import { Layout } from "../components/Layout";
 import { Routes } from "./Routes";
+import { AuthGuard } from "./AuthGuard";
 
-export class AppContainer extends PureComponent {
-  render() {
-    return (
-      <Layout>
-        <Routes />
-      </Layout>
-    );
-  }
-}
+export const AppContainer = () => (
+  <AuthGuard>
+    <Layout>
+      <Routes />
+    </Layout>
+  </AuthGuard>
+);
