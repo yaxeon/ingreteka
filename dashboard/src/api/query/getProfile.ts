@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { ApiClient } from "../";
 
-interface Data {
+interface Result {
   profile: {
     username: string;
     email: string;
@@ -9,7 +9,7 @@ interface Data {
   } | null;
 }
 
-export const query = gql`
+const query = gql`
   {
     profile {
       username
@@ -19,4 +19,5 @@ export const query = gql`
   }
 `;
 
-export class ProfileQuery extends Query<Data> {}
+export const getProfile = (client: ApiClient) =>
+  client.query<Result>({ query });

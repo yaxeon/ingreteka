@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { ApiClient } from "../index";
 
-interface Data {
+interface Result {
   login: boolean;
 }
 
@@ -16,4 +16,5 @@ export const mutation = gql`
   }
 `;
 
-export class LoginMutation extends Mutation<Data, Variables> {}
+export const login = (client: ApiClient, variables: Variables) =>
+  client.mutate<Result, Variables>({ mutation, variables });

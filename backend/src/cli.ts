@@ -8,20 +8,19 @@ import "./db";
 const args = process.argv.slice(2);
 
 (async () => {
-  if (args.length === 4 && args[0] === "createAdmin") {
-    const [, username, email, password] = args;
+  if (args.length === 3 && args[0] === "createAdmin") {
+    const [, email, password] = args;
 
     try {
       await User.create({
-        username,
         email,
-        roles: [UserRole.ADMIN],
-        password: hashPassword(password)
+        password: hashPassword(password),
+        roles: [UserRole.ADMIN]
       });
     } catch (e) {
       console.error(e);
     }
-
-    process.exit();
   }
+
+  process.exit();
 })();

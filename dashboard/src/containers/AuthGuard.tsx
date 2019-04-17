@@ -1,23 +1,58 @@
-import React from "react";
+import React, { createContext, useState, useEffect } from "react";
+import { withApollo, WithApolloClient } from "react-apollo";
 
-import { query, ProfileQuery } from "../api/query/profile";
+import { Variables, login } from "../api/mutation/login";
+import { getProfile } from "../api/query/getProfile";
 import { Loading } from "../components/Loading";
 import { Login } from "./Login";
 
-export const AuthGuard: React.FC<{ children: React.ReactElement }> = ({
-  children
-}) => (
-  <ProfileQuery query={query}>
-    {({ data, loading, refetch }) => {
-      if (loading || !data) {
-        return <Loading />;
+export const AuthContext = createContext({ profile: null });
+
+const Auth: React.FC<WithApolloClient<{ children: React.ReactNode }>> = ({
+  children,
+  client
+}) => {
+  const [profile, setProfile] = useState();
+  const [initialization, setInitialization] = useState(true);
+
+  const fetchProfile = () => {
+    getProfile(client).then(({ data: { profile } }) => {
+      if (profile) {
+        setProfile(profile);
+      }
+      setInitialization(false);
+    });
+  };
+
+  const onLogin = async (variables: Variables) => {
+    return login(client, variables).then(({ data }) => {
+      if (!data || !data.login) {
+        throw Error("Invalid credentials");
       }
 
-      if (!data.profile) {
-        return <Login onEnter={refetch} />;
-      }
+      fetchProfile();
+    });
+  };
 
-      return children;
-    }}
-  </ProfileQuery>
-);
+  useEffect(fetchProfile, []);
+
+  if (initialization) {
+    return <Loading />;
+  }
+
+  if (!profile) {
+    return <Login onLogin={onLogin} />;
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        profile
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const AuthGuard = withApollo(Auth);

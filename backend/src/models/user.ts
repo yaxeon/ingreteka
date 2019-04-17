@@ -8,8 +8,8 @@ export enum UserRole {
 
 export interface UserModel extends Document {
   email: string;
+  password: string;
   username?: string;
-  password?: string;
   roles: UserRole[];
   createdAt: Date;
   verifyPassword(password: string): boolean;
@@ -23,12 +23,12 @@ export const UserSchema: Schema = new Schema(
       unique: true,
       required: true
     },
-    username: {
-      type: String
-    },
     password: {
       type: String,
       required: true
+    },
+    username: {
+      type: String
     },
     roles: [{ type: String, enum: [UserRole.USER, UserRole.ADMIN] }],
     createdAt: { type: Date, default: Date.now }

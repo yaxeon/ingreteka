@@ -6,7 +6,8 @@
   "hostname": "backend.ingreteka",
   "env": {
     "MONGO_URL": "@mongo_ingreteka",
-    "COOKIE_SECRET": "@cookie_secret"
+    "COOKIE_SECRET": "@cookie_secret",
+    "DEBUG": "ingreteka*"
   },
   "labels": {
     "traefik.port": "8080"
