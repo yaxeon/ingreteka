@@ -4,7 +4,7 @@ import { HttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
 
 export const createClient = (options: HttpLink.Options) => {
-  return new ApolloClient({
+  return new ApolloClient<object>({
     link: ApolloLink.from([new HttpLink(options)]),
     cache: new InMemoryCache({ addTypename: false }),
     defaultOptions: { query: { fetchPolicy: "no-cache" } }

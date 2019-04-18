@@ -27,7 +27,7 @@ const loginSchema = Yup.object().shape({
     .required("Required")
 });
 
-export const Login: React.FC<Props> = ({ onLogin }) => (
+export const LoginForm: React.FC<Props> = ({ onLogin }) => (
   <Formik
     initialValues={{
       username: "",

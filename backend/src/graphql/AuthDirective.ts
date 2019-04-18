@@ -1,8 +1,11 @@
 import { defaultFieldResolver, GraphQLField } from "graphql";
 import { SchemaDirectiveVisitor } from "apollo-server";
 
+import { ContextGraphql } from "./context";
+import { UserRole } from "../models/user";
+
 export class AuthDirective extends SchemaDirectiveVisitor {
-  public visitFieldDefinition(field: GraphQLField<any, any>) {
+  public visitFieldDefinition(field: GraphQLField<any, ContextGraphql>) {
     const { resolve = defaultFieldResolver } = field;
     const { roles: expectedRoles = [] } = this.args;
 
@@ -10,10 +13,10 @@ export class AuthDirective extends SchemaDirectiveVisitor {
       const [, , context] = args;
 
       if (
-        context.user &&
-        expectedRoles.some((role: string) => context.user.roles.includes(role))
+        expectedRoles.some((role: UserRole) =>
+          context.user ? context.user.roles.includes(role) : false
+        )
       ) {
-        // Call original resolver if role check has passed
         return resolve.apply(this, args);
       }
 

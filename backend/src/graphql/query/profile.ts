@@ -1,6 +1,10 @@
+import { IFieldResolver } from "graphql-tools";
+
 import { ContextGraphql } from "../context";
 
-export const profile = (_: any, args: any, { user }: ContextGraphql) => {
+export const profile: IFieldResolver<any, ContextGraphql> = (...args) => {
+  const [, , { user }] = args;
+
   if (!user) {
     return null;
   }
