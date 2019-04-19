@@ -1,16 +1,27 @@
-import { IResolvers } from "graphql-tools";
+import { Resolvers } from "./types";
+import { authProfile } from "./query/authProfile";
+import { authLogin } from "./mutation/authLogin";
+import { authLogout } from "./mutation/authLogout";
+import { categoryUpsert } from "./mutation/categoryUpsert";
 
-import { ContextGraphql } from "./context";
-import { profile } from "./query/profile";
-import { login } from "./mutation/login";
-import { logout } from "./mutation/logout";
+const empty = () => ({});
 
-export const resolvers: IResolvers<any, ContextGraphql> = {
+export const resolvers: Resolvers = {
   Query: {
-    profile
+    auth: empty
   },
   Mutation: {
-    login,
-    logout
+    auth: empty,
+    category: empty
+  },
+  AuthQuery: {
+    profile: authProfile
+  },
+  AuthMutation: {
+    login: authLogin,
+    logout: authLogout
+  },
+  CategoryMutation: {
+    upsert: categoryUpsert
   }
 };

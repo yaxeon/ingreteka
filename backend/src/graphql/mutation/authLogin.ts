@@ -1,12 +1,7 @@
 import passport from "passport";
-import { IFieldResolver } from "graphql-tools";
 import { promisify } from "util";
-import { ContextGraphql } from "../context";
 
-type Variables = {
-  username: string;
-  password: string;
-};
+import { AuthMutationResolvers } from "../types";
 
 const authenticate = (username: string, password: string) =>
   new Promise((resolve, reject) => {
@@ -19,11 +14,12 @@ const authenticate = (username: string, password: string) =>
     })({ body: { username, password } });
   });
 
-export const login: IFieldResolver<any, ContextGraphql, Variables> = async (
-  ...args
+export const authLogin: AuthMutationResolvers["login"] = async (
+  root,
+  { input: { username, password } },
+  { req }
 ) => {
   try {
-    const [, { username, password }, { req }] = args;
     const user = await authenticate(username, password);
 
     await promisify(req.logIn.bind(req))(user);

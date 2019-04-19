@@ -13,13 +13,14 @@ import { sessions as sessionsConfig } from "./auth/sessions";
 import { AuthDirective } from "./graphql/AuthDirective";
 import { context } from "./graphql/context";
 import { resolvers } from "./graphql/resolvers";
-import { typeDefs } from "./graphql/types";
+import { typeDefs } from "./graphql/typeDefs";
+import { IResolvers } from "graphql-tools";
 
 const appLogger = debug("ingreteka:backend");
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: resolvers as IResolvers,
   context,
   schemaDirectives: {
     auth: AuthDirective

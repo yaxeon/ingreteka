@@ -1,16 +1,17 @@
 import { Model } from "mongoose";
-import { UserModel, User } from "../models/user";
+import { UserModel } from "../models/user";
+import { Category, CategoryModel } from "../models/category";
 
 export interface ContextGraphql {
   user: UserModel | null;
   req: any;
   models: {
-    User: Model<UserModel>;
+    Category: Model<CategoryModel>;
   };
 }
 
 export const context = ({ req }: any): ContextGraphql => {
   const { user } = req;
 
-  return { user, req, models: { User } };
+  return { user, req, models: { Category } };
 };
