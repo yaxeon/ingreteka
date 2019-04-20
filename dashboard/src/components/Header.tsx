@@ -11,7 +11,8 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { Menu } from "./Menu";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../containers/AuthGuard";
+import { useAuthLogoutMutation } from "../api";
 
 type ClassKey = "title";
 
@@ -25,7 +26,12 @@ const enhance = withStyles<ClassKey>({
 
 export const Header = enhance(({ classes }: Props) => {
   const [open, setVisible] = useState(false);
-  const { onLogout } = useContext(AuthContext);
+  const { onReload } = useContext(AuthContext);
+  const handleLogout = useAuthLogoutMutation();
+
+  const onLogout = () => {
+    handleLogout().then(onReload);
+  };
 
   return (
     <React.Fragment>

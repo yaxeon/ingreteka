@@ -5,6 +5,7 @@ import debug from "debug";
 import express from "express";
 import passport from "passport";
 import { ApolloServer } from "apollo-server-express";
+import { IResolvers } from "graphql-tools";
 
 import "./db";
 import "./auth/local";
@@ -14,7 +15,7 @@ import { AuthDirective } from "./graphql/AuthDirective";
 import { context } from "./graphql/context";
 import { resolvers } from "./graphql/resolvers";
 import { typeDefs } from "./graphql/typeDefs";
-import { IResolvers } from "graphql-tools";
+import { staticProxy } from "./minio";
 
 const appLogger = debug("ingreteka:backend");
 
@@ -33,6 +34,7 @@ const app = express();
 app.use(sessionsConfig);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(staticProxy("/object"));
 
 server.applyMiddleware({ app, path: "/graphql" });
 

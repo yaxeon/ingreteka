@@ -7,7 +7,11 @@
   "env": {
     "MONGO_URL": "@mongo_ingreteka",
     "COOKIE_SECRET": "@cookie_secret",
-    "DEBUG": "ingreteka*"
+    "DEBUG": "ingreteka*",
+    "MINIO_BUCKET": "ingreteka",
+    "MINIO_HOST": "minio.infrastructure.yaxeon.ru",
+    "MINIO_ACCESS_KEY": "@minio_access_key",
+    "MINIO_SECRET_KEY": "@minio_secret_key"
   },
   "labels": {
     "traefik.port": "8080"

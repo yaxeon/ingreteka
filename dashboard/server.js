@@ -10,7 +10,7 @@ const app = express();
 app.use(express.static(`${__dirname}/build`));
 
 app.use(
-  proxy("/graphql", {
+  proxy(["/graphql", "/object"], {
     target: BACKEND_URL,
     changeOrigin: true
   })

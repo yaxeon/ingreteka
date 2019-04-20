@@ -42,12 +42,25 @@ export type Category = {
   image?: Maybe<Scalars["String"]>;
 };
 
+export type CategoryDeleteInput = {
+  id?: Maybe<Scalars["ID"]>;
+};
+
 export type CategoryMutation = {
   upsert?: Maybe<Category>;
+  delete?: Maybe<Scalars["Boolean"]>;
 };
 
 export type CategoryMutationUpsertArgs = {
   input: CategoryUpsertInput;
+};
+
+export type CategoryMutationDeleteArgs = {
+  input: CategoryDeleteInput;
+};
+
+export type CategoryQuery = {
+  list?: Maybe<Array<Category>>;
 };
 
 export type CategoryUpsertInput = {
@@ -59,13 +72,23 @@ export type CategoryUpsertInput = {
   image?: Maybe<Scalars["String"]>;
 };
 
+export type File = {
+  uri: Scalars["String"];
+};
+
 export type Mutation = {
   auth: AuthMutation;
-  category: CategoryMutation;
+  category?: Maybe<CategoryMutation>;
+  fileUpload: File;
+};
+
+export type MutationFileUploadArgs = {
+  file: Scalars["Upload"];
 };
 
 export type Query = {
   auth: AuthQuery;
+  category: CategoryQuery;
 };
 
 export type User = {
@@ -162,17 +185,20 @@ export type ResolversTypes = {
   User: User;
   String: Scalars["String"];
   UserRole: UserRole;
+  CategoryQuery: CategoryQuery;
+  Category: Category;
+  ID: Scalars["ID"];
+  Int: Scalars["Int"];
   Mutation: {};
   AuthMutation: AuthMutation;
   AuthLoginInput: AuthLoginInput;
   Boolean: Scalars["Boolean"];
   CategoryMutation: CategoryMutation;
   CategoryUpsertInput: CategoryUpsertInput;
-  ID: Scalars["ID"];
-  Int: Scalars["Int"];
-  Category: Category;
-  CacheControlScope: CacheControlScope;
+  CategoryDeleteInput: CategoryDeleteInput;
   Upload: Scalars["Upload"];
+  File: File;
+  CacheControlScope: CacheControlScope;
 };
 
 export type AuthDirectiveResolver<
@@ -238,6 +264,30 @@ export type CategoryMutationResolvers<
     ContextType,
     CategoryMutationUpsertArgs
   >;
+  delete?: Resolver<
+    Maybe<ResolversTypes["Boolean"]>,
+    ParentType,
+    ContextType,
+    CategoryMutationDeleteArgs
+  >;
+};
+
+export type CategoryQueryResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["CategoryQuery"]
+> = {
+  list?: Resolver<
+    Maybe<Array<ResolversTypes["Category"]>>,
+    ParentType,
+    ContextType
+  >;
+};
+
+export type FileResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["File"]
+> = {
+  uri?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
 export type MutationResolvers<
@@ -246,9 +296,15 @@ export type MutationResolvers<
 > = {
   auth?: Resolver<ResolversTypes["AuthMutation"], ParentType, ContextType>;
   category?: Resolver<
-    ResolversTypes["CategoryMutation"],
+    Maybe<ResolversTypes["CategoryMutation"]>,
     ParentType,
     ContextType
+  >;
+  fileUpload?: Resolver<
+    ResolversTypes["File"],
+    ParentType,
+    ContextType,
+    MutationFileUploadArgs
   >;
 };
 
@@ -257,6 +313,7 @@ export type QueryResolvers<
   ParentType = ResolversTypes["Query"]
 > = {
   auth?: Resolver<ResolversTypes["AuthQuery"], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes["CategoryQuery"], ParentType, ContextType>;
 };
 
 export interface UploadScalarConfig
@@ -282,6 +339,8 @@ export type Resolvers<ContextType = ContextGraphql> = {
   AuthQuery?: AuthQueryResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   CategoryMutation?: CategoryMutationResolvers<ContextType>;
+  CategoryQuery?: CategoryQueryResolvers<ContextType>;
+  File?: FileResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Upload?: GraphQLScalarType;

@@ -7,7 +7,7 @@ import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import { AppContainer } from "./containers/AppContainer";
-import { createClient } from "./api";
+import { createClient } from "./api/client";
 import { theme } from "./theme";
 import * as serviceWorker from "./serviceWorker";
 

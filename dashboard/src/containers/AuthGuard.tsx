@@ -1,29 +1,36 @@
-import React from "react";
+import React, { createContext } from "react";
 
 import { Loading } from "../components/Loading";
 import { LoginForm } from "../forms/LoginForm";
-import { useAuth } from "../hooks/useAuth";
-import { AuthContext } from "../contexts/AuthContext";
+import { useAuthProfileQuery, User } from "../api";
+
+interface AuthContextType {
+  profile: User | null;
+  onReload: () => void;
+}
+
+export const AuthContext = createContext<AuthContextType>({
+  profile: null,
+  onReload: () => {}
+});
 
 export const AuthGuard: React.FC = ({ children }) => {
-  const { isLoading, profile, onLogin, onLogout } = useAuth();
+  const { data, loading, refetch } = useAuthProfileQuery();
 
-  if (isLoading) {
+  if (loading) {
     return <Loading />;
   }
 
-  if (!profile) {
-    return <LoginForm onLogin={onLogin} />;
-  }
+  const profile = data ? data.auth.profile : null;
 
   return (
     <AuthContext.Provider
       value={{
-        profile,
-        onLogout
+        profile: profile,
+        onReload: refetch
       }}
     >
-      {children}
+      {profile ? children : <LoginForm />}
     </AuthContext.Provider>
   );
 };

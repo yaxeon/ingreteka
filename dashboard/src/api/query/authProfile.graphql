@@ -1,0 +1,9 @@
+query authProfile {
+  auth {
+    profile {
+      username
+      roles
+      email
+    }
+  }
+}
