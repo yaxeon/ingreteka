@@ -1,8 +1,13 @@
-import path from "path";
-import { fileLoader, mergeResolvers } from "merge-graphql-schemas";
+import { mergeResolvers } from "merge-graphql-schemas";
+import { IResolvers } from "graphql-tools";
+import auth from "./resolvers/auth";
+import category from "./resolvers/category";
+import file from "./resolvers/file";
+import root from "./resolvers/root";
 
-const resolversArray = fileLoader(
-  path.join(__dirname, "./resolvers/**/*.resolvers.*")
-);
-
-export const resolvers = mergeResolvers(resolversArray);
+export const resolvers = mergeResolvers([
+  auth,
+  category,
+  file,
+  root
+]) as IResolvers;

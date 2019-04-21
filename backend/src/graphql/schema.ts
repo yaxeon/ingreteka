@@ -4,7 +4,9 @@ import { makeExecutableSchema } from "graphql-tools";
 import { resolvers } from "./resolvers";
 import { AuthDirective } from "./AuthDirective";
 
-const typeDefs = importSchema(path.join(__dirname, "./schema/schema.graphql"));
+const typeDefs = importSchema(
+  path.join(__dirname, "../../schema/schema.graphql")
+);
 
 export const schema = makeExecutableSchema({
   typeDefs,
