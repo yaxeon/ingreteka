@@ -101,7 +101,7 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
                     fullWidth
                     margin="normal"
                     component={TextField}
-                  />{" "}
+                  />
                 </Grid>
               </Grid>
               <Field name="image" label="Image" component={ImageField} />
