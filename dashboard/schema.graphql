@@ -36,26 +36,25 @@ type File {
     uri: String!
 }
 
+type FileMutation {
+    upload(file: Upload!): File!
+}
+
 type Mutation {
-    auth: AuthMutation!
+    auth: AuthMutation
     category: CategoryMutation
-    fileUpload(file: Upload!): File!
+    file: FileMutation
 }
 
 type Query {
-    auth: AuthQuery!
-    category: CategoryQuery!
+    auth: AuthQuery
+    category: CategoryQuery
 }
 
 type User {
     email: String!
     roles: [UserRole]!
     username: String
-}
-
-enum CacheControlScope {
-    PRIVATE
-    PUBLIC
 }
 
 enum UserRole {
@@ -82,5 +81,4 @@ input CategoryUpsertInput {
 }
 
 
-"The `Upload` scalar type represents a file upload."
 scalar Upload

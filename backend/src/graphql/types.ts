@@ -6,7 +6,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
 
@@ -27,11 +26,6 @@ export type AuthMutationLoginArgs = {
 export type AuthQuery = {
   profile?: Maybe<User>;
 };
-
-export enum CacheControlScope {
-  Public = "PUBLIC",
-  Private = "PRIVATE"
-}
 
 export type Category = {
   id: Scalars["ID"];
@@ -76,19 +70,23 @@ export type File = {
   uri: Scalars["String"];
 };
 
-export type Mutation = {
-  auth: AuthMutation;
-  category?: Maybe<CategoryMutation>;
-  fileUpload: File;
+export type FileMutation = {
+  upload: File;
 };
 
-export type MutationFileUploadArgs = {
+export type FileMutationUploadArgs = {
   file: Scalars["Upload"];
 };
 
+export type Mutation = {
+  auth?: Maybe<AuthMutation>;
+  category?: Maybe<CategoryMutation>;
+  file?: Maybe<FileMutation>;
+};
+
 export type Query = {
-  auth: AuthQuery;
-  category: CategoryQuery;
+  auth?: Maybe<AuthQuery>;
+  category?: Maybe<CategoryQuery>;
 };
 
 export type User = {
@@ -196,9 +194,9 @@ export type ResolversTypes = {
   CategoryMutation: CategoryMutation;
   CategoryUpsertInput: CategoryUpsertInput;
   CategoryDeleteInput: CategoryDeleteInput;
+  FileMutation: FileMutation;
   Upload: Scalars["Upload"];
   File: File;
-  CacheControlScope: CacheControlScope;
 };
 
 export type AuthDirectiveResolver<
@@ -206,16 +204,6 @@ export type AuthDirectiveResolver<
   Parent,
   ContextType = ContextGraphql,
   Args = { roles?: Maybe<Maybe<Array<Maybe<Scalars["String"]>>>> }
-> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type CacheControlDirectiveResolver<
-  Result,
-  Parent,
-  ContextType = ContextGraphql,
-  Args = {
-    maxAge?: Maybe<Maybe<Scalars["Int"]>>;
-    scope?: Maybe<Maybe<CacheControlScope>>;
-  }
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type AuthMutationResolvers<
@@ -290,21 +278,36 @@ export type FileResolvers<
   uri?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
+export type FileMutationResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["FileMutation"]
+> = {
+  upload?: Resolver<
+    ResolversTypes["File"],
+    ParentType,
+    ContextType,
+    FileMutationUploadArgs
+  >;
+};
+
 export type MutationResolvers<
   ContextType = ContextGraphql,
   ParentType = ResolversTypes["Mutation"]
 > = {
-  auth?: Resolver<ResolversTypes["AuthMutation"], ParentType, ContextType>;
+  auth?: Resolver<
+    Maybe<ResolversTypes["AuthMutation"]>,
+    ParentType,
+    ContextType
+  >;
   category?: Resolver<
     Maybe<ResolversTypes["CategoryMutation"]>,
     ParentType,
     ContextType
   >;
-  fileUpload?: Resolver<
-    ResolversTypes["File"],
+  file?: Resolver<
+    Maybe<ResolversTypes["FileMutation"]>,
     ParentType,
-    ContextType,
-    MutationFileUploadArgs
+    ContextType
   >;
 };
 
@@ -312,8 +315,12 @@ export type QueryResolvers<
   ContextType = ContextGraphql,
   ParentType = ResolversTypes["Query"]
 > = {
-  auth?: Resolver<ResolversTypes["AuthQuery"], ParentType, ContextType>;
-  category?: Resolver<ResolversTypes["CategoryQuery"], ParentType, ContextType>;
+  auth?: Resolver<Maybe<ResolversTypes["AuthQuery"]>, ParentType, ContextType>;
+  category?: Resolver<
+    Maybe<ResolversTypes["CategoryQuery"]>,
+    ParentType,
+    ContextType
+  >;
 };
 
 export interface UploadScalarConfig
@@ -341,6 +348,7 @@ export type Resolvers<ContextType = ContextGraphql> = {
   CategoryMutation?: CategoryMutationResolvers<ContextType>;
   CategoryQuery?: CategoryQueryResolvers<ContextType>;
   File?: FileResolvers<ContextType>;
+  FileMutation?: FileMutationResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Upload?: GraphQLScalarType;
@@ -354,7 +362,6 @@ export type Resolvers<ContextType = ContextGraphql> = {
 export type IResolvers<ContextType = ContextGraphql> = Resolvers<ContextType>;
 export type DirectiveResolvers<ContextType = ContextGraphql> = {
   auth?: AuthDirectiveResolver<any, any, ContextType>;
-  cacheControl?: CacheControlDirectiveResolver<any, any, ContextType>;
 };
 
 /**

@@ -1,0 +1,9 @@
+scalar Upload
+
+type File {
+  uri: String!
+}
+
+type FileMutation {
+  upload(file: Upload!): File! @auth(roles: ["ADMIN"])
+}

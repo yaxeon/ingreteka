@@ -5,7 +5,6 @@ import debug from "debug";
 import express from "express";
 import passport from "passport";
 import { ApolloServer } from "apollo-server-express";
-import { IResolvers } from "graphql-tools";
 
 import "./db";
 import "./auth/local";
@@ -13,15 +12,13 @@ import "./auth/local";
 import { sessions as sessionsConfig } from "./auth/sessions";
 import { AuthDirective } from "./graphql/AuthDirective";
 import { context } from "./graphql/context";
-import { resolvers } from "./graphql/resolvers";
-import { typeDefs } from "./graphql/typeDefs";
+import { schema } from "./graphql/schema";
 import { staticProxy } from "./minio";
 
 const appLogger = debug("ingreteka:backend");
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers: resolvers as IResolvers,
+  schema,
   context,
   schemaDirectives: {
     auth: AuthDirective
