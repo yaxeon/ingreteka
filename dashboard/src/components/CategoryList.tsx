@@ -23,11 +23,11 @@ export const CategoryList = () => {
   return (
     <Grid container spacing={32}>
       {list.map(item => (
-        <Grid item xs={4} key={item.id}>
+        <Grid item xs={12} md={4} key={item.id}>
           <CategoryForm input={item} onReload={refetch} />
         </Grid>
       ))}
-      <Grid item xs={4} key="new">
+      <Grid item xs={12} md={4} key="new">
         <CategoryForm
           input={{
             slug: "",
