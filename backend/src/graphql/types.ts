@@ -71,7 +71,7 @@ export type File = {
 };
 
 export type FileMutation = {
-  upload: File;
+  upload?: Maybe<File>;
 };
 
 export type FileMutationUploadArgs = {
@@ -203,7 +203,7 @@ export type AuthDirectiveResolver<
   Result,
   Parent,
   ContextType = ContextGraphql,
-  Args = { roles?: Maybe<Maybe<Array<Maybe<Scalars["String"]>>>> }
+  Args = { roles?: Maybe<Array<Scalars["String"]>> }
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type AuthMutationResolvers<
@@ -279,7 +279,7 @@ export type FileMutationResolvers<
   ParentType = ResolversTypes["FileMutation"]
 > = {
   upload?: Resolver<
-    ResolversTypes["File"],
+    Maybe<ResolversTypes["File"]>,
     ParentType,
     ContextType,
     FileMutationUploadArgs
