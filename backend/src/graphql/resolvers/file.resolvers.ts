@@ -6,13 +6,14 @@ import { FileMutationResolvers } from "../types";
 
 const FileMutation: FileMutationResolvers = {
   upload: async (root, { file }) => {
-    const { stream, filename, mimetype } = await file;
+    const { createReadStream, filename, mimetype } = await file;
+    const stream = createReadStream();
     const dir = new Date().toISOString().substr(0, 10);
     const uri = `${dir}/${v4()}${path.extname(filename)}`;
 
     await minioClient.putObject(MINIO_BUCKET, uri, stream, undefined, {
-      filename,
-      mimetype
+      filename: encodeURI(filename),
+      "Content-Type": mimetype
     });
 
     return { uri };

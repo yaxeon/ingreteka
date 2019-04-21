@@ -1,5 +1,5 @@
 import { defaultFieldResolver, GraphQLField } from "graphql";
-import { SchemaDirectiveVisitor } from "apollo-server";
+import { SchemaDirectiveVisitor } from "graphql-tools";
 
 import { ContextGraphql } from "./context";
 import { UserRole } from "../models/user";
@@ -7,7 +7,7 @@ import { UserRole } from "../models/user";
 export class AuthDirective extends SchemaDirectiveVisitor {
   public visitFieldDefinition(field: GraphQLField<any, ContextGraphql>) {
     const { resolve = defaultFieldResolver } = field;
-    const { roles: expectedRoles = [] } = this.args;
+    const { roles: expectedRoles } = this.args;
 
     field.resolve = (...args) => {
       const [, , context] = args;

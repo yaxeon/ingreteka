@@ -5,5 +5,5 @@ type File {
 }
 
 type FileMutation {
-  upload(file: Upload!): File! @auth(roles: ["ADMIN"])
+  upload(file: Upload!): File @auth(roles: ["ADMIN"])
 }

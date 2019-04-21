@@ -2,30 +2,29 @@ type Category {
   id: ID!
   title: String!
   description: String
-  slug: String
-  sort: Int
-  image: String
+  slug: String!
+  sort: Int!
+  image: String!
 }
 
 input CategoryUpsertInput {
   id: ID
   title: String!
   description: String
-  slug: String
-  sort: Int
-  image: String
+  slug: String!
+  sort: Int = 0
+  image: String!
 }
 
 input CategoryDeleteInput {
-  id: ID
+  id: ID!
 }
 
 type CategoryQuery {
-  list: [Category!]
+  list: [Category!]!
 }
 
 type CategoryMutation {
-  upsert(input: CategoryUpsertInput!): Category
-  delete(input: CategoryDeleteInput!): Boolean
+  upsert(input: CategoryUpsertInput!): Category @auth(roles: ["ADMIN"])
+  delete(input: CategoryDeleteInput!): Boolean @auth(roles: ["ADMIN"])
 }
-

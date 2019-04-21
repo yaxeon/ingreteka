@@ -1,0 +1,5 @@
+mutation categoryDelete($input: CategoryDeleteInput!) {
+  category {
+    delete(input: $input)
+  }
+}

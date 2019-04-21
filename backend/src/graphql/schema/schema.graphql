@@ -2,15 +2,15 @@
 # import CategoryMutation, CategoryQuery from "category.graphql"
 # import FileMutation from "file.graphql"
 
-directive @auth(roles: [String]) on FIELD_DEFINITION
+directive @auth(roles: [String!]!) on FIELD_DEFINITION
 
 type Query {
-  auth: AuthQuery
-  category: CategoryQuery
+  auth: AuthQuery!
+  category: CategoryQuery!
 }
 
 type Mutation {
-  auth: AuthMutation
-  category: CategoryMutation
-  file: FileMutation
+  auth: AuthMutation!
+  category: CategoryMutation!
+  file: FileMutation!
 }

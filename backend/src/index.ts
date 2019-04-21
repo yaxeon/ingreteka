@@ -10,7 +10,6 @@ import "./db";
 import "./auth/local";
 
 import { sessions as sessionsConfig } from "./auth/sessions";
-import { AuthDirective } from "./graphql/AuthDirective";
 import { context } from "./graphql/context";
 import { schema } from "./graphql/schema";
 import { staticProxy } from "./minio";
@@ -20,9 +19,6 @@ const appLogger = debug("ingreteka:backend");
 const server = new ApolloServer({
   schema,
   context,
-  schemaDirectives: {
-    auth: AuthDirective
-  },
   playground: true
 });
 

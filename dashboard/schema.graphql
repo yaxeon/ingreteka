@@ -17,9 +17,9 @@ type AuthQuery {
 type Category {
     description: String
     id: ID!
-    image: String
-    slug: String
-    sort: Int
+    image: String!
+    slug: String!
+    sort: Int!
     title: String!
 }
 
@@ -29,7 +29,7 @@ type CategoryMutation {
 }
 
 type CategoryQuery {
-    list: [Category!]
+    list: [Category!]!
 }
 
 type File {
@@ -37,18 +37,18 @@ type File {
 }
 
 type FileMutation {
-    upload(file: Upload!): File!
+    upload(file: Upload!): File
 }
 
 type Mutation {
-    auth: AuthMutation
-    category: CategoryMutation
-    file: FileMutation
+    auth: AuthMutation!
+    category: CategoryMutation!
+    file: FileMutation!
 }
 
 type Query {
-    auth: AuthQuery
-    category: CategoryQuery
+    auth: AuthQuery!
+    category: CategoryQuery!
 }
 
 type User {
@@ -68,15 +68,15 @@ input AuthLoginInput {
 }
 
 input CategoryDeleteInput {
-    id: ID
+    id: ID!
 }
 
 input CategoryUpsertInput {
     description: String
     id: ID
-    image: String
-    slug: String
-    sort: Int
+    image: String!
+    slug: String!
+    sort: Int = 0
     title: String!
 }
 

@@ -1,0 +1,7 @@
+mutation categoryUpsert($input: CategoryUpsertInput!) {
+  category {
+    upsert(input: $input) {
+      id
+    }
+  }
+}

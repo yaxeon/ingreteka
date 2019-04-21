@@ -20,5 +20,5 @@ type AuthMutation {
 }
 
 type AuthQuery {
-  profile: User @auth(roles: ["USER", "ADMIN"])
+  profile: User @auth(roles: ["ADMIN", "USER"])
 }
