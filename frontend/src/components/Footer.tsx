@@ -19,7 +19,8 @@ const enhance = withStyles<ClassKey>(theme => ({
     bottom: 0
   },
   toolbar: {
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    height: theme.spacing.unit * 8
   }
 }));
 
