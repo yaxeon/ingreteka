@@ -4,7 +4,7 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 import { IconFooter } from "./types";
 
 export const IconHome: IconFooter = ({ active }) => (
-  <SvgIcon viewBox="0 0 50 50" fontSize="large">
+  <SvgIcon viewBox="0 0 50 50">
     {active ? (
       <path d="M47,27.9V42.84a3,3,0,0,1-3,3H32a3,3,0,0,1-3-3v-9a4,4,0,1,0-8,0v9a3,3,0,0,1-3,3H6a3,3,0,0,1-3-3V27.9a5.07,5.07,0,0,1,1.48-3.58L23,5.7a2.82,2.82,0,0,1,2-.82,2.78,2.78,0,0,1,2,.82L45.52,24.32A5.07,5.07,0,0,1,47,27.9Z" />
     ) : (

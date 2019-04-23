@@ -1,14 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography/Typography";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+
+import { Image } from "./Image";
 
 type ClassKey = "wrapper" | "image" | "label";
 
 interface Props extends WithStyles<ClassKey> {
   image: string;
-  label: string;
-  path: string;
+  title: string;
+  slug: string;
 }
 
 const enhance = withStyles<ClassKey>(theme => ({
@@ -21,7 +23,8 @@ const enhance = withStyles<ClassKey>(theme => ({
     textDecoration: "none"
   },
   image: {
-    maxWidth: theme.spacing.unit * 12,
+    width: theme.spacing.unit * 12,
+    height: theme.spacing.unit * 12,
     display: "block"
   },
   label: {
@@ -33,11 +36,11 @@ const enhance = withStyles<ClassKey>(theme => ({
 }));
 
 export const CategoryItem = enhance(
-  ({ classes, image, label, path }: Props) => (
-    <Link className={classes.wrapper} to={path}>
-      <img className={classes.image} alt={label} src={image} />
+  ({ classes, image, title, slug }: Props) => (
+    <Link className={classes.wrapper} to={`/category/${slug}`}>
+      <Image className={classes.image} src={image} alt={title} />
       <Typography className={classes.label} variant="overline">
-        {label}
+        {title}
       </Typography>
     </Link>
   )

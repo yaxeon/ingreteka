@@ -1,35 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { MuiThemeProvider } from "@material-ui/core";
-import { Provider } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { ApolloProvider } from "react-apollo-hooks";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
+
 import { AppContainer } from "./containers/AppContainer";
-import { configureStore } from "./store";
-import { ApiClient } from "./api";
+import { createClient } from "./api/client";
 import { theme } from "./theme";
 import * as serviceWorker from "./serviceWorker";
-import "./style.css";
 
 const history = createBrowserHistory();
-
-const gqlClient = new ApiClient({ uri: "/graphql" });
-
-const { store } = configureStore(undefined, {
-  history,
-  gqlClient
-});
+const client = createClient({ uri: "/graphql" });
 
 ReactDOM.render(
-  <Provider store={store}>
+  <ApolloProvider client={client}>
     <Router history={history}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <AppContainer />
       </MuiThemeProvider>
     </Router>
-  </Provider>,
+  </ApolloProvider>,
   document.getElementById("root")
 );
 

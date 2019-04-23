@@ -1,0 +1,11 @@
+query categoryList {
+  category {
+    list {
+      id
+      title
+      description
+      slug
+      image
+    }
+  }
+}

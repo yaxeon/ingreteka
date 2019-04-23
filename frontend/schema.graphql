@@ -1,0 +1,84 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type AuthMutation {
+    login(input: AuthLoginInput!): Boolean
+    logout: Boolean
+}
+
+type AuthQuery {
+    profile: User
+}
+
+type Category {
+    description: String
+    id: ID!
+    image: String!
+    slug: String!
+    sort: Int!
+    title: String!
+}
+
+type CategoryMutation {
+    delete(input: CategoryDeleteInput!): Boolean
+    upsert(input: CategoryUpsertInput!): Category
+}
+
+type CategoryQuery {
+    list: [Category!]!
+}
+
+type File {
+    uri: String!
+}
+
+type FileMutation {
+    upload(file: Upload!): File
+}
+
+type Mutation {
+    auth: AuthMutation!
+    category: CategoryMutation!
+    file: FileMutation!
+}
+
+type Query {
+    auth: AuthQuery!
+    category: CategoryQuery!
+}
+
+type User {
+    email: String!
+    roles: [UserRole]!
+    username: String
+}
+
+enum UserRole {
+    ADMIN
+    USER
+}
+
+input AuthLoginInput {
+    password: String!
+    username: String!
+}
+
+input CategoryDeleteInput {
+    id: ID!
+}
+
+input CategoryUpsertInput {
+    description: String
+    id: ID
+    image: String!
+    slug: String!
+    sort: Int = 0
+    title: String!
+}
+
+
+scalar Upload

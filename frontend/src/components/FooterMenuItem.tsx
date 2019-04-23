@@ -20,9 +20,11 @@ const enhance = withStyles<ClassKey>(theme => ({
     alignItems: "center",
     justifyContent: "center",
     textDecoration: "none",
-    height: theme.spacing.unit * 7,
     width: theme.spacing.unit * 10,
-    color: colors.grey[900]
+    color: colors.grey[900],
+    "& > svg": {
+      fontSize: 30
+    }
   }
 }));
 

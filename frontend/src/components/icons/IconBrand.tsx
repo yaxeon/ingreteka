@@ -4,7 +4,7 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 import { IconFooter } from "./types";
 
 export const IconBrand: IconFooter = ({ active }) => (
-  <SvgIcon viewBox="0 0 50 50" fontSize="large">
+  <SvgIcon viewBox="0 0 50 50">
     {active ? (
       <path
         stroke="#000"
