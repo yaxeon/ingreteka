@@ -5,7 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { useBrandListQuery } from "../api";
 import { Error } from "./Error";
 
-import { ShopForm } from "../forms/ShopForm";
+import { BrandForm } from "../forms/BrandForm";
 import { Item } from "./Item";
 import { GridItem, GridItemCenter, GridList } from "./Grids";
 
@@ -46,7 +46,7 @@ export const BrandList = () => {
       </GridList>
       {brand && (
         <Dialog scroll="body" open onClose={() => setUpdateId(undefined)}>
-          <ShopForm input={brand} onReload={refetch} />
+          <BrandForm input={brand} onReload={refetch} />
         </Dialog>
       )}
     </React.Fragment>
