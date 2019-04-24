@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { LinearProgress, Dialog, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
-import { useCategoryListQuery } from "../api";
+import { useShopListQuery } from "../api";
 import { Error } from "./Error";
 
-import { CategoryForm } from "../forms/CategoryForm";
+import { ShopForm } from "../forms/ShopForm";
 import { Item } from "./Item";
 import { GridItem, GridItemCenter, GridList } from "./Grids";
 
-export const CategoryList = () => {
-  const { data, loading, error, refetch } = useCategoryListQuery();
+export const ShopList = () => {
+  const { data, loading, error, refetch } = useShopListQuery();
   const [updateId, setUpdateId] = useState();
 
   if (loading) {
@@ -22,20 +22,25 @@ export const CategoryList = () => {
   }
 
   const {
-    category: { list }
+    shop: { list }
   } = data;
 
-  const category =
+  const shop =
     updateId === ""
-      ? { title: "", description: "", image: "", slug: "", sort: 0 }
+      ? { title: "", description: "", link: "", image: "" }
       : list.find(({ id }) => updateId === id);
 
   return (
     <React.Fragment>
       <GridList>
-        {list.map(({ id, title, image }) => (
+        {list.map(({ id, title, link, image }) => (
           <GridItem key={id}>
-            <Item title={title} image={image} onClick={() => setUpdateId(id)} />
+            <Item
+              title={title}
+              image={image}
+              subTitle={link || ""}
+              onClick={() => setUpdateId(id)}
+            />
           </GridItem>
         ))}
         <GridItemCenter key="new">
@@ -44,9 +49,9 @@ export const CategoryList = () => {
           </Fab>
         </GridItemCenter>
       </GridList>
-      {category && (
+      {shop && (
         <Dialog scroll="body" open onClose={() => setUpdateId(undefined)}>
-          <CategoryForm input={category} onReload={refetch} />
+          <ShopForm input={shop} onReload={refetch} />
         </Dialog>
       )}
     </React.Fragment>

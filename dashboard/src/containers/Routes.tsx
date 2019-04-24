@@ -1,10 +1,14 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import { HomePage } from "../pages/HomePage";
+import { CategoryPage } from "../pages/CategoryPage";
+import { ShopPage } from "../pages/ShopPage";
+import { BrandPage } from "../pages/BrandPage";
 
 export const Routes = () => (
   <Switch>
-    <Route component={HomePage} />
+    <Route path="/shop" component={ShopPage} />
+    <Route path="/brand" component={BrandPage} />
+    <Route component={CategoryPage} />
   </Switch>
 );

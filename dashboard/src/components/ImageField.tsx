@@ -4,6 +4,7 @@ import uuid from "uuid/v1";
 import { Typography, Button, WithStyles, withStyles } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { useFileUploadMutation } from "../api";
+import { makeUrl } from "./Image";
 
 type ClassKey = "root" | "field" | "actions" | "image" | "icon";
 
@@ -91,13 +92,9 @@ export const ImageField = enhance(
             </label>
           </div>
           {value && (
-            <a
-              href={`/object/${value}`}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
+            <a href={makeUrl(value)} rel="noopener noreferrer" target="_blank">
               <div
-                style={{ backgroundImage: `url(${`/object/${value}`})` }}
+                style={{ backgroundImage: `url(${makeUrl(value)}` }}
                 className={classes.image}
               />
             </a>

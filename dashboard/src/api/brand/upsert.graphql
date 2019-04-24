@@ -1,0 +1,7 @@
+mutation brandUpsert($input: BrandUpsertInput!) {
+  brand {
+    upsert(input: $input) {
+      id
+    }
+  }
+}

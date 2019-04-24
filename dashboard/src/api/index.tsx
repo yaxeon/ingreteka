@@ -27,6 +27,41 @@ export type AuthQuery = {
   profile?: Maybe<User>;
 };
 
+export type Brand = {
+  id: Scalars["ID"];
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
+};
+
+export type BrandDeleteInput = {
+  id: Scalars["ID"];
+};
+
+export type BrandMutation = {
+  upsert?: Maybe<Brand>;
+  delete?: Maybe<Scalars["Boolean"]>;
+};
+
+export type BrandMutationUpsertArgs = {
+  input: BrandUpsertInput;
+};
+
+export type BrandMutationDeleteArgs = {
+  input: BrandDeleteInput;
+};
+
+export type BrandQuery = {
+  list: Array<Brand>;
+};
+
+export type BrandUpsertInput = {
+  id?: Maybe<Scalars["ID"]>;
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
+};
+
 export type Category = {
   id: Scalars["ID"];
   title: Scalars["String"];
@@ -81,12 +116,53 @@ export type FileMutationUploadArgs = {
 export type Mutation = {
   auth: AuthMutation;
   category: CategoryMutation;
+  shop: ShopMutation;
+  brand: BrandMutation;
   file: FileMutation;
 };
 
 export type Query = {
   auth: AuthQuery;
   category: CategoryQuery;
+  shop: ShopQuery;
+  brand: BrandQuery;
+};
+
+export type Shop = {
+  id: Scalars["ID"];
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  link?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
+};
+
+export type ShopDeleteInput = {
+  id: Scalars["ID"];
+};
+
+export type ShopMutation = {
+  upsert?: Maybe<Shop>;
+  delete?: Maybe<Scalars["Boolean"]>;
+};
+
+export type ShopMutationUpsertArgs = {
+  input: ShopUpsertInput;
+};
+
+export type ShopMutationDeleteArgs = {
+  input: ShopDeleteInput;
+};
+
+export type ShopQuery = {
+  list: Array<Shop>;
+};
+
+export type ShopUpsertInput = {
+  id?: Maybe<Scalars["ID"]>;
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  link?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
 };
 
 export type User = {
@@ -121,6 +197,37 @@ export type AuthProfileQuery = { __typename?: "Query" } & {
     profile: Maybe<
       { __typename?: "User" } & Pick<User, "username" | "roles" | "email">
     >;
+  };
+};
+
+export type BrandDeleteMutationVariables = {
+  input: BrandDeleteInput;
+};
+
+export type BrandDeleteMutation = { __typename?: "Mutation" } & {
+  brand: { __typename?: "BrandMutation" } & Pick<BrandMutation, "delete">;
+};
+
+export type BrandListQueryVariables = {};
+
+export type BrandListQuery = { __typename?: "Query" } & {
+  brand: { __typename?: "BrandQuery" } & {
+    list: Array<
+      { __typename?: "Brand" } & Pick<
+        Brand,
+        "id" | "title" | "description" | "image"
+      >
+    >;
+  };
+};
+
+export type BrandUpsertMutationVariables = {
+  input: BrandUpsertInput;
+};
+
+export type BrandUpsertMutation = { __typename?: "Mutation" } & {
+  brand: { __typename?: "BrandMutation" } & {
+    upsert: Maybe<{ __typename?: "Brand" } & Pick<Brand, "id">>;
   };
 };
 
@@ -165,6 +272,37 @@ export type FileUploadMutationVariables = {
 export type FileUploadMutation = { __typename?: "Mutation" } & {
   file: { __typename?: "FileMutation" } & {
     upload: Maybe<{ __typename?: "File" } & Pick<File, "uri">>;
+  };
+};
+
+export type ShopDeleteMutationVariables = {
+  input: ShopDeleteInput;
+};
+
+export type ShopDeleteMutation = { __typename?: "Mutation" } & {
+  shop: { __typename?: "ShopMutation" } & Pick<ShopMutation, "delete">;
+};
+
+export type ShopListQueryVariables = {};
+
+export type ShopListQuery = { __typename?: "Query" } & {
+  shop: { __typename?: "ShopQuery" } & {
+    list: Array<
+      { __typename?: "Shop" } & Pick<
+        Shop,
+        "id" | "title" | "description" | "link" | "image"
+      >
+    >;
+  };
+};
+
+export type ShopUpsertMutationVariables = {
+  input: ShopUpsertInput;
+};
+
+export type ShopUpsertMutation = { __typename?: "Mutation" } & {
+  shop: { __typename?: "ShopMutation" } & {
+    upsert: Maybe<{ __typename?: "Shop" } & Pick<Shop, "id">>;
   };
 };
 
@@ -347,6 +485,186 @@ export function useAuthProfileQuery(
     AuthProfileDocument,
     baseOptions
   );
+}
+export const BrandDeleteDocument = gql`
+  mutation brandDelete($input: BrandDeleteInput!) {
+    brand {
+      delete(input: $input)
+    }
+  }
+`;
+
+export const BrandDeleteComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.MutationProps<
+        BrandDeleteMutation,
+        BrandDeleteMutationVariables
+      >,
+      "mutation"
+    >,
+    "variables"
+  > & { variables: BrandDeleteMutationVariables }
+) => (
+  <ReactApollo.Mutation<BrandDeleteMutation, BrandDeleteMutationVariables>
+    mutation={BrandDeleteDocument}
+    {...props}
+  />
+);
+
+export type BrandDeleteProps<TChildProps = {}> = Partial<
+  ReactApollo.MutateProps<BrandDeleteMutation, BrandDeleteMutationVariables>
+> &
+  TChildProps;
+export type BrandDeleteMutationFn = ReactApollo.MutationFn<
+  BrandDeleteMutation,
+  BrandDeleteMutationVariables
+>;
+export function withBrandDelete<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    BrandDeleteMutation,
+    BrandDeleteMutationVariables,
+    BrandDeleteProps<TChildProps>
+  >
+) {
+  return ReactApollo.withMutation<
+    TProps,
+    BrandDeleteMutation,
+    BrandDeleteMutationVariables,
+    BrandDeleteProps<TChildProps>
+  >(BrandDeleteDocument, operationOptions);
+}
+
+export function useBrandDeleteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    BrandDeleteMutation,
+    BrandDeleteMutationVariables
+  >
+) {
+  return ReactApolloHooks.useMutation<
+    BrandDeleteMutation,
+    BrandDeleteMutationVariables
+  >(BrandDeleteDocument, baseOptions);
+}
+export const BrandListDocument = gql`
+  query brandList {
+    brand {
+      list {
+        id
+        title
+        description
+        image
+      }
+    }
+  }
+`;
+
+export const BrandListComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<BrandListQuery, BrandListQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables?: BrandListQueryVariables }
+) => (
+  <ReactApollo.Query<BrandListQuery, BrandListQueryVariables>
+    query={BrandListDocument}
+    {...props}
+  />
+);
+
+export type BrandListProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<BrandListQuery, BrandListQueryVariables>
+> &
+  TChildProps;
+export function withBrandList<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    BrandListQuery,
+    BrandListQueryVariables,
+    BrandListProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    BrandListQuery,
+    BrandListQueryVariables,
+    BrandListProps<TChildProps>
+  >(BrandListDocument, operationOptions);
+}
+
+export function useBrandListQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<BrandListQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<BrandListQuery, BrandListQueryVariables>(
+    BrandListDocument,
+    baseOptions
+  );
+}
+export const BrandUpsertDocument = gql`
+  mutation brandUpsert($input: BrandUpsertInput!) {
+    brand {
+      upsert(input: $input) {
+        id
+      }
+    }
+  }
+`;
+
+export const BrandUpsertComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.MutationProps<
+        BrandUpsertMutation,
+        BrandUpsertMutationVariables
+      >,
+      "mutation"
+    >,
+    "variables"
+  > & { variables: BrandUpsertMutationVariables }
+) => (
+  <ReactApollo.Mutation<BrandUpsertMutation, BrandUpsertMutationVariables>
+    mutation={BrandUpsertDocument}
+    {...props}
+  />
+);
+
+export type BrandUpsertProps<TChildProps = {}> = Partial<
+  ReactApollo.MutateProps<BrandUpsertMutation, BrandUpsertMutationVariables>
+> &
+  TChildProps;
+export type BrandUpsertMutationFn = ReactApollo.MutationFn<
+  BrandUpsertMutation,
+  BrandUpsertMutationVariables
+>;
+export function withBrandUpsert<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    BrandUpsertMutation,
+    BrandUpsertMutationVariables,
+    BrandUpsertProps<TChildProps>
+  >
+) {
+  return ReactApollo.withMutation<
+    TProps,
+    BrandUpsertMutation,
+    BrandUpsertMutationVariables,
+    BrandUpsertProps<TChildProps>
+  >(BrandUpsertDocument, operationOptions);
+}
+
+export function useBrandUpsertMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    BrandUpsertMutation,
+    BrandUpsertMutationVariables
+  >
+) {
+  return ReactApolloHooks.useMutation<
+    BrandUpsertMutation,
+    BrandUpsertMutationVariables
+  >(BrandUpsertDocument, baseOptions);
 }
 export const CategoryDeleteDocument = gql`
   mutation categoryDelete($input: CategoryDeleteInput!) {
@@ -598,4 +916,185 @@ export function useFileUploadMutation(
     FileUploadMutation,
     FileUploadMutationVariables
   >(FileUploadDocument, baseOptions);
+}
+export const ShopDeleteDocument = gql`
+  mutation shopDelete($input: ShopDeleteInput!) {
+    shop {
+      delete(input: $input)
+    }
+  }
+`;
+
+export const ShopDeleteComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.MutationProps<
+        ShopDeleteMutation,
+        ShopDeleteMutationVariables
+      >,
+      "mutation"
+    >,
+    "variables"
+  > & { variables: ShopDeleteMutationVariables }
+) => (
+  <ReactApollo.Mutation<ShopDeleteMutation, ShopDeleteMutationVariables>
+    mutation={ShopDeleteDocument}
+    {...props}
+  />
+);
+
+export type ShopDeleteProps<TChildProps = {}> = Partial<
+  ReactApollo.MutateProps<ShopDeleteMutation, ShopDeleteMutationVariables>
+> &
+  TChildProps;
+export type ShopDeleteMutationFn = ReactApollo.MutationFn<
+  ShopDeleteMutation,
+  ShopDeleteMutationVariables
+>;
+export function withShopDelete<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    ShopDeleteMutation,
+    ShopDeleteMutationVariables,
+    ShopDeleteProps<TChildProps>
+  >
+) {
+  return ReactApollo.withMutation<
+    TProps,
+    ShopDeleteMutation,
+    ShopDeleteMutationVariables,
+    ShopDeleteProps<TChildProps>
+  >(ShopDeleteDocument, operationOptions);
+}
+
+export function useShopDeleteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    ShopDeleteMutation,
+    ShopDeleteMutationVariables
+  >
+) {
+  return ReactApolloHooks.useMutation<
+    ShopDeleteMutation,
+    ShopDeleteMutationVariables
+  >(ShopDeleteDocument, baseOptions);
+}
+export const ShopListDocument = gql`
+  query shopList {
+    shop {
+      list {
+        id
+        title
+        description
+        link
+        image
+      }
+    }
+  }
+`;
+
+export const ShopListComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<ShopListQuery, ShopListQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables?: ShopListQueryVariables }
+) => (
+  <ReactApollo.Query<ShopListQuery, ShopListQueryVariables>
+    query={ShopListDocument}
+    {...props}
+  />
+);
+
+export type ShopListProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<ShopListQuery, ShopListQueryVariables>
+> &
+  TChildProps;
+export function withShopList<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    ShopListQuery,
+    ShopListQueryVariables,
+    ShopListProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    ShopListQuery,
+    ShopListQueryVariables,
+    ShopListProps<TChildProps>
+  >(ShopListDocument, operationOptions);
+}
+
+export function useShopListQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<ShopListQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<ShopListQuery, ShopListQueryVariables>(
+    ShopListDocument,
+    baseOptions
+  );
+}
+export const ShopUpsertDocument = gql`
+  mutation shopUpsert($input: ShopUpsertInput!) {
+    shop {
+      upsert(input: $input) {
+        id
+      }
+    }
+  }
+`;
+
+export const ShopUpsertComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.MutationProps<
+        ShopUpsertMutation,
+        ShopUpsertMutationVariables
+      >,
+      "mutation"
+    >,
+    "variables"
+  > & { variables: ShopUpsertMutationVariables }
+) => (
+  <ReactApollo.Mutation<ShopUpsertMutation, ShopUpsertMutationVariables>
+    mutation={ShopUpsertDocument}
+    {...props}
+  />
+);
+
+export type ShopUpsertProps<TChildProps = {}> = Partial<
+  ReactApollo.MutateProps<ShopUpsertMutation, ShopUpsertMutationVariables>
+> &
+  TChildProps;
+export type ShopUpsertMutationFn = ReactApollo.MutationFn<
+  ShopUpsertMutation,
+  ShopUpsertMutationVariables
+>;
+export function withShopUpsert<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    ShopUpsertMutation,
+    ShopUpsertMutationVariables,
+    ShopUpsertProps<TChildProps>
+  >
+) {
+  return ReactApollo.withMutation<
+    TProps,
+    ShopUpsertMutation,
+    ShopUpsertMutationVariables,
+    ShopUpsertProps<TChildProps>
+  >(ShopUpsertDocument, operationOptions);
+}
+
+export function useShopUpsertMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    ShopUpsertMutation,
+    ShopUpsertMutationVariables
+  >
+) {
+  return ReactApolloHooks.useMutation<
+    ShopUpsertMutation,
+    ShopUpsertMutationVariables
+  >(ShopUpsertDocument, baseOptions);
 }

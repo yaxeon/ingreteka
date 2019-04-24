@@ -1,0 +1,10 @@
+query brandList {
+  brand {
+    list {
+      id
+      title
+      description
+      image
+    }
+  }
+}

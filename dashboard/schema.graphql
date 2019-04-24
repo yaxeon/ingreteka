@@ -14,6 +14,22 @@ type AuthQuery {
     profile: User
 }
 
+type Brand {
+    description: String
+    id: ID!
+    image: String!
+    title: String!
+}
+
+type BrandMutation {
+    delete(input: BrandDeleteInput!): Boolean
+    upsert(input: BrandUpsertInput!): Brand
+}
+
+type BrandQuery {
+    list: [Brand!]!
+}
+
 type Category {
     description: String
     id: ID!
@@ -42,13 +58,34 @@ type FileMutation {
 
 type Mutation {
     auth: AuthMutation!
+    brand: BrandMutation!
     category: CategoryMutation!
     file: FileMutation!
+    shop: ShopMutation!
 }
 
 type Query {
     auth: AuthQuery!
+    brand: BrandQuery!
     category: CategoryQuery!
+    shop: ShopQuery!
+}
+
+type Shop {
+    description: String
+    id: ID!
+    image: String!
+    link: String
+    title: String!
+}
+
+type ShopMutation {
+    delete(input: ShopDeleteInput!): Boolean
+    upsert(input: ShopUpsertInput!): Shop
+}
+
+type ShopQuery {
+    list: [Shop!]!
 }
 
 type User {
@@ -67,6 +104,17 @@ input AuthLoginInput {
     username: String!
 }
 
+input BrandDeleteInput {
+    id: ID!
+}
+
+input BrandUpsertInput {
+    description: String
+    id: ID
+    image: String!
+    title: String!
+}
+
 input CategoryDeleteInput {
     id: ID!
 }
@@ -77,6 +125,18 @@ input CategoryUpsertInput {
     image: String!
     slug: String!
     sort: Int = 0
+    title: String!
+}
+
+input ShopDeleteInput {
+    id: ID!
+}
+
+input ShopUpsertInput {
+    description: String
+    id: ID
+    image: String!
+    link: String
     title: String!
 }
 

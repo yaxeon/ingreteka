@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { LinearProgress, Dialog, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
-import { useCategoryListQuery } from "../api";
+import { useBrandListQuery } from "../api";
 import { Error } from "./Error";
 
-import { CategoryForm } from "../forms/CategoryForm";
+import { ShopForm } from "../forms/ShopForm";
 import { Item } from "./Item";
 import { GridItem, GridItemCenter, GridList } from "./Grids";
 
-export const CategoryList = () => {
-  const { data, loading, error, refetch } = useCategoryListQuery();
+export const BrandList = () => {
+  const { data, loading, error, refetch } = useBrandListQuery();
   const [updateId, setUpdateId] = useState();
 
   if (loading) {
@@ -22,12 +22,12 @@ export const CategoryList = () => {
   }
 
   const {
-    category: { list }
+    brand: { list }
   } = data;
 
-  const category =
+  const brand =
     updateId === ""
-      ? { title: "", description: "", image: "", slug: "", sort: 0 }
+      ? { title: "", description: "", image: "" }
       : list.find(({ id }) => updateId === id);
 
   return (
@@ -44,9 +44,9 @@ export const CategoryList = () => {
           </Fab>
         </GridItemCenter>
       </GridList>
-      {category && (
+      {brand && (
         <Dialog scroll="body" open onClose={() => setUpdateId(undefined)}>
-          <CategoryForm input={category} onReload={refetch} />
+          <ShopForm input={brand} onReload={refetch} />
         </Dialog>
       )}
     </React.Fragment>

@@ -1,0 +1,5 @@
+mutation brandDelete($input: BrandDeleteInput!) {
+  brand {
+    delete(input: $input)
+  }
+}

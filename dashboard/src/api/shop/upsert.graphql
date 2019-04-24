@@ -1,0 +1,7 @@
+mutation shopUpsert($input: ShopUpsertInput!) {
+  shop {
+    upsert(input: $input) {
+      id
+    }
+  }
+}
