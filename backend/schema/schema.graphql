@@ -1,5 +1,7 @@
 # import AuthMutation, AuthQuery from "auth.graphql"
 # import CategoryMutation, CategoryQuery from "category.graphql"
+# import ShopMutation, ShopQuery from "shop.graphql"
+# import BrandMutation, BrandQuery from "brand.graphql"
 # import FileMutation from "file.graphql"
 
 directive @auth(roles: [String!]!) on FIELD_DEFINITION
@@ -7,10 +9,14 @@ directive @auth(roles: [String!]!) on FIELD_DEFINITION
 type Query {
   auth: AuthQuery!
   category: CategoryQuery!
+  shop: ShopQuery!
+  brand: BrandQuery!
 }
 
 type Mutation {
   auth: AuthMutation!
   category: CategoryMutation!
+  shop: ShopMutation!
+  brand: BrandMutation!
   file: FileMutation!
 }

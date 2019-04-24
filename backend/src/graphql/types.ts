@@ -27,6 +27,41 @@ export type AuthQuery = {
   profile?: Maybe<User>;
 };
 
+export type Brand = {
+  id: Scalars["ID"];
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
+};
+
+export type BrandDeleteInput = {
+  id: Scalars["ID"];
+};
+
+export type BrandMutation = {
+  upsert?: Maybe<Brand>;
+  delete?: Maybe<Scalars["Boolean"]>;
+};
+
+export type BrandMutationUpsertArgs = {
+  input: BrandUpsertInput;
+};
+
+export type BrandMutationDeleteArgs = {
+  input: BrandDeleteInput;
+};
+
+export type BrandQuery = {
+  list: Array<Brand>;
+};
+
+export type BrandUpsertInput = {
+  id?: Maybe<Scalars["ID"]>;
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
+};
+
 export type Category = {
   id: Scalars["ID"];
   title: Scalars["String"];
@@ -81,12 +116,53 @@ export type FileMutationUploadArgs = {
 export type Mutation = {
   auth: AuthMutation;
   category: CategoryMutation;
+  shop: ShopMutation;
+  brand: BrandMutation;
   file: FileMutation;
 };
 
 export type Query = {
   auth: AuthQuery;
   category: CategoryQuery;
+  shop: ShopQuery;
+  brand: BrandQuery;
+};
+
+export type Shop = {
+  id: Scalars["ID"];
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  link?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
+};
+
+export type ShopDeleteInput = {
+  id: Scalars["ID"];
+};
+
+export type ShopMutation = {
+  upsert?: Maybe<Shop>;
+  delete?: Maybe<Scalars["Boolean"]>;
+};
+
+export type ShopMutationUpsertArgs = {
+  input: ShopUpsertInput;
+};
+
+export type ShopMutationDeleteArgs = {
+  input: ShopDeleteInput;
+};
+
+export type ShopQuery = {
+  list: Array<Shop>;
+};
+
+export type ShopUpsertInput = {
+  id?: Maybe<Scalars["ID"]>;
+  title: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  link?: Maybe<Scalars["String"]>;
+  image: Scalars["String"];
 };
 
 export type User = {
@@ -187,6 +263,10 @@ export type ResolversTypes = {
   Category: Category;
   ID: Scalars["ID"];
   Int: Scalars["Int"];
+  ShopQuery: ShopQuery;
+  Shop: Shop;
+  BrandQuery: BrandQuery;
+  Brand: Brand;
   Mutation: {};
   AuthMutation: AuthMutation;
   AuthLoginInput: AuthLoginInput;
@@ -194,6 +274,12 @@ export type ResolversTypes = {
   CategoryMutation: CategoryMutation;
   CategoryUpsertInput: CategoryUpsertInput;
   CategoryDeleteInput: CategoryDeleteInput;
+  ShopMutation: ShopMutation;
+  ShopUpsertInput: ShopUpsertInput;
+  ShopDeleteInput: ShopDeleteInput;
+  BrandMutation: BrandMutation;
+  BrandUpsertInput: BrandUpsertInput;
+  BrandDeleteInput: BrandDeleteInput;
   FileMutation: FileMutation;
   Upload: Scalars["Upload"];
   File: File;
@@ -224,6 +310,45 @@ export type AuthQueryResolvers<
   ParentType = ResolversTypes["AuthQuery"]
 > = {
   profile?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType>;
+};
+
+export type BrandResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["Brand"]
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  image?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+};
+
+export type BrandMutationResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["BrandMutation"]
+> = {
+  upsert?: Resolver<
+    Maybe<ResolversTypes["Brand"]>,
+    ParentType,
+    ContextType,
+    BrandMutationUpsertArgs
+  >;
+  delete?: Resolver<
+    Maybe<ResolversTypes["Boolean"]>,
+    ParentType,
+    ContextType,
+    BrandMutationDeleteArgs
+  >;
+};
+
+export type BrandQueryResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["BrandQuery"]
+> = {
+  list?: Resolver<Array<ResolversTypes["Brand"]>, ParentType, ContextType>;
 };
 
 export type CategoryResolvers<
@@ -296,6 +421,8 @@ export type MutationResolvers<
     ParentType,
     ContextType
   >;
+  shop?: Resolver<ResolversTypes["ShopMutation"], ParentType, ContextType>;
+  brand?: Resolver<ResolversTypes["BrandMutation"], ParentType, ContextType>;
   file?: Resolver<ResolversTypes["FileMutation"], ParentType, ContextType>;
 };
 
@@ -305,6 +432,48 @@ export type QueryResolvers<
 > = {
   auth?: Resolver<ResolversTypes["AuthQuery"], ParentType, ContextType>;
   category?: Resolver<ResolversTypes["CategoryQuery"], ParentType, ContextType>;
+  shop?: Resolver<ResolversTypes["ShopQuery"], ParentType, ContextType>;
+  brand?: Resolver<ResolversTypes["BrandQuery"], ParentType, ContextType>;
+};
+
+export type ShopResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["Shop"]
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  link?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  image?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+};
+
+export type ShopMutationResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["ShopMutation"]
+> = {
+  upsert?: Resolver<
+    Maybe<ResolversTypes["Shop"]>,
+    ParentType,
+    ContextType,
+    ShopMutationUpsertArgs
+  >;
+  delete?: Resolver<
+    Maybe<ResolversTypes["Boolean"]>,
+    ParentType,
+    ContextType,
+    ShopMutationDeleteArgs
+  >;
+};
+
+export type ShopQueryResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["ShopQuery"]
+> = {
+  list?: Resolver<Array<ResolversTypes["Shop"]>, ParentType, ContextType>;
 };
 
 export interface UploadScalarConfig
@@ -328,6 +497,9 @@ export type UserResolvers<
 export type Resolvers<ContextType = ContextGraphql> = {
   AuthMutation?: AuthMutationResolvers<ContextType>;
   AuthQuery?: AuthQueryResolvers<ContextType>;
+  Brand?: BrandResolvers<ContextType>;
+  BrandMutation?: BrandMutationResolvers<ContextType>;
+  BrandQuery?: BrandQueryResolvers<ContextType>;
   Category?: CategoryResolvers<ContextType>;
   CategoryMutation?: CategoryMutationResolvers<ContextType>;
   CategoryQuery?: CategoryQueryResolvers<ContextType>;
@@ -335,6 +507,9 @@ export type Resolvers<ContextType = ContextGraphql> = {
   FileMutation?: FileMutationResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Shop?: ShopResolvers<ContextType>;
+  ShopMutation?: ShopMutationResolvers<ContextType>;
+  ShopQuery?: ShopQueryResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
 };

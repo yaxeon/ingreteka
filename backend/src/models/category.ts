@@ -2,10 +2,10 @@ import { Document, Model, model, Schema } from "mongoose";
 
 export interface CategoryModel extends Document {
   title: string;
-  description: string;
   slug: string;
   sort: number;
-  image?: string;
+  image: string;
+  description?: string;
 }
 
 export const CategorySchema: Schema = new Schema(
@@ -26,7 +26,8 @@ export const CategorySchema: Schema = new Schema(
       default: 0
     },
     image: {
-      type: String
+      type: String,
+      required: true
     }
   },
   {

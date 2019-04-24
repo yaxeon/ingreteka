@@ -1,0 +1,26 @@
+type Brand {
+  id: ID!
+  title: String!
+  description: String
+  image: String!
+}
+
+input BrandUpsertInput {
+  id: ID
+  title: String!
+  description: String
+  image: String!
+}
+
+input BrandDeleteInput {
+  id: ID!
+}
+
+type BrandQuery {
+  list: [Brand!]!
+}
+
+type BrandMutation {
+  upsert(input: BrandUpsertInput!): Brand @auth(roles: ["ADMIN"])
+  delete(input: BrandDeleteInput!): Boolean @auth(roles: ["ADMIN"])
+}

@@ -1,0 +1,28 @@
+type Shop {
+  id: ID!
+  title: String!
+  description: String
+  link: String
+  image: String!
+}
+
+input ShopUpsertInput {
+  id: ID
+  title: String!
+  description: String
+  link: String
+  image: String!
+}
+
+input ShopDeleteInput {
+  id: ID!
+}
+
+type ShopQuery {
+  list: [Shop!]!
+}
+
+type ShopMutation {
+  upsert(input: ShopUpsertInput!): Shop @auth(roles: ["ADMIN"])
+  delete(input: ShopDeleteInput!): Boolean @auth(roles: ["ADMIN"])
+}
