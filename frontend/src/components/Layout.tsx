@@ -13,6 +13,8 @@ const enhance = withStyles<ClassKey>(theme => ({
   root: {
     paddingTop: 10 * theme.spacing.unit,
     paddingBottom: 10 * theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
     minWidth: 320
   }
 }));
