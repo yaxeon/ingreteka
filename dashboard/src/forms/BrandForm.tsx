@@ -1,5 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
+import idx from "idx";
 import {
   Card,
   CardActions,
@@ -11,6 +12,7 @@ import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
 import { ImageField } from "../components/ImageField";
+import { RichTextField } from "../components/RichTextField";
 import {
   useBrandDeleteMutation,
   useBrandUpsertMutation,
@@ -33,14 +35,8 @@ export const BrandForm: React.FC<Props> = ({ input, onReload }) => {
   const handleUpsert = useBrandUpsertMutation();
   const handleDelete = useBrandDeleteMutation();
 
-  const brandId = input.id;
-
-  const onDelete = () => {
-    if (!brandId) {
-      return;
-    }
-
-    handleDelete({ variables: { input: { id: brandId } } }).then(onReload);
+  const onDelete = (id: string) => {
+    handleDelete({ variables: { input: { id } } }).then(onReload);
   };
 
   return (
@@ -49,19 +45,21 @@ export const BrandForm: React.FC<Props> = ({ input, onReload }) => {
       validationSchema={brandSchema}
       onSubmit={(
         input: BrandUpsertInput,
-        { setSubmitting, resetForm }: FormikActions<BrandUpsertInput>
+        { setSubmitting, setFieldValue }: FormikActions<BrandUpsertInput>
       ) => {
-        handleUpsert({ variables: { input } }).then(() => {
+        handleUpsert({ variables: { input } }).then(({ data }) => {
           setSubmitting(false);
 
-          if (!brandId) {
-            resetForm();
+          const id = idx(data, _ => _.brand.upsert.id);
+
+          if (id) {
+            setFieldValue("id", id);
           }
 
           onReload();
         });
       }}
-      render={({ isSubmitting }) => (
+      render={({ isSubmitting, values: { id } }) => (
         <Form>
           <Card>
             <CardContent>
@@ -75,11 +73,7 @@ export const BrandForm: React.FC<Props> = ({ input, onReload }) => {
               <Field
                 name="description"
                 label="Description"
-                fullWidth
-                multiline
-                rows="3"
-                margin="normal"
-                component={TextField}
+                component={RichTextField}
               />
               <Field name="image" label="Image" component={ImageField} />
             </CardContent>
@@ -91,11 +85,11 @@ export const BrandForm: React.FC<Props> = ({ input, onReload }) => {
                   variant="contained"
                   type="submit"
                 >
-                  {brandId ? "Update" : "Create"}
+                  {id ? "Update" : "Create"}
                 </Button>
-                {brandId && (
+                {id && (
                   <Button
-                    onClick={onDelete}
+                    onClick={() => onDelete(id)}
                     color="secondary"
                     variant="contained"
                     type="button"

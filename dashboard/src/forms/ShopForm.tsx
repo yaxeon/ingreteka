@@ -1,5 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
+import idx from "idx";
 import {
   Card,
   CardActions,
@@ -11,6 +12,7 @@ import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
 import { ImageField } from "../components/ImageField";
+import { RichTextField } from "../components/RichTextField";
 import {
   useShopDeleteMutation,
   useShopUpsertMutation,
@@ -34,14 +36,8 @@ export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
   const handleUpsert = useShopUpsertMutation();
   const handleDelete = useShopDeleteMutation();
 
-  const shopId = input.id;
-
-  const onDelete = () => {
-    if (!shopId) {
-      return;
-    }
-
-    handleDelete({ variables: { input: { id: shopId } } }).then(onReload);
+  const onDelete = (id: string) => {
+    handleDelete({ variables: { input: { id } } }).then(onReload);
   };
 
   return (
@@ -50,19 +46,21 @@ export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
       validationSchema={shopSchema}
       onSubmit={(
         input: ShopUpsertInput,
-        { setSubmitting, resetForm }: FormikActions<ShopUpsertInput>
+        { setSubmitting, setFieldValue }: FormikActions<ShopUpsertInput>
       ) => {
-        handleUpsert({ variables: { input } }).then(() => {
+        handleUpsert({ variables: { input } }).then(({ data }) => {
           setSubmitting(false);
 
-          if (!shopId) {
-            resetForm();
+          const id = idx(data, _ => _.shop.upsert.id);
+
+          if (id) {
+            setFieldValue("id", id);
           }
 
           onReload();
         });
       }}
-      render={({ isSubmitting }) => (
+      render={({ isSubmitting, values: { id } }) => (
         <Form>
           <Card>
             <CardContent>
@@ -83,11 +81,7 @@ export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
               <Field
                 name="description"
                 label="Description"
-                fullWidth
-                multiline
-                rows="3"
-                margin="normal"
-                component={TextField}
+                component={RichTextField}
               />
               <Field name="image" label="Image" component={ImageField} />
             </CardContent>
@@ -99,11 +93,11 @@ export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
                   variant="contained"
                   type="submit"
                 >
-                  {shopId ? "Update" : "Create"}
+                  {id ? "Update" : "Create"}
                 </Button>
-                {shopId && (
+                {id && (
                   <Button
-                    onClick={onDelete}
+                    onClick={() => onDelete(id)}
                     color="secondary"
                     variant="contained"
                     type="button"

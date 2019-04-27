@@ -1,5 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
+import idx from "idx";
 import {
   Card,
   CardActions,
@@ -11,6 +12,7 @@ import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
 import { ImageField } from "../components/ImageField";
+import { RichTextField } from "../components/RichTextField";
 import {
   useCategoryUpsertMutation,
   useCategoryDeleteMutation,
@@ -35,14 +37,8 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
   const handleUpsert = useCategoryUpsertMutation();
   const handleDelete = useCategoryDeleteMutation();
 
-  const categoryId = input.id;
-
-  const onDelete = () => {
-    if (!categoryId) {
-      return;
-    }
-
-    handleDelete({ variables: { input: { id: categoryId } } }).then(onReload);
+  const onDelete = (id: string) => {
+    handleDelete({ variables: { input: { id } } }).then(onReload);
   };
 
   return (
@@ -51,19 +47,21 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
       validationSchema={categorySchema}
       onSubmit={(
         input: CategoryUpsertInput,
-        { setSubmitting, resetForm }: FormikActions<CategoryUpsertInput>
+        { setSubmitting, setFieldValue }: FormikActions<CategoryUpsertInput>
       ) => {
-        handleUpsert({ variables: { input } }).then(() => {
+        handleUpsert({ variables: { input } }).then(({ data }) => {
           setSubmitting(false);
 
-          if (!categoryId) {
-            resetForm();
+          const id = idx(data, _ => _.category.upsert.id);
+
+          if (id) {
+            setFieldValue("id", id);
           }
 
           onReload();
         });
       }}
-      render={({ isSubmitting }) => (
+      render={({ isSubmitting, values: { id } }) => (
         <Form>
           <Card>
             <CardContent>
@@ -77,11 +75,7 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
               <Field
                 name="description"
                 label="Description"
-                fullWidth
-                multiline
-                rows="3"
-                margin="normal"
-                component={TextField}
+                component={RichTextField}
               />
               <Grid container spacing={32}>
                 <Grid item xs={6}>
@@ -114,11 +108,11 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
                   variant="contained"
                   type="submit"
                 >
-                  {categoryId ? "Update" : "Create"}
+                  {id ? "Update" : "Create"}
                 </Button>
-                {categoryId && (
+                {id && (
                   <Button
-                    onClick={onDelete}
+                    onClick={() => onDelete(id)}
                     color="secondary"
                     variant="contained"
                     type="button"
