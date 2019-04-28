@@ -27,7 +27,7 @@ export const ShopList = () => {
 
   const shop =
     updateId === ""
-      ? { title: "", description: "", link: "", image: "" }
+      ? { title: "", link: "", image: "" }
       : list.find(({ id }) => updateId === id);
 
   return (
@@ -38,7 +38,7 @@ export const ShopList = () => {
             <Item
               title={title}
               image={image}
-              subTitle={link || ""}
+              subTitle={link}
               onClick={() => setUpdateId(id)}
             />
           </GridItem>

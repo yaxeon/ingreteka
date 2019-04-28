@@ -102,6 +102,14 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@graphql-codegen/add@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/add/-/add-1.1.1.tgz#a6cfb555cb3d8389d0ee1e3cd76cdb3389976a8a"
+  integrity sha512-/X9SVzChP61T3djGnooJ22bay+14wwsdz0qZiRUXe/hSiwRBaRAN1TURoFK1lvFODfE5e1cNoPsOeLPV1gP20A==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "1.1.1"
+    tslib "1.9.3"
+
 "@graphql-codegen/cli@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-1.1.0.tgz#f4a86b0a1b479834b59226433b42a1ef99e90a27"
@@ -158,6 +166,16 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-1.1.0.tgz#4a0a688bf9d666b08747b5cceb305db0e177b9cd"
   integrity sha512-z4rioR0RapeQbfmV0CUYueacRiI23fk7x5Aw8FPBKJ5x58D+3/GE4ME8jBPY89jGeVIdeqCvBuAacHVO28S+9Q==
+  dependencies:
+    change-case "3.1.0"
+    common-tags "1.8.0"
+    import-from "2.1.0"
+    tslib "1.9.3"
+
+"@graphql-codegen/plugin-helpers@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-1.1.1.tgz#11e72e2762154faf6db13ad775bea3fc216d9991"
+  integrity sha512-vOcTD1cURAgXmEnZQeKVElpAq+eyrZwQX6PcV6i48MEekl1XmIZjdCB/S8ZhfBa4EvsCJI6avqA5oJOalpcKCw==
   dependencies:
     change-case "3.1.0"
     common-tags "1.8.0"
@@ -369,7 +387,14 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/graphql@^14.2.0":
+"@types/graphql-iso-date@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/graphql-iso-date/-/graphql-iso-date-3.3.1.tgz#dbb540ae62c68c00eba1d1feb4602d7209257e9d"
+  integrity sha512-x64IejUTqiiC2NGMgMYVOsKgViKknfnhzJHS8pMiYdDqbR5Fd9XHAkujGYvAOBkjFB6TDunY6S8uLDT/OnrKBA==
+  dependencies:
+    "@types/graphql" "*"
+
+"@types/graphql@*", "@types/graphql@^14.2.0":
   version "14.2.0"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.2.0.tgz#74e1da5f2a4a744ac6eb3ed57b48242ea9367202"
   integrity sha512-lELg5m6eBOmATWyCZl8qULEOvnPIUG6B443yXKj930glXIgwQirIBPp5rthP2amJW0YSzUg2s5sfgba4mRRCNw==
@@ -1966,6 +1991,11 @@ graphql-import@0.7.1, graphql-import@^0.7.1:
   dependencies:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
+
+graphql-iso-date@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/graphql-iso-date/-/graphql-iso-date-3.6.1.tgz#bd2d0dc886e0f954cbbbc496bbf1d480b57ffa96"
+  integrity sha512-AwFGIuYMJQXOEAgRlJlFL4H1ncFM8n8XmoVDTNypNOZyQ8LFDG2ppMFlsS862BSTCDcSUfHp8PD3/uJhv7t59Q==
 
 graphql-request@^1.5.0:
   version "1.8.2"

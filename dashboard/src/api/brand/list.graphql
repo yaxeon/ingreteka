@@ -3,8 +3,6 @@ query brandList {
     list {
       id
       title
-      description
-      image
     }
   }
 }

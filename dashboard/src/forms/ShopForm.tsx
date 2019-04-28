@@ -1,29 +1,24 @@
 import React from "react";
 import * as Yup from "yup";
 import idx from "idx";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-  Grid
-} from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
 import { ImageField } from "../components/ImageField";
-import { RichTextField } from "../components/RichTextField";
 import {
   useShopDeleteMutation,
   useShopUpsertMutation,
   ShopUpsertInput
 } from "../api";
+import { FormCrudAction } from "./FormCrudAction";
 
 const shopSchema = Yup.object().shape({
   id: Yup.string(),
   title: Yup.string().required("Required"),
-  description: Yup.string(),
-  link: Yup.string().url(),
+  link: Yup.string()
+    .url()
+    .required("Required"),
   image: Yup.string().required("Required")
 });
 
@@ -78,35 +73,13 @@ export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
                 margin="normal"
                 component={TextField}
               />
-              <Field
-                name="description"
-                label="Description"
-                component={RichTextField}
-              />
               <Field name="image" label="Image" component={ImageField} />
             </CardContent>
-            <CardActions>
-              <Grid container justify="space-around">
-                <Button
-                  disabled={isSubmitting}
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                >
-                  {id ? "Update" : "Create"}
-                </Button>
-                {id && (
-                  <Button
-                    onClick={() => onDelete(id)}
-                    color="secondary"
-                    variant="contained"
-                    type="button"
-                  >
-                    Delete
-                  </Button>
-                )}
-              </Grid>
-            </CardActions>
+            <FormCrudAction
+              disabled={isSubmitting}
+              id={id}
+              onDelete={onDelete}
+            />
           </Card>
         </Form>
       )}

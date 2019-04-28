@@ -1,23 +1,21 @@
 type Category {
-  id: ID!
+  id: GraphQLObjectId!
   title: String!
-  description: String
   slug: String!
   sort: Int!
   image: String!
 }
 
 input CategoryUpsertInput {
-  id: ID
+  id: GraphQLObjectId
   title: String!
-  description: String
   slug: String!
   sort: Int = 0
   image: String!
 }
 
 input CategoryDeleteInput {
-  id: ID!
+  id: GraphQLObjectId!
 }
 
 type CategoryQuery {

@@ -3,7 +3,6 @@ query shopList {
     list {
       id
       title
-      description
       link
       image
     }

@@ -1,21 +1,14 @@
-import { Document, Model, model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
-export interface CategoryModel extends Document {
-  title: string;
-  slug: string;
-  sort: number;
-  image: string;
-  description?: string;
-}
+import { Omit, Category as CategoryType } from "../graphql/types";
+
+export interface CategoryModel extends Document, Omit<CategoryType, "id"> {}
 
 export const CategorySchema: Schema = new Schema(
   {
     title: {
       type: String,
       required: true
-    },
-    description: {
-      type: String
     },
     slug: {
       type: String,
@@ -37,7 +30,7 @@ export const CategorySchema: Schema = new Schema(
 
 CategorySchema.set("toObject", { virtuals: true });
 
-export const Category: Model<CategoryModel> = model<CategoryModel>(
+export const Category = model<CategoryModel>(
   "Category",
   CategorySchema,
   "categories"

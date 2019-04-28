@@ -27,7 +27,7 @@ export const CategoryList = () => {
 
   const category =
     updateId === ""
-      ? { title: "", description: "", image: "", slug: "", sort: 0 }
+      ? { title: "", image: "", slug: "", sort: 0 }
       : list.find(({ id }) => updateId === id);
 
   return (

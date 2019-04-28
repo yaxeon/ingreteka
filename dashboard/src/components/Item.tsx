@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 });
 
 interface Props {
-  image: string;
+  image?: string;
   title: string;
   subTitle?: string;
   onClick?: () => void;
@@ -30,7 +30,9 @@ export const Item: React.FC<Props> = ({ image, title, subTitle, onClick }) => {
           title={title}
           subheader={subTitle}
         />
-        <CardMedia className={classes.image} image={makeUrl(image)} />
+        {image && (
+          <CardMedia className={classes.image} image={makeUrl(image)} />
+        )}
       </CardActionArea>
     </Card>
   );

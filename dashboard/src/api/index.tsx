@@ -6,6 +6,13 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** Mongo ObjectId id scalar type */
+  GraphQLObjectId: string;
+  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+   * `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
+   * 8601 standard for representation of dates and times using the Gregorian calendar.
+   */
+  DateTime: string;
   Upload: any;
 };
 
@@ -28,14 +35,12 @@ export type AuthQuery = {
 };
 
 export type Brand = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  image: Scalars["String"];
 };
 
 export type BrandDeleteInput = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type BrandMutation = {
@@ -56,23 +61,20 @@ export type BrandQuery = {
 };
 
 export type BrandUpsertInput = {
-  id?: Maybe<Scalars["ID"]>;
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  image: Scalars["String"];
 };
 
 export type Category = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
   slug: Scalars["String"];
   sort: Scalars["Int"];
   image: Scalars["String"];
 };
 
 export type CategoryDeleteInput = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type CategoryMutation = {
@@ -93,9 +95,8 @@ export type CategoryQuery = {
 };
 
 export type CategoryUpsertInput = {
-  id?: Maybe<Scalars["ID"]>;
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
   slug: Scalars["String"];
   sort?: Maybe<Scalars["Int"]>;
   image: Scalars["String"];
@@ -118,6 +119,7 @@ export type Mutation = {
   category: CategoryMutation;
   shop: ShopMutation;
   brand: BrandMutation;
+  selection: SelectionMutation;
   file: FileMutation;
 };
 
@@ -126,18 +128,65 @@ export type Query = {
   category: CategoryQuery;
   shop: ShopQuery;
   brand: BrandQuery;
+  selection: SelectionQuery;
+};
+
+export type Selection = {
+  id: Scalars["GraphQLObjectId"];
+  title: Scalars["String"];
+  text: Scalars["String"];
+  categories: Array<Category>;
+  brands: Array<Brand>;
+  shops: Array<Shop>;
+  images: Array<Scalars["String"]>;
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type SelectionDeleteInput = {
+  id: Scalars["GraphQLObjectId"];
+};
+
+export type SelectionMutation = {
+  upsert?: Maybe<Selection>;
+  delete?: Maybe<Scalars["Boolean"]>;
+};
+
+export type SelectionMutationUpsertArgs = {
+  input: SelectionUpsertInput;
+};
+
+export type SelectionMutationDeleteArgs = {
+  input: SelectionDeleteInput;
+};
+
+export type SelectionQuery = {
+  list: Array<Selection>;
+};
+
+export type SelectionQueryListArgs = {
+  includeCategories: Array<Scalars["GraphQLObjectId"]>;
+};
+
+export type SelectionUpsertInput = {
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
+  title: Scalars["String"];
+  text: Scalars["String"];
+  categories: Array<Scalars["GraphQLObjectId"]>;
+  brands: Array<Scalars["GraphQLObjectId"]>;
+  shops: Array<Scalars["GraphQLObjectId"]>;
+  images: Array<Scalars["String"]>;
 };
 
 export type Shop = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  link?: Maybe<Scalars["String"]>;
+  link: Scalars["String"];
   image: Scalars["String"];
 };
 
 export type ShopDeleteInput = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type ShopMutation = {
@@ -158,10 +207,9 @@ export type ShopQuery = {
 };
 
 export type ShopUpsertInput = {
-  id?: Maybe<Scalars["ID"]>;
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  link?: Maybe<Scalars["String"]>;
+  link: Scalars["String"];
   image: Scalars["String"];
 };
 
@@ -212,12 +260,7 @@ export type BrandListQueryVariables = {};
 
 export type BrandListQuery = { __typename?: "Query" } & {
   brand: { __typename?: "BrandQuery" } & {
-    list: Array<
-      { __typename?: "Brand" } & Pick<
-        Brand,
-        "id" | "title" | "description" | "image"
-      >
-    >;
+    list: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
   };
 };
 
@@ -249,7 +292,7 @@ export type CategoryListQuery = { __typename?: "Query" } & {
     list: Array<
       { __typename?: "Category" } & Pick<
         Category,
-        "id" | "title" | "description" | "slug" | "sort" | "image"
+        "id" | "title" | "slug" | "sort" | "image"
       >
     >;
   };
@@ -288,10 +331,7 @@ export type ShopListQueryVariables = {};
 export type ShopListQuery = { __typename?: "Query" } & {
   shop: { __typename?: "ShopQuery" } & {
     list: Array<
-      { __typename?: "Shop" } & Pick<
-        Shop,
-        "id" | "title" | "description" | "link" | "image"
-      >
+      { __typename?: "Shop" } & Pick<Shop, "id" | "title" | "link" | "image">
     >;
   };
 };
@@ -553,8 +593,6 @@ export const BrandListDocument = gql`
       list {
         id
         title
-        description
-        image
       }
     }
   }
@@ -736,7 +774,6 @@ export const CategoryListDocument = gql`
       list {
         id
         title
-        description
         slug
         sort
         image
@@ -984,7 +1021,6 @@ export const ShopListDocument = gql`
       list {
         id
         title
-        description
         link
         image
       }

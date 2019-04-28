@@ -1,21 +1,12 @@
-import { Document, Model, model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
-export interface BrandModel extends Document {
-  title: string;
-  image: string;
-  description?: string;
-}
+import { Omit, Brand as BrandType } from "../graphql/types";
+
+export interface BrandModel extends Document, Omit<BrandType, "id"> {}
 
 export const BrandSchema: Schema = new Schema(
   {
     title: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String
-    },
-    image: {
       type: String,
       required: true
     }
@@ -27,8 +18,4 @@ export const BrandSchema: Schema = new Schema(
 
 BrandSchema.set("toObject", { virtuals: true });
 
-export const Brand: Model<BrandModel> = model<BrandModel>(
-  "Brand",
-  BrandSchema,
-  "brands"
-);
+export const Brand = model<BrandModel>("Brand", BrandSchema, "brands");

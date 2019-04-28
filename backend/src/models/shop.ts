@@ -1,11 +1,8 @@
-import { Document, Model, model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
-export interface ShopModel extends Document {
-  title: string;
-  image: string;
-  description?: string;
-  link?: string;
-}
+import { Omit, Shop as ShopType } from "../graphql/types";
+
+export interface ShopModel extends Document, Omit<ShopType, "id"> {}
 
 export const ShopSchema: Schema = new Schema(
   {
@@ -17,11 +14,9 @@ export const ShopSchema: Schema = new Schema(
       type: String,
       required: true
     },
-    description: {
-      type: String
-    },
     link: {
-      type: String
+      type: String,
+      required: true
     }
   },
   {
@@ -31,8 +26,4 @@ export const ShopSchema: Schema = new Schema(
 
 ShopSchema.set("toObject", { virtuals: true });
 
-export const Shop: Model<ShopModel> = model<ShopModel>(
-  "Shop",
-  ShopSchema,
-  "shops"
-);
+export const Shop = model<ShopModel>("Shop", ShopSchema, "shops");

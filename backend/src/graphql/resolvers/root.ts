@@ -5,13 +5,15 @@ export default {
     auth: empty,
     category: empty,
     brand: empty,
-    shop: empty
+    shop: empty,
+    selection: empty
   },
   Mutation: {
     auth: empty,
     category: empty,
     file: empty,
     brand: empty,
-    shop: empty
+    shop: empty,
+    selection: empty
   }
 };

@@ -1,19 +1,15 @@
 type Brand {
-  id: ID!
+  id: GraphQLObjectId!
   title: String!
-  description: String
-  image: String!
 }
 
 input BrandUpsertInput {
-  id: ID
+  id: GraphQLObjectId
   title: String!
-  description: String
-  image: String!
 }
 
 input BrandDeleteInput {
-  id: ID!
+  id: GraphQLObjectId!
 }
 
 type BrandQuery {

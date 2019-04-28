@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -6,6 +8,13 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** Mongo ObjectId id scalar type */
+  GraphQLObjectId: Types.ObjectId;
+  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+   * `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
+   * 8601 standard for representation of dates and times using the Gregorian calendar.
+   */
+  DateTime: String;
   Upload: any;
 };
 
@@ -28,14 +37,12 @@ export type AuthQuery = {
 };
 
 export type Brand = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  image: Scalars["String"];
 };
 
 export type BrandDeleteInput = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type BrandMutation = {
@@ -56,23 +63,20 @@ export type BrandQuery = {
 };
 
 export type BrandUpsertInput = {
-  id?: Maybe<Scalars["ID"]>;
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  image: Scalars["String"];
 };
 
 export type Category = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
   slug: Scalars["String"];
   sort: Scalars["Int"];
   image: Scalars["String"];
 };
 
 export type CategoryDeleteInput = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type CategoryMutation = {
@@ -93,9 +97,8 @@ export type CategoryQuery = {
 };
 
 export type CategoryUpsertInput = {
-  id?: Maybe<Scalars["ID"]>;
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
   slug: Scalars["String"];
   sort?: Maybe<Scalars["Int"]>;
   image: Scalars["String"];
@@ -118,6 +121,7 @@ export type Mutation = {
   category: CategoryMutation;
   shop: ShopMutation;
   brand: BrandMutation;
+  selection: SelectionMutation;
   file: FileMutation;
 };
 
@@ -126,18 +130,65 @@ export type Query = {
   category: CategoryQuery;
   shop: ShopQuery;
   brand: BrandQuery;
+  selection: SelectionQuery;
+};
+
+export type Selection = {
+  id: Scalars["GraphQLObjectId"];
+  title: Scalars["String"];
+  text: Scalars["String"];
+  categories: Array<Category>;
+  brands: Array<Brand>;
+  shops: Array<Shop>;
+  images: Array<Scalars["String"]>;
+  createdAt?: Maybe<Scalars["DateTime"]>;
+  updatedAt?: Maybe<Scalars["DateTime"]>;
+};
+
+export type SelectionDeleteInput = {
+  id: Scalars["GraphQLObjectId"];
+};
+
+export type SelectionMutation = {
+  upsert?: Maybe<Selection>;
+  delete?: Maybe<Scalars["Boolean"]>;
+};
+
+export type SelectionMutationUpsertArgs = {
+  input: SelectionUpsertInput;
+};
+
+export type SelectionMutationDeleteArgs = {
+  input: SelectionDeleteInput;
+};
+
+export type SelectionQuery = {
+  list: Array<Selection>;
+};
+
+export type SelectionQueryListArgs = {
+  includeCategories: Array<Scalars["GraphQLObjectId"]>;
+};
+
+export type SelectionUpsertInput = {
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
+  title: Scalars["String"];
+  text: Scalars["String"];
+  categories: Array<Scalars["GraphQLObjectId"]>;
+  brands: Array<Scalars["GraphQLObjectId"]>;
+  shops: Array<Scalars["GraphQLObjectId"]>;
+  images: Array<Scalars["String"]>;
 };
 
 export type Shop = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  link?: Maybe<Scalars["String"]>;
+  link: Scalars["String"];
   image: Scalars["String"];
 };
 
 export type ShopDeleteInput = {
-  id: Scalars["ID"];
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type ShopMutation = {
@@ -158,10 +209,9 @@ export type ShopQuery = {
 };
 
 export type ShopUpsertInput = {
-  id?: Maybe<Scalars["ID"]>;
+  id?: Maybe<Scalars["GraphQLObjectId"]>;
   title: Scalars["String"];
-  description?: Maybe<Scalars["String"]>;
-  link?: Maybe<Scalars["String"]>;
+  link: Scalars["String"];
   image: Scalars["String"];
 };
 
@@ -261,12 +311,15 @@ export type ResolversTypes = {
   UserRole: UserRole;
   CategoryQuery: CategoryQuery;
   Category: Category;
-  ID: Scalars["ID"];
+  GraphQLObjectId: Scalars["GraphQLObjectId"];
   Int: Scalars["Int"];
   ShopQuery: ShopQuery;
   Shop: Shop;
   BrandQuery: BrandQuery;
   Brand: Brand;
+  SelectionQuery: SelectionQuery;
+  Selection: Selection;
+  DateTime: Scalars["DateTime"];
   Mutation: {};
   AuthMutation: AuthMutation;
   AuthLoginInput: AuthLoginInput;
@@ -280,6 +333,9 @@ export type ResolversTypes = {
   BrandMutation: BrandMutation;
   BrandUpsertInput: BrandUpsertInput;
   BrandDeleteInput: BrandDeleteInput;
+  SelectionMutation: SelectionMutation;
+  SelectionUpsertInput: SelectionUpsertInput;
+  SelectionDeleteInput: SelectionDeleteInput;
   FileMutation: FileMutation;
   Upload: Scalars["Upload"];
   File: File;
@@ -316,14 +372,8 @@ export type BrandResolvers<
   ContextType = ContextGraphql,
   ParentType = ResolversTypes["Brand"]
 > = {
-  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["GraphQLObjectId"], ParentType, ContextType>;
   title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  description?: Resolver<
-    Maybe<ResolversTypes["String"]>,
-    ParentType,
-    ContextType
-  >;
-  image?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
 export type BrandMutationResolvers<
@@ -355,13 +405,8 @@ export type CategoryResolvers<
   ContextType = ContextGraphql,
   ParentType = ResolversTypes["Category"]
 > = {
-  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["GraphQLObjectId"], ParentType, ContextType>;
   title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  description?: Resolver<
-    Maybe<ResolversTypes["String"]>,
-    ParentType,
-    ContextType
-  >;
   slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   sort?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   image?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
@@ -392,6 +437,11 @@ export type CategoryQueryResolvers<
   list?: Resolver<Array<ResolversTypes["Category"]>, ParentType, ContextType>;
 };
 
+export interface DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes["DateTime"], any> {
+  name: "DateTime";
+}
+
 export type FileResolvers<
   ContextType = ContextGraphql,
   ParentType = ResolversTypes["File"]
@@ -411,6 +461,11 @@ export type FileMutationResolvers<
   >;
 };
 
+export interface GraphQlObjectIdScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes["GraphQLObjectId"], any> {
+  name: "GraphQLObjectId";
+}
+
 export type MutationResolvers<
   ContextType = ContextGraphql,
   ParentType = ResolversTypes["Mutation"]
@@ -423,6 +478,11 @@ export type MutationResolvers<
   >;
   shop?: Resolver<ResolversTypes["ShopMutation"], ParentType, ContextType>;
   brand?: Resolver<ResolversTypes["BrandMutation"], ParentType, ContextType>;
+  selection?: Resolver<
+    ResolversTypes["SelectionMutation"],
+    ParentType,
+    ContextType
+  >;
   file?: Resolver<ResolversTypes["FileMutation"], ParentType, ContextType>;
 };
 
@@ -434,20 +494,77 @@ export type QueryResolvers<
   category?: Resolver<ResolversTypes["CategoryQuery"], ParentType, ContextType>;
   shop?: Resolver<ResolversTypes["ShopQuery"], ParentType, ContextType>;
   brand?: Resolver<ResolversTypes["BrandQuery"], ParentType, ContextType>;
+  selection?: Resolver<
+    ResolversTypes["SelectionQuery"],
+    ParentType,
+    ContextType
+  >;
+};
+
+export type SelectionResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["Selection"]
+> = {
+  id?: Resolver<ResolversTypes["GraphQLObjectId"], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  categories?: Resolver<
+    Array<ResolversTypes["Category"]>,
+    ParentType,
+    ContextType
+  >;
+  brands?: Resolver<Array<ResolversTypes["Brand"]>, ParentType, ContextType>;
+  shops?: Resolver<Array<ResolversTypes["Shop"]>, ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes["String"]>, ParentType, ContextType>;
+  createdAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+  updatedAt?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+};
+
+export type SelectionMutationResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["SelectionMutation"]
+> = {
+  upsert?: Resolver<
+    Maybe<ResolversTypes["Selection"]>,
+    ParentType,
+    ContextType,
+    SelectionMutationUpsertArgs
+  >;
+  delete?: Resolver<
+    Maybe<ResolversTypes["Boolean"]>,
+    ParentType,
+    ContextType,
+    SelectionMutationDeleteArgs
+  >;
+};
+
+export type SelectionQueryResolvers<
+  ContextType = ContextGraphql,
+  ParentType = ResolversTypes["SelectionQuery"]
+> = {
+  list?: Resolver<
+    Array<ResolversTypes["Selection"]>,
+    ParentType,
+    ContextType,
+    SelectionQueryListArgs
+  >;
 };
 
 export type ShopResolvers<
   ContextType = ContextGraphql,
   ParentType = ResolversTypes["Shop"]
 > = {
-  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["GraphQLObjectId"], ParentType, ContextType>;
   title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  description?: Resolver<
-    Maybe<ResolversTypes["String"]>,
-    ParentType,
-    ContextType
-  >;
-  link?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  link?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   image?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
@@ -503,10 +620,15 @@ export type Resolvers<ContextType = ContextGraphql> = {
   Category?: CategoryResolvers<ContextType>;
   CategoryMutation?: CategoryMutationResolvers<ContextType>;
   CategoryQuery?: CategoryQueryResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   File?: FileResolvers<ContextType>;
   FileMutation?: FileMutationResolvers<ContextType>;
+  GraphQLObjectId?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Selection?: SelectionResolvers<ContextType>;
+  SelectionMutation?: SelectionMutationResolvers<ContextType>;
+  SelectionQuery?: SelectionQueryResolvers<ContextType>;
   Shop?: ShopResolvers<ContextType>;
   ShopMutation?: ShopMutationResolvers<ContextType>;
   ShopQuery?: ShopQueryResolvers<ContextType>;

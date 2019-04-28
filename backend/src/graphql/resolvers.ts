@@ -6,6 +6,8 @@ import file from "./resolvers/file";
 import root from "./resolvers/root";
 import shop from "./resolvers/shop";
 import brand from "./resolvers/brand";
+import selection from "./resolvers/selection";
+import scalars from "./scalars";
 
 export const resolvers = mergeResolvers([
   auth,
@@ -13,5 +15,7 @@ export const resolvers = mergeResolvers([
   file,
   shop,
   brand,
-  root
+  root,
+  selection,
+  scalars
 ]) as IResolvers;

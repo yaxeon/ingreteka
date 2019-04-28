@@ -2,15 +2,20 @@
 # import CategoryMutation, CategoryQuery from "category.graphql"
 # import ShopMutation, ShopQuery from "shop.graphql"
 # import BrandMutation, BrandQuery from "brand.graphql"
+# import SelectionMutation, SelectionQuery from "selection.graphql"
 # import FileMutation from "file.graphql"
 
 directive @auth(roles: [String!]!) on FIELD_DEFINITION
+
+scalar GraphQLDateTime
+scalar GraphQLObjectId
 
 type Query {
   auth: AuthQuery!
   category: CategoryQuery!
   shop: ShopQuery!
   brand: BrandQuery!
+  selection: SelectionQuery!
 }
 
 type Mutation {
@@ -18,5 +23,6 @@ type Mutation {
   category: CategoryMutation!
   shop: ShopMutation!
   brand: BrandMutation!
+  selection: SelectionMutation!
   file: FileMutation!
 }

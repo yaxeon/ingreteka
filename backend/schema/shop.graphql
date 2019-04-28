@@ -1,21 +1,19 @@
 type Shop {
-  id: ID!
+  id: GraphQLObjectId!
   title: String!
-  description: String
-  link: String
+  link: String!
   image: String!
 }
 
 input ShopUpsertInput {
-  id: ID
+  id: GraphQLObjectId
   title: String!
-  description: String
-  link: String
+  link: String!
   image: String!
 }
 
 input ShopDeleteInput {
-  id: ID!
+  id: GraphQLObjectId!
 }
 
 type ShopQuery {

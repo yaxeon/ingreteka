@@ -1,4 +1,4 @@
-import { Document, Model, model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
 export enum UserRole {
@@ -42,10 +42,6 @@ UserSchema.methods.verifyPassword = function(password: string) {
   return bcrypt.compareSync(password, this.password);
 };
 
-export const User: Model<UserModel> = model<UserModel>(
-  "User",
-  UserSchema,
-  "users"
-);
+export const User = model<UserModel>("User", UserSchema, "users");
 
 export const hashPassword = (password: string) => bcrypt.hashSync(password, 8);

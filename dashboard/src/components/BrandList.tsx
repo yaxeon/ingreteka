@@ -26,16 +26,14 @@ export const BrandList = () => {
   } = data;
 
   const brand =
-    updateId === ""
-      ? { title: "", description: "", image: "" }
-      : list.find(({ id }) => updateId === id);
+    updateId === "" ? { title: "" } : list.find(({ id }) => updateId === id);
 
   return (
     <React.Fragment>
       <GridList>
-        {list.map(({ id, title, image }) => (
+        {list.map(({ id, title }) => (
           <GridItem key={id}>
-            <Item title={title} image={image} onClick={() => setUpdateId(id)} />
+            <Item title={title} onClick={() => setUpdateId(id)} />
           </GridItem>
         ))}
         <GridItemCenter key="new">

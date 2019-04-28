@@ -1,0 +1,34 @@
+type Selection {
+  id: GraphQLObjectId!
+  title: String!
+  text: String!
+  categories: [Category!]!
+  brands: [Brand!]!
+  shops: [Shop!]!
+  images: [String!]!
+  createdAt: GraphQLDateTime
+  updatedAt: GraphQLDateTime
+}
+
+input SelectionUpsertInput {
+  id: GraphQLObjectId
+  title: String!
+  text: String!
+  categories: [GraphQLObjectId!]!
+  brands: [GraphQLObjectId!]!
+  shops: [GraphQLObjectId!]!
+  images: [String!]!
+}
+
+input SelectionDeleteInput {
+  id: GraphQLObjectId!
+}
+
+type SelectionQuery {
+  list(includeCategories: [GraphQLObjectId!]!): [Selection!]!
+}
+
+type SelectionMutation {
+  upsert(input: SelectionUpsertInput!): Selection @auth(roles: ["ADMIN"])
+  delete(input: SelectionDeleteInput!): Boolean @auth(roles: ["ADMIN"])
+}

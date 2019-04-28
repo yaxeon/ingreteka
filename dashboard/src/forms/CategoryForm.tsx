@@ -1,28 +1,21 @@
 import React from "react";
 import * as Yup from "yup";
 import idx from "idx";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-  Grid
-} from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
 import { ImageField } from "../components/ImageField";
-import { RichTextField } from "../components/RichTextField";
 import {
   useCategoryUpsertMutation,
   useCategoryDeleteMutation,
   CategoryUpsertInput
 } from "../api";
+import { FormCrudAction } from "./FormCrudAction";
 
 const categorySchema = Yup.object().shape({
   id: Yup.string(),
   title: Yup.string().required("Required"),
-  description: Yup.string(),
   slug: Yup.string().required("Required"),
   sort: Yup.number(),
   image: Yup.string().required("Required")
@@ -72,11 +65,6 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
                 margin="normal"
                 component={TextField}
               />
-              <Field
-                name="description"
-                label="Description"
-                component={RichTextField}
-              />
               <Grid container spacing={32}>
                 <Grid item xs={6}>
                   <Field
@@ -100,28 +88,11 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
               </Grid>
               <Field name="image" label="Image" component={ImageField} />
             </CardContent>
-            <CardActions>
-              <Grid container justify="space-around">
-                <Button
-                  disabled={isSubmitting}
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                >
-                  {id ? "Update" : "Create"}
-                </Button>
-                {id && (
-                  <Button
-                    onClick={() => onDelete(id)}
-                    color="secondary"
-                    variant="contained"
-                    type="button"
-                  >
-                    Delete
-                  </Button>
-                )}
-              </Grid>
-            </CardActions>
+            <FormCrudAction
+              disabled={isSubmitting}
+              id={id}
+              onDelete={onDelete}
+            />
           </Card>
         </Form>
       )}
