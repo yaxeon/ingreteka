@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import { LinearProgress, Dialog, Fab } from "@material-ui/core";
+import {
+  LinearProgress,
+  Dialog,
+  TableHead,
+  TableRow,
+  TableCell,
+  Button,
+  TableBody,
+  Table
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 import { useCategoryListQuery } from "../api";
 import { Error } from "./Error";
-
+import { Image } from "./Image";
 import { CategoryForm } from "../forms/CategoryForm";
-import { Item } from "./Item";
-import { GridItem, GridItemCenter, GridList } from "./Grids";
 
 export const CategoryList = () => {
   const { data, loading, error, refetch } = useCategoryListQuery();
@@ -32,18 +39,38 @@ export const CategoryList = () => {
 
   return (
     <React.Fragment>
-      <GridList>
-        {list.map(({ id, title, image }) => (
-          <GridItem key={id}>
-            <Item title={title} image={image} onClick={() => setUpdateId(id)} />
-          </GridItem>
-        ))}
-        <GridItemCenter key="new">
-          <Fab color="primary" onClick={() => setUpdateId("")}>
-            <AddIcon />
-          </Fab>
-        </GridItemCenter>
-      </GridList>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Slug</TableCell>
+            <TableCell style={{ width: 80 }}>Image</TableCell>
+            <TableCell align="right">
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={() => setUpdateId("")}
+              >
+                <AddIcon />
+                Add
+              </Button>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {list.map(({ id, title, slug, image }) => (
+            <TableRow hover key={id} onClick={() => setUpdateId(id)}>
+              <TableCell>{title}</TableCell>
+              <TableCell>{slug}</TableCell>
+              <TableCell>
+                <Image alt={title} src={image} />
+              </TableCell>
+              <TableCell />
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       {category && (
         <Dialog scroll="body" open onClose={() => setUpdateId(undefined)}>
           <CategoryForm input={category} onReload={refetch} />

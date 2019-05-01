@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { LinearProgress, Dialog, Fab } from "@material-ui/core";
+import {
+  LinearProgress,
+  Dialog,
+  Button,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 import { useBrandListQuery } from "../api";
 import { Error } from "./Error";
-
 import { BrandForm } from "../forms/BrandForm";
-import { Item } from "./Item";
-import { GridItem, GridItemCenter, GridList } from "./Grids";
 
 export const BrandList = () => {
   const { data, loading, error, refetch } = useBrandListQuery();
@@ -30,18 +36,33 @@ export const BrandList = () => {
 
   return (
     <React.Fragment>
-      <GridList>
-        {list.map(({ id, title }) => (
-          <GridItem key={id}>
-            <Item title={title} onClick={() => setUpdateId(id)} />
-          </GridItem>
-        ))}
-        <GridItemCenter key="new">
-          <Fab color="primary" onClick={() => setUpdateId("")}>
-            <AddIcon />
-          </Fab>
-        </GridItemCenter>
-      </GridList>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={() => setUpdateId("")}
+              >
+                <AddIcon />
+                Add
+              </Button>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {list.map(({ id, title }) => (
+            <TableRow hover key={id}>
+              <TableCell colSpan={2} onClick={() => setUpdateId(id)}>
+                {title}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       {brand && (
         <Dialog scroll="body" open onClose={() => setUpdateId(undefined)}>
           <BrandForm input={brand} onReload={refetch} />
