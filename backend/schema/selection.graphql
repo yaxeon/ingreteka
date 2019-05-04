@@ -6,7 +6,7 @@ type Selection {
   brands: [Brand!]!
   shops: [Shop!]!
   images: [String!]!
-  createdAt: GraphQLDateTime
+  createdAt: GraphQLDateTime!
   updatedAt: GraphQLDateTime
 }
 
@@ -26,6 +26,7 @@ input SelectionDeleteInput {
 
 type SelectionQuery {
   list(includeCategories: [GraphQLObjectId!]!): [Selection!]!
+  item(id: GraphQLObjectId!): Selection
 }
 
 type SelectionMutation {

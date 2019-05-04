@@ -14,6 +14,7 @@ input BrandDeleteInput {
 
 type BrandQuery {
   list: [Brand!]!
+  item(id: GraphQLObjectId!): Brand
 }
 
 type BrandMutation {

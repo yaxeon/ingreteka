@@ -24,6 +24,11 @@ const CategoryQuery: CategoryQueryResolvers = {
     const list = await Category.find({}).sort({ sort: 1 });
 
     return list.map(category => category.toObject());
+  },
+  item: async (root, { id }, { models: { Category } }) => {
+    const category = await Category.findById(id);
+
+    return category ? category.toObject() : null;
   }
 };
 

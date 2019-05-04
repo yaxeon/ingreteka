@@ -18,6 +18,7 @@ input ShopDeleteInput {
 
 type ShopQuery {
   list: [Shop!]!
+  item(id: GraphQLObjectId!): Shop
 }
 
 type ShopMutation {

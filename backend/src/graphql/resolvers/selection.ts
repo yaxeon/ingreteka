@@ -21,14 +21,24 @@ const SelectionMutation: SelectionMutationResolvers = {
 
 const SelectionQuery: SelectionQueryResolvers = {
   list: async (root, { includeCategories }, { models: { Selection } }) => {
-    const list = await Selection.find({
-      categories: { $in: includeCategories }
-    })
+    const query = includeCategories.length
+      ? { categories: { $in: includeCategories } }
+      : {};
+
+    const list = await Selection.find(query)
       .populate("categories")
       .populate("brands")
       .populate("shops");
 
     return list.map(selection => selection.toObject());
+  },
+  item: async (root, { id }, { models: { Selection } }) => {
+    const selection = await Selection.findById(id)
+      .populate("categories")
+      .populate("brands")
+      .populate("shops");
+
+    return selection ? selection.toObject() : null;
   }
 };
 

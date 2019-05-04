@@ -60,6 +60,11 @@ export type BrandMutationDeleteArgs = {
 
 export type BrandQuery = {
   list: Array<Brand>;
+  item?: Maybe<Brand>;
+};
+
+export type BrandQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type BrandUpsertInput = {
@@ -94,6 +99,11 @@ export type CategoryMutationDeleteArgs = {
 
 export type CategoryQuery = {
   list: Array<Category>;
+  item?: Maybe<Category>;
+};
+
+export type CategoryQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type CategoryUpsertInput = {
@@ -141,7 +151,7 @@ export type Selection = {
   brands: Array<Brand>;
   shops: Array<Shop>;
   images: Array<Scalars["String"]>;
-  createdAt?: Maybe<Scalars["DateTime"]>;
+  createdAt: Scalars["DateTime"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -164,10 +174,15 @@ export type SelectionMutationDeleteArgs = {
 
 export type SelectionQuery = {
   list: Array<Selection>;
+  item?: Maybe<Selection>;
 };
 
 export type SelectionQueryListArgs = {
   includeCategories: Array<Scalars["GraphQLObjectId"]>;
+};
+
+export type SelectionQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type SelectionUpsertInput = {
@@ -206,6 +221,11 @@ export type ShopMutationDeleteArgs = {
 
 export type ShopQuery = {
   list: Array<Shop>;
+  item?: Maybe<Shop>;
+};
+
+export type ShopQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type ShopUpsertInput = {
@@ -399,6 +419,12 @@ export type BrandQueryResolvers<
   ParentType = ResolversTypes["BrandQuery"]
 > = {
   list?: Resolver<Array<ResolversTypes["Brand"]>, ParentType, ContextType>;
+  item?: Resolver<
+    Maybe<ResolversTypes["Brand"]>,
+    ParentType,
+    ContextType,
+    BrandQueryItemArgs
+  >;
 };
 
 export type CategoryResolvers<
@@ -435,6 +461,12 @@ export type CategoryQueryResolvers<
   ParentType = ResolversTypes["CategoryQuery"]
 > = {
   list?: Resolver<Array<ResolversTypes["Category"]>, ParentType, ContextType>;
+  item?: Resolver<
+    Maybe<ResolversTypes["Category"]>,
+    ParentType,
+    ContextType,
+    CategoryQueryItemArgs
+  >;
 };
 
 export interface DateTimeScalarConfig
@@ -516,11 +548,7 @@ export type SelectionResolvers<
   brands?: Resolver<Array<ResolversTypes["Brand"]>, ParentType, ContextType>;
   shops?: Resolver<Array<ResolversTypes["Shop"]>, ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes["String"]>, ParentType, ContextType>;
-  createdAt?: Resolver<
-    Maybe<ResolversTypes["DateTime"]>,
-    ParentType,
-    ContextType
-  >;
+  createdAt?: Resolver<ResolversTypes["DateTime"], ParentType, ContextType>;
   updatedAt?: Resolver<
     Maybe<ResolversTypes["DateTime"]>,
     ParentType,
@@ -555,6 +583,12 @@ export type SelectionQueryResolvers<
     ParentType,
     ContextType,
     SelectionQueryListArgs
+  >;
+  item?: Resolver<
+    Maybe<ResolversTypes["Selection"]>,
+    ParentType,
+    ContextType,
+    SelectionQueryItemArgs
   >;
 };
 
@@ -591,6 +625,12 @@ export type ShopQueryResolvers<
   ParentType = ResolversTypes["ShopQuery"]
 > = {
   list?: Resolver<Array<ResolversTypes["Shop"]>, ParentType, ContextType>;
+  item?: Resolver<
+    Maybe<ResolversTypes["Shop"]>,
+    ParentType,
+    ContextType,
+    ShopQueryItemArgs
+  >;
 };
 
 export interface UploadScalarConfig

@@ -20,6 +20,11 @@ const ShopQuery: ShopQueryResolvers = {
     const list = await Shop.find({}).sort({ sort: 1 });
 
     return list.map(shop => shop.toObject());
+  },
+  item: async (root, { id }, { models: { Shop } }) => {
+    const shop = await Shop.findById(id);
+
+    return shop ? shop.toObject() : null;
   }
 };
 

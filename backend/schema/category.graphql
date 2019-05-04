@@ -20,6 +20,7 @@ input CategoryDeleteInput {
 
 type CategoryQuery {
   list: [Category!]!
+  item(id: GraphQLObjectId!): Category
 }
 
 type CategoryMutation {

@@ -20,6 +20,11 @@ const BrandQuery: BrandQueryResolvers = {
     const list = await Brand.find({}).sort({ sort: 1 });
 
     return list.map(brand => brand.toObject());
+  },
+  item: async (root, { id }, { models: { Brand } }) => {
+    const brand = await Brand.findById(id);
+
+    return brand ? brand.toObject() : null;
   }
 };
 
