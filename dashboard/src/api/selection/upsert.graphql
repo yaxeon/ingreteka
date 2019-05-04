@@ -1,0 +1,7 @@
+mutation selectionUpsert($input: SelectionUpsertInput!) {
+  selection {
+    upsert(input: $input) {
+      id
+    }
+  }
+}

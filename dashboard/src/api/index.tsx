@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -58,6 +60,11 @@ export type BrandMutationDeleteArgs = {
 
 export type BrandQuery = {
   list: Array<Brand>;
+  item?: Maybe<Brand>;
+};
+
+export type BrandQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type BrandUpsertInput = {
@@ -92,6 +99,11 @@ export type CategoryMutationDeleteArgs = {
 
 export type CategoryQuery = {
   list: Array<Category>;
+  item?: Maybe<Category>;
+};
+
+export type CategoryQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type CategoryUpsertInput = {
@@ -139,7 +151,7 @@ export type Selection = {
   brands: Array<Brand>;
   shops: Array<Shop>;
   images: Array<Scalars["String"]>;
-  createdAt?: Maybe<Scalars["DateTime"]>;
+  createdAt: Scalars["DateTime"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
 };
 
@@ -162,10 +174,15 @@ export type SelectionMutationDeleteArgs = {
 
 export type SelectionQuery = {
   list: Array<Selection>;
+  item?: Maybe<Selection>;
 };
 
 export type SelectionQueryListArgs = {
   includeCategories: Array<Scalars["GraphQLObjectId"]>;
+};
+
+export type SelectionQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type SelectionUpsertInput = {
@@ -204,6 +221,11 @@ export type ShopMutationDeleteArgs = {
 
 export type ShopQuery = {
   list: Array<Shop>;
+  item?: Maybe<Shop>;
+};
+
+export type ShopQueryItemArgs = {
+  id: Scalars["GraphQLObjectId"];
 };
 
 export type ShopUpsertInput = {
@@ -256,6 +278,16 @@ export type BrandDeleteMutation = { __typename?: "Mutation" } & {
   brand: { __typename?: "BrandMutation" } & Pick<BrandMutation, "delete">;
 };
 
+export type BrandItemQueryVariables = {
+  id: Scalars["GraphQLObjectId"];
+};
+
+export type BrandItemQuery = { __typename?: "Query" } & {
+  brand: { __typename?: "BrandQuery" } & {
+    item: Maybe<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
+  };
+};
+
 export type BrandListQueryVariables = {};
 
 export type BrandListQuery = { __typename?: "Query" } & {
@@ -283,6 +315,21 @@ export type CategoryDeleteMutation = { __typename?: "Mutation" } & {
     CategoryMutation,
     "delete"
   >;
+};
+
+export type CategoryItemQueryVariables = {
+  id: Scalars["GraphQLObjectId"];
+};
+
+export type CategoryItemQuery = { __typename?: "Query" } & {
+  category: { __typename?: "CategoryQuery" } & {
+    item: Maybe<
+      { __typename?: "Category" } & Pick<
+        Category,
+        "id" | "title" | "slug" | "sort" | "image"
+      >
+    >;
+  };
 };
 
 export type CategoryListQueryVariables = {};
@@ -318,12 +365,87 @@ export type FileUploadMutation = { __typename?: "Mutation" } & {
   };
 };
 
+export type SelectionDeleteMutationVariables = {
+  input: SelectionDeleteInput;
+};
+
+export type SelectionDeleteMutation = { __typename?: "Mutation" } & {
+  selection: { __typename?: "SelectionMutation" } & Pick<
+    SelectionMutation,
+    "delete"
+  >;
+};
+
+export type SelectionItemQueryVariables = {
+  id: Scalars["GraphQLObjectId"];
+};
+
+export type SelectionItemQuery = { __typename?: "Query" } & {
+  selection: { __typename?: "SelectionQuery" } & {
+    item: Maybe<
+      { __typename?: "Selection" } & Pick<
+        Selection,
+        "id" | "title" | "text" | "images" | "createdAt"
+      > & {
+          brands: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
+          categories: Array<
+            { __typename?: "Category" } & Pick<Category, "id" | "title">
+          >;
+          shops: Array<{ __typename?: "Shop" } & Pick<Shop, "id" | "title">>;
+        }
+    >;
+  };
+};
+
+export type SelectionListQueryVariables = {
+  includeCategories: Array<Scalars["GraphQLObjectId"]>;
+};
+
+export type SelectionListQuery = { __typename?: "Query" } & {
+  selection: { __typename?: "SelectionQuery" } & {
+    list: Array<
+      { __typename?: "Selection" } & Pick<
+        Selection,
+        "id" | "title" | "text" | "images" | "createdAt"
+      > & {
+          brands: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
+          categories: Array<
+            { __typename?: "Category" } & Pick<Category, "id" | "title">
+          >;
+          shops: Array<{ __typename?: "Shop" } & Pick<Shop, "id" | "title">>;
+        }
+    >;
+  };
+};
+
+export type SelectionUpsertMutationVariables = {
+  input: SelectionUpsertInput;
+};
+
+export type SelectionUpsertMutation = { __typename?: "Mutation" } & {
+  selection: { __typename?: "SelectionMutation" } & {
+    upsert: Maybe<{ __typename?: "Selection" } & Pick<Selection, "id">>;
+  };
+};
+
 export type ShopDeleteMutationVariables = {
   input: ShopDeleteInput;
 };
 
 export type ShopDeleteMutation = { __typename?: "Mutation" } & {
   shop: { __typename?: "ShopMutation" } & Pick<ShopMutation, "delete">;
+};
+
+export type ShopItemQueryVariables = {
+  id: Scalars["GraphQLObjectId"];
+};
+
+export type ShopItemQuery = { __typename?: "Query" } & {
+  shop: { __typename?: "ShopQuery" } & {
+    item: Maybe<
+      { __typename?: "Shop" } & Pick<Shop, "id" | "title" | "link" | "image">
+    >;
+  };
 };
 
 export type ShopListQueryVariables = {};
@@ -359,6 +481,10 @@ export const AuthLoginDocument = gql`
     }
   }
 `;
+export type AuthLoginMutationFn = ReactApollo.MutationFn<
+  AuthLoginMutation,
+  AuthLoginMutationVariables
+>;
 
 export const AuthLoginComponent = (
   props: Omit<
@@ -367,7 +493,7 @@ export const AuthLoginComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: AuthLoginMutationVariables }
+  > & { variables?: AuthLoginMutationVariables }
 ) => (
   <ReactApollo.Mutation<AuthLoginMutation, AuthLoginMutationVariables>
     mutation={AuthLoginDocument}
@@ -379,10 +505,6 @@ export type AuthLoginProps<TChildProps = {}> = Partial<
   ReactApollo.MutateProps<AuthLoginMutation, AuthLoginMutationVariables>
 > &
   TChildProps;
-export type AuthLoginMutationFn = ReactApollo.MutationFn<
-  AuthLoginMutation,
-  AuthLoginMutationVariables
->;
 export function withAuthLogin<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -396,7 +518,10 @@ export function withAuthLogin<TProps, TChildProps = {}>(
     AuthLoginMutation,
     AuthLoginMutationVariables,
     AuthLoginProps<TChildProps>
-  >(AuthLoginDocument, operationOptions);
+  >(AuthLoginDocument, {
+    alias: "withAuthLogin",
+    ...operationOptions
+  });
 }
 
 export function useAuthLoginMutation(
@@ -417,6 +542,10 @@ export const AuthLogoutDocument = gql`
     }
   }
 `;
+export type AuthLogoutMutationFn = ReactApollo.MutationFn<
+  AuthLogoutMutation,
+  AuthLogoutMutationVariables
+>;
 
 export const AuthLogoutComponent = (
   props: Omit<
@@ -440,10 +569,6 @@ export type AuthLogoutProps<TChildProps = {}> = Partial<
   ReactApollo.MutateProps<AuthLogoutMutation, AuthLogoutMutationVariables>
 > &
   TChildProps;
-export type AuthLogoutMutationFn = ReactApollo.MutationFn<
-  AuthLogoutMutation,
-  AuthLogoutMutationVariables
->;
 export function withAuthLogout<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -457,7 +582,10 @@ export function withAuthLogout<TProps, TChildProps = {}>(
     AuthLogoutMutation,
     AuthLogoutMutationVariables,
     AuthLogoutProps<TChildProps>
-  >(AuthLogoutDocument, operationOptions);
+  >(AuthLogoutDocument, {
+    alias: "withAuthLogout",
+    ...operationOptions
+  });
 }
 
 export function useAuthLogoutMutation(
@@ -515,7 +643,10 @@ export function withAuthProfile<TProps, TChildProps = {}>(
     AuthProfileQuery,
     AuthProfileQueryVariables,
     AuthProfileProps<TChildProps>
-  >(AuthProfileDocument, operationOptions);
+  >(AuthProfileDocument, {
+    alias: "withAuthProfile",
+    ...operationOptions
+  });
 }
 
 export function useAuthProfileQuery(
@@ -533,6 +664,10 @@ export const BrandDeleteDocument = gql`
     }
   }
 `;
+export type BrandDeleteMutationFn = ReactApollo.MutationFn<
+  BrandDeleteMutation,
+  BrandDeleteMutationVariables
+>;
 
 export const BrandDeleteComponent = (
   props: Omit<
@@ -544,7 +679,7 @@ export const BrandDeleteComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: BrandDeleteMutationVariables }
+  > & { variables?: BrandDeleteMutationVariables }
 ) => (
   <ReactApollo.Mutation<BrandDeleteMutation, BrandDeleteMutationVariables>
     mutation={BrandDeleteDocument}
@@ -556,10 +691,6 @@ export type BrandDeleteProps<TChildProps = {}> = Partial<
   ReactApollo.MutateProps<BrandDeleteMutation, BrandDeleteMutationVariables>
 > &
   TChildProps;
-export type BrandDeleteMutationFn = ReactApollo.MutationFn<
-  BrandDeleteMutation,
-  BrandDeleteMutationVariables
->;
 export function withBrandDelete<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -573,7 +704,10 @@ export function withBrandDelete<TProps, TChildProps = {}>(
     BrandDeleteMutation,
     BrandDeleteMutationVariables,
     BrandDeleteProps<TChildProps>
-  >(BrandDeleteDocument, operationOptions);
+  >(BrandDeleteDocument, {
+    alias: "withBrandDelete",
+    ...operationOptions
+  });
 }
 
 export function useBrandDeleteMutation(
@@ -586,6 +720,63 @@ export function useBrandDeleteMutation(
     BrandDeleteMutation,
     BrandDeleteMutationVariables
   >(BrandDeleteDocument, baseOptions);
+}
+export const BrandItemDocument = gql`
+  query brandItem($id: GraphQLObjectId!) {
+    brand {
+      item(id: $id) {
+        id
+        title
+      }
+    }
+  }
+`;
+
+export const BrandItemComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<BrandItemQuery, BrandItemQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables: BrandItemQueryVariables }
+) => (
+  <ReactApollo.Query<BrandItemQuery, BrandItemQueryVariables>
+    query={BrandItemDocument}
+    {...props}
+  />
+);
+
+export type BrandItemProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<BrandItemQuery, BrandItemQueryVariables>
+> &
+  TChildProps;
+export function withBrandItem<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    BrandItemQuery,
+    BrandItemQueryVariables,
+    BrandItemProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    BrandItemQuery,
+    BrandItemQueryVariables,
+    BrandItemProps<TChildProps>
+  >(BrandItemDocument, {
+    alias: "withBrandItem",
+    ...operationOptions
+  });
+}
+
+export function useBrandItemQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<BrandItemQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<BrandItemQuery, BrandItemQueryVariables>(
+    BrandItemDocument,
+    baseOptions
+  );
 }
 export const BrandListDocument = gql`
   query brandList {
@@ -630,7 +821,10 @@ export function withBrandList<TProps, TChildProps = {}>(
     BrandListQuery,
     BrandListQueryVariables,
     BrandListProps<TChildProps>
-  >(BrandListDocument, operationOptions);
+  >(BrandListDocument, {
+    alias: "withBrandList",
+    ...operationOptions
+  });
 }
 
 export function useBrandListQuery(
@@ -650,6 +844,10 @@ export const BrandUpsertDocument = gql`
     }
   }
 `;
+export type BrandUpsertMutationFn = ReactApollo.MutationFn<
+  BrandUpsertMutation,
+  BrandUpsertMutationVariables
+>;
 
 export const BrandUpsertComponent = (
   props: Omit<
@@ -661,7 +859,7 @@ export const BrandUpsertComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: BrandUpsertMutationVariables }
+  > & { variables?: BrandUpsertMutationVariables }
 ) => (
   <ReactApollo.Mutation<BrandUpsertMutation, BrandUpsertMutationVariables>
     mutation={BrandUpsertDocument}
@@ -673,10 +871,6 @@ export type BrandUpsertProps<TChildProps = {}> = Partial<
   ReactApollo.MutateProps<BrandUpsertMutation, BrandUpsertMutationVariables>
 > &
   TChildProps;
-export type BrandUpsertMutationFn = ReactApollo.MutationFn<
-  BrandUpsertMutation,
-  BrandUpsertMutationVariables
->;
 export function withBrandUpsert<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -690,7 +884,10 @@ export function withBrandUpsert<TProps, TChildProps = {}>(
     BrandUpsertMutation,
     BrandUpsertMutationVariables,
     BrandUpsertProps<TChildProps>
-  >(BrandUpsertDocument, operationOptions);
+  >(BrandUpsertDocument, {
+    alias: "withBrandUpsert",
+    ...operationOptions
+  });
 }
 
 export function useBrandUpsertMutation(
@@ -711,6 +908,10 @@ export const CategoryDeleteDocument = gql`
     }
   }
 `;
+export type CategoryDeleteMutationFn = ReactApollo.MutationFn<
+  CategoryDeleteMutation,
+  CategoryDeleteMutationVariables
+>;
 
 export const CategoryDeleteComponent = (
   props: Omit<
@@ -722,7 +923,7 @@ export const CategoryDeleteComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: CategoryDeleteMutationVariables }
+  > & { variables?: CategoryDeleteMutationVariables }
 ) => (
   <ReactApollo.Mutation<CategoryDeleteMutation, CategoryDeleteMutationVariables>
     mutation={CategoryDeleteDocument}
@@ -737,10 +938,6 @@ export type CategoryDeleteProps<TChildProps = {}> = Partial<
   >
 > &
   TChildProps;
-export type CategoryDeleteMutationFn = ReactApollo.MutationFn<
-  CategoryDeleteMutation,
-  CategoryDeleteMutationVariables
->;
 export function withCategoryDelete<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -754,7 +951,10 @@ export function withCategoryDelete<TProps, TChildProps = {}>(
     CategoryDeleteMutation,
     CategoryDeleteMutationVariables,
     CategoryDeleteProps<TChildProps>
-  >(CategoryDeleteDocument, operationOptions);
+  >(CategoryDeleteDocument, {
+    alias: "withCategoryDelete",
+    ...operationOptions
+  });
 }
 
 export function useCategoryDeleteMutation(
@@ -767,6 +967,66 @@ export function useCategoryDeleteMutation(
     CategoryDeleteMutation,
     CategoryDeleteMutationVariables
   >(CategoryDeleteDocument, baseOptions);
+}
+export const CategoryItemDocument = gql`
+  query categoryItem($id: GraphQLObjectId!) {
+    category {
+      item(id: $id) {
+        id
+        title
+        slug
+        sort
+        image
+      }
+    }
+  }
+`;
+
+export const CategoryItemComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<CategoryItemQuery, CategoryItemQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables: CategoryItemQueryVariables }
+) => (
+  <ReactApollo.Query<CategoryItemQuery, CategoryItemQueryVariables>
+    query={CategoryItemDocument}
+    {...props}
+  />
+);
+
+export type CategoryItemProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<CategoryItemQuery, CategoryItemQueryVariables>
+> &
+  TChildProps;
+export function withCategoryItem<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    CategoryItemQuery,
+    CategoryItemQueryVariables,
+    CategoryItemProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    CategoryItemQuery,
+    CategoryItemQueryVariables,
+    CategoryItemProps<TChildProps>
+  >(CategoryItemDocument, {
+    alias: "withCategoryItem",
+    ...operationOptions
+  });
+}
+
+export function useCategoryItemQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<CategoryItemQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<
+    CategoryItemQuery,
+    CategoryItemQueryVariables
+  >(CategoryItemDocument, baseOptions);
 }
 export const CategoryListDocument = gql`
   query categoryList {
@@ -814,7 +1074,10 @@ export function withCategoryList<TProps, TChildProps = {}>(
     CategoryListQuery,
     CategoryListQueryVariables,
     CategoryListProps<TChildProps>
-  >(CategoryListDocument, operationOptions);
+  >(CategoryListDocument, {
+    alias: "withCategoryList",
+    ...operationOptions
+  });
 }
 
 export function useCategoryListQuery(
@@ -834,6 +1097,10 @@ export const CategoryUpsertDocument = gql`
     }
   }
 `;
+export type CategoryUpsertMutationFn = ReactApollo.MutationFn<
+  CategoryUpsertMutation,
+  CategoryUpsertMutationVariables
+>;
 
 export const CategoryUpsertComponent = (
   props: Omit<
@@ -845,7 +1112,7 @@ export const CategoryUpsertComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: CategoryUpsertMutationVariables }
+  > & { variables?: CategoryUpsertMutationVariables }
 ) => (
   <ReactApollo.Mutation<CategoryUpsertMutation, CategoryUpsertMutationVariables>
     mutation={CategoryUpsertDocument}
@@ -860,10 +1127,6 @@ export type CategoryUpsertProps<TChildProps = {}> = Partial<
   >
 > &
   TChildProps;
-export type CategoryUpsertMutationFn = ReactApollo.MutationFn<
-  CategoryUpsertMutation,
-  CategoryUpsertMutationVariables
->;
 export function withCategoryUpsert<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -877,7 +1140,10 @@ export function withCategoryUpsert<TProps, TChildProps = {}>(
     CategoryUpsertMutation,
     CategoryUpsertMutationVariables,
     CategoryUpsertProps<TChildProps>
-  >(CategoryUpsertDocument, operationOptions);
+  >(CategoryUpsertDocument, {
+    alias: "withCategoryUpsert",
+    ...operationOptions
+  });
 }
 
 export function useCategoryUpsertMutation(
@@ -900,6 +1166,10 @@ export const FileUploadDocument = gql`
     }
   }
 `;
+export type FileUploadMutationFn = ReactApollo.MutationFn<
+  FileUploadMutation,
+  FileUploadMutationVariables
+>;
 
 export const FileUploadComponent = (
   props: Omit<
@@ -911,7 +1181,7 @@ export const FileUploadComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: FileUploadMutationVariables }
+  > & { variables?: FileUploadMutationVariables }
 ) => (
   <ReactApollo.Mutation<FileUploadMutation, FileUploadMutationVariables>
     mutation={FileUploadDocument}
@@ -923,10 +1193,6 @@ export type FileUploadProps<TChildProps = {}> = Partial<
   ReactApollo.MutateProps<FileUploadMutation, FileUploadMutationVariables>
 > &
   TChildProps;
-export type FileUploadMutationFn = ReactApollo.MutationFn<
-  FileUploadMutation,
-  FileUploadMutationVariables
->;
 export function withFileUpload<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -940,7 +1206,10 @@ export function withFileUpload<TProps, TChildProps = {}>(
     FileUploadMutation,
     FileUploadMutationVariables,
     FileUploadProps<TChildProps>
-  >(FileUploadDocument, operationOptions);
+  >(FileUploadDocument, {
+    alias: "withFileUpload",
+    ...operationOptions
+  });
 }
 
 export function useFileUploadMutation(
@@ -954,6 +1223,292 @@ export function useFileUploadMutation(
     FileUploadMutationVariables
   >(FileUploadDocument, baseOptions);
 }
+export const SelectionDeleteDocument = gql`
+  mutation selectionDelete($input: SelectionDeleteInput!) {
+    selection {
+      delete(input: $input)
+    }
+  }
+`;
+export type SelectionDeleteMutationFn = ReactApollo.MutationFn<
+  SelectionDeleteMutation,
+  SelectionDeleteMutationVariables
+>;
+
+export const SelectionDeleteComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.MutationProps<
+        SelectionDeleteMutation,
+        SelectionDeleteMutationVariables
+      >,
+      "mutation"
+    >,
+    "variables"
+  > & { variables?: SelectionDeleteMutationVariables }
+) => (
+  <ReactApollo.Mutation<
+    SelectionDeleteMutation,
+    SelectionDeleteMutationVariables
+  >
+    mutation={SelectionDeleteDocument}
+    {...props}
+  />
+);
+
+export type SelectionDeleteProps<TChildProps = {}> = Partial<
+  ReactApollo.MutateProps<
+    SelectionDeleteMutation,
+    SelectionDeleteMutationVariables
+  >
+> &
+  TChildProps;
+export function withSelectionDelete<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SelectionDeleteMutation,
+    SelectionDeleteMutationVariables,
+    SelectionDeleteProps<TChildProps>
+  >
+) {
+  return ReactApollo.withMutation<
+    TProps,
+    SelectionDeleteMutation,
+    SelectionDeleteMutationVariables,
+    SelectionDeleteProps<TChildProps>
+  >(SelectionDeleteDocument, {
+    alias: "withSelectionDelete",
+    ...operationOptions
+  });
+}
+
+export function useSelectionDeleteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    SelectionDeleteMutation,
+    SelectionDeleteMutationVariables
+  >
+) {
+  return ReactApolloHooks.useMutation<
+    SelectionDeleteMutation,
+    SelectionDeleteMutationVariables
+  >(SelectionDeleteDocument, baseOptions);
+}
+export const SelectionItemDocument = gql`
+  query selectionItem($id: GraphQLObjectId!) {
+    selection {
+      item(id: $id) {
+        id
+        title
+        text
+        images
+        createdAt
+        brands {
+          id
+          title
+        }
+        categories {
+          id
+          title
+        }
+        shops {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
+
+export const SelectionItemComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<SelectionItemQuery, SelectionItemQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables: SelectionItemQueryVariables }
+) => (
+  <ReactApollo.Query<SelectionItemQuery, SelectionItemQueryVariables>
+    query={SelectionItemDocument}
+    {...props}
+  />
+);
+
+export type SelectionItemProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<SelectionItemQuery, SelectionItemQueryVariables>
+> &
+  TChildProps;
+export function withSelectionItem<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SelectionItemQuery,
+    SelectionItemQueryVariables,
+    SelectionItemProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    SelectionItemQuery,
+    SelectionItemQueryVariables,
+    SelectionItemProps<TChildProps>
+  >(SelectionItemDocument, {
+    alias: "withSelectionItem",
+    ...operationOptions
+  });
+}
+
+export function useSelectionItemQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<SelectionItemQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<
+    SelectionItemQuery,
+    SelectionItemQueryVariables
+  >(SelectionItemDocument, baseOptions);
+}
+export const SelectionListDocument = gql`
+  query selectionList($includeCategories: [GraphQLObjectId!]!) {
+    selection {
+      list(includeCategories: $includeCategories) {
+        id
+        title
+        text
+        images
+        createdAt
+        brands {
+          id
+          title
+        }
+        categories {
+          id
+          title
+        }
+        shops {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
+
+export const SelectionListComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<SelectionListQuery, SelectionListQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables: SelectionListQueryVariables }
+) => (
+  <ReactApollo.Query<SelectionListQuery, SelectionListQueryVariables>
+    query={SelectionListDocument}
+    {...props}
+  />
+);
+
+export type SelectionListProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<SelectionListQuery, SelectionListQueryVariables>
+> &
+  TChildProps;
+export function withSelectionList<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SelectionListQuery,
+    SelectionListQueryVariables,
+    SelectionListProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    SelectionListQuery,
+    SelectionListQueryVariables,
+    SelectionListProps<TChildProps>
+  >(SelectionListDocument, {
+    alias: "withSelectionList",
+    ...operationOptions
+  });
+}
+
+export function useSelectionListQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<SelectionListQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<
+    SelectionListQuery,
+    SelectionListQueryVariables
+  >(SelectionListDocument, baseOptions);
+}
+export const SelectionUpsertDocument = gql`
+  mutation selectionUpsert($input: SelectionUpsertInput!) {
+    selection {
+      upsert(input: $input) {
+        id
+      }
+    }
+  }
+`;
+export type SelectionUpsertMutationFn = ReactApollo.MutationFn<
+  SelectionUpsertMutation,
+  SelectionUpsertMutationVariables
+>;
+
+export const SelectionUpsertComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.MutationProps<
+        SelectionUpsertMutation,
+        SelectionUpsertMutationVariables
+      >,
+      "mutation"
+    >,
+    "variables"
+  > & { variables?: SelectionUpsertMutationVariables }
+) => (
+  <ReactApollo.Mutation<
+    SelectionUpsertMutation,
+    SelectionUpsertMutationVariables
+  >
+    mutation={SelectionUpsertDocument}
+    {...props}
+  />
+);
+
+export type SelectionUpsertProps<TChildProps = {}> = Partial<
+  ReactApollo.MutateProps<
+    SelectionUpsertMutation,
+    SelectionUpsertMutationVariables
+  >
+> &
+  TChildProps;
+export function withSelectionUpsert<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SelectionUpsertMutation,
+    SelectionUpsertMutationVariables,
+    SelectionUpsertProps<TChildProps>
+  >
+) {
+  return ReactApollo.withMutation<
+    TProps,
+    SelectionUpsertMutation,
+    SelectionUpsertMutationVariables,
+    SelectionUpsertProps<TChildProps>
+  >(SelectionUpsertDocument, {
+    alias: "withSelectionUpsert",
+    ...operationOptions
+  });
+}
+
+export function useSelectionUpsertMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    SelectionUpsertMutation,
+    SelectionUpsertMutationVariables
+  >
+) {
+  return ReactApolloHooks.useMutation<
+    SelectionUpsertMutation,
+    SelectionUpsertMutationVariables
+  >(SelectionUpsertDocument, baseOptions);
+}
 export const ShopDeleteDocument = gql`
   mutation shopDelete($input: ShopDeleteInput!) {
     shop {
@@ -961,6 +1516,10 @@ export const ShopDeleteDocument = gql`
     }
   }
 `;
+export type ShopDeleteMutationFn = ReactApollo.MutationFn<
+  ShopDeleteMutation,
+  ShopDeleteMutationVariables
+>;
 
 export const ShopDeleteComponent = (
   props: Omit<
@@ -972,7 +1531,7 @@ export const ShopDeleteComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: ShopDeleteMutationVariables }
+  > & { variables?: ShopDeleteMutationVariables }
 ) => (
   <ReactApollo.Mutation<ShopDeleteMutation, ShopDeleteMutationVariables>
     mutation={ShopDeleteDocument}
@@ -984,10 +1543,6 @@ export type ShopDeleteProps<TChildProps = {}> = Partial<
   ReactApollo.MutateProps<ShopDeleteMutation, ShopDeleteMutationVariables>
 > &
   TChildProps;
-export type ShopDeleteMutationFn = ReactApollo.MutationFn<
-  ShopDeleteMutation,
-  ShopDeleteMutationVariables
->;
 export function withShopDelete<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -1001,7 +1556,10 @@ export function withShopDelete<TProps, TChildProps = {}>(
     ShopDeleteMutation,
     ShopDeleteMutationVariables,
     ShopDeleteProps<TChildProps>
-  >(ShopDeleteDocument, operationOptions);
+  >(ShopDeleteDocument, {
+    alias: "withShopDelete",
+    ...operationOptions
+  });
 }
 
 export function useShopDeleteMutation(
@@ -1014,6 +1572,65 @@ export function useShopDeleteMutation(
     ShopDeleteMutation,
     ShopDeleteMutationVariables
   >(ShopDeleteDocument, baseOptions);
+}
+export const ShopItemDocument = gql`
+  query shopItem($id: GraphQLObjectId!) {
+    shop {
+      item(id: $id) {
+        id
+        title
+        link
+        image
+      }
+    }
+  }
+`;
+
+export const ShopItemComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<ShopItemQuery, ShopItemQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables: ShopItemQueryVariables }
+) => (
+  <ReactApollo.Query<ShopItemQuery, ShopItemQueryVariables>
+    query={ShopItemDocument}
+    {...props}
+  />
+);
+
+export type ShopItemProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<ShopItemQuery, ShopItemQueryVariables>
+> &
+  TChildProps;
+export function withShopItem<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    ShopItemQuery,
+    ShopItemQueryVariables,
+    ShopItemProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    ShopItemQuery,
+    ShopItemQueryVariables,
+    ShopItemProps<TChildProps>
+  >(ShopItemDocument, {
+    alias: "withShopItem",
+    ...operationOptions
+  });
+}
+
+export function useShopItemQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<ShopItemQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<ShopItemQuery, ShopItemQueryVariables>(
+    ShopItemDocument,
+    baseOptions
+  );
 }
 export const ShopListDocument = gql`
   query shopList {
@@ -1060,7 +1677,10 @@ export function withShopList<TProps, TChildProps = {}>(
     ShopListQuery,
     ShopListQueryVariables,
     ShopListProps<TChildProps>
-  >(ShopListDocument, operationOptions);
+  >(ShopListDocument, {
+    alias: "withShopList",
+    ...operationOptions
+  });
 }
 
 export function useShopListQuery(
@@ -1080,6 +1700,10 @@ export const ShopUpsertDocument = gql`
     }
   }
 `;
+export type ShopUpsertMutationFn = ReactApollo.MutationFn<
+  ShopUpsertMutation,
+  ShopUpsertMutationVariables
+>;
 
 export const ShopUpsertComponent = (
   props: Omit<
@@ -1091,7 +1715,7 @@ export const ShopUpsertComponent = (
       "mutation"
     >,
     "variables"
-  > & { variables: ShopUpsertMutationVariables }
+  > & { variables?: ShopUpsertMutationVariables }
 ) => (
   <ReactApollo.Mutation<ShopUpsertMutation, ShopUpsertMutationVariables>
     mutation={ShopUpsertDocument}
@@ -1103,10 +1727,6 @@ export type ShopUpsertProps<TChildProps = {}> = Partial<
   ReactApollo.MutateProps<ShopUpsertMutation, ShopUpsertMutationVariables>
 > &
   TChildProps;
-export type ShopUpsertMutationFn = ReactApollo.MutationFn<
-  ShopUpsertMutation,
-  ShopUpsertMutationVariables
->;
 export function withShopUpsert<TProps, TChildProps = {}>(
   operationOptions?: ReactApollo.OperationOption<
     TProps,
@@ -1120,7 +1740,10 @@ export function withShopUpsert<TProps, TChildProps = {}>(
     ShopUpsertMutation,
     ShopUpsertMutationVariables,
     ShopUpsertProps<TChildProps>
-  >(ShopUpsertDocument, operationOptions);
+  >(ShopUpsertDocument, {
+    alias: "withShopUpsert",
+    ...operationOptions
+  });
 }
 
 export function useShopUpsertMutation(

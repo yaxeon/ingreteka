@@ -1,12 +1,12 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
-import { ShopList } from "../components/Lists/ShopList";
+import { SelectionList } from "../components/Lists/SelectionList";
 
-export const ShopPage = () => (
+export const SelectionPage = () => (
   <React.Fragment>
     <Typography variant="h4" gutterBottom>
-      Shops
+      Selections
     </Typography>
-    <ShopList />
+    <SelectionList />
   </React.Fragment>
 );

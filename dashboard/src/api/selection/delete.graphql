@@ -1,0 +1,5 @@
+mutation selectionDelete($input: SelectionDeleteInput!) {
+  selection {
+    delete(input: $input)
+  }
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { FieldProps, getIn } from "formik";
 import { Typography, WithStyles, withStyles } from "@material-ui/core";
 import { Editor } from "react-draft-wysiwyg";
 import {
@@ -12,9 +11,16 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 type ClassKey = "root";
 
-interface RichTextFieldProps extends WithStyles<ClassKey>, FieldProps {
+export type ValueType = string;
+
+export interface RichTextProps {
   label?: string;
+  value: ValueType;
+  error: boolean;
+  onChange: (value: ValueType) => void;
 }
+
+interface RichTextPropsWithStyles extends WithStyles<ClassKey>, RichTextProps {}
 
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
@@ -24,13 +30,8 @@ const enhance = withStyles<ClassKey>(theme => ({
   }
 }));
 
-export const RichTextField = enhance(
-  ({
-    field: { value, name },
-    form: { setFieldValue, errors = {}, touched },
-    classes,
-    label
-  }: RichTextFieldProps) => {
+export const RichText = enhance(
+  ({ classes, label, value, error, onChange }: RichTextPropsWithStyles) => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
     useEffect(() => {
@@ -43,27 +44,27 @@ export const RichTextField = enhance(
       }
 
       setEditorState(EditorState.createWithContent(contentState));
+      // eslint-disable-next-line
     }, []);
 
-    const fieldError = getIn(errors, name);
-    const showError = getIn(touched, name) && !!fieldError;
-
-    const onChange = (editorState: Draft.EditorState) => {
+    const handleChange = (editorState: Draft.EditorState) => {
       const contentState = JSON.stringify(
         convertToRaw(editorState.getCurrentContent())
       );
 
       setEditorState(editorState);
-      setFieldValue(name, contentState);
+      onChange(contentState);
     };
 
     return (
       <div className={classes.root}>
-        {showError && (
-          <Typography gutterBottom variant="caption" color={"error"}>
-            {fieldError}
-          </Typography>
-        )}
+        <Typography
+          gutterBottom
+          variant="caption"
+          color={error ? "error" : "textSecondary"}
+        >
+          {label}
+        </Typography>
         <Editor
           editorState={editorState}
           toolbarClassName="toolbarClassName"
@@ -89,7 +90,7 @@ export const RichTextField = enhance(
             history: { inDropdown: true }
           }}
           placeholder={label}
-          onEditorStateChange={onChange}
+          onEditorStateChange={handleChange}
         />
       </div>
     );

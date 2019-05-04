@@ -1,0 +1,10 @@
+query shopItem($id: GraphQLObjectId!) {
+  shop {
+    item(id: $id) {
+      id
+      title
+      link
+      image
+    }
+  }
+}

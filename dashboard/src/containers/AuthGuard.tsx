@@ -1,8 +1,17 @@
 import React, { createContext } from "react";
+import { LinearProgress, Dialog, DialogTitle } from "@material-ui/core";
 
-import { Loading } from "../components/Loading";
-import { LoginForm } from "../forms/LoginForm";
+import { LoginForm } from "../components/Forms/LoginForm";
 import { useAuthProfileQuery, User } from "../api";
+
+const Loading = () => {
+  return (
+    <Dialog open>
+      <DialogTitle>Please, wait...</DialogTitle>
+      <LinearProgress color="secondary" />
+    </Dialog>
+  );
+};
 
 interface AuthContextType {
   profile: User | null;

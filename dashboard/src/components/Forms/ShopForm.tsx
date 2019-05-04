@@ -1,20 +1,21 @@
 import React from "react";
 import * as Yup from "yup";
 import idx from "idx";
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
-import { ImageField } from "../components/ImageField";
+import { UploadImageField } from "../Fields/UploadImageField";
 import {
   useShopDeleteMutation,
   useShopUpsertMutation,
+  useShopItemQuery,
   ShopUpsertInput
-} from "../api";
+} from "../../api";
 import { FormCrudAction } from "./FormCrudAction";
+import { CrudFormProps } from "../../hooks/useCrudForm";
 
 const shopSchema = Yup.object().shape({
-  id: Yup.string(),
   title: Yup.string().required("Required"),
   link: Yup.string()
     .url()
@@ -22,22 +23,29 @@ const shopSchema = Yup.object().shape({
   image: Yup.string().required("Required")
 });
 
-interface Props {
-  input: ShopUpsertInput;
-  onReload: () => void;
-}
-
-export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
+export const ShopForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
+  const { data, loading } = useShopItemQuery({ variables: { id } });
   const handleUpsert = useShopUpsertMutation();
   const handleDelete = useShopDeleteMutation();
 
   const onDelete = (id: string) => {
-    handleDelete({ variables: { input: { id } } }).then(onReload);
+    handleDelete({ variables: { input: { id } } }).then(onClose);
+  };
+
+  if (loading) {
+    return <LinearProgress />;
+  }
+
+  const initialValues = {
+    id: idx(data, _ => _.shop.item.id),
+    title: idx(data, _ => _.shop.item.title) || "",
+    link: idx(data, _ => _.shop.item.link) || "",
+    image: idx(data, _ => _.shop.item.image) || ""
   };
 
   return (
     <Formik
-      initialValues={input}
+      initialValues={initialValues}
       validationSchema={shopSchema}
       onSubmit={(
         input: ShopUpsertInput,
@@ -51,8 +59,6 @@ export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
           if (id) {
             setFieldValue("id", id);
           }
-
-          onReload();
         });
       }}
       render={({ isSubmitting, values: { id } }) => (
@@ -73,7 +79,7 @@ export const ShopForm: React.FC<Props> = ({ input, onReload }) => {
                 margin="normal"
                 component={TextField}
               />
-              <Field name="image" label="Image" component={ImageField} />
+              <Field name="image" label="Image" component={UploadImageField} />
             </CardContent>
             <FormCrudAction
               disabled={isSubmitting}

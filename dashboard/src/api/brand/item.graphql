@@ -1,0 +1,8 @@
+query brandItem($id: GraphQLObjectId!) {
+  brand {
+    item(id: $id) {
+      id
+      title
+    }
+  }
+}

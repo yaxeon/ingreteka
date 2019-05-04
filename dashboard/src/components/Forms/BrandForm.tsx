@@ -1,38 +1,44 @@
 import React from "react";
 import * as Yup from "yup";
 import idx from "idx";
-import { Card, CardContent } from "@material-ui/core";
+import { Card, CardContent, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
 import {
   useBrandDeleteMutation,
   useBrandUpsertMutation,
-  BrandUpsertInput
-} from "../api";
+  BrandUpsertInput,
+  useBrandItemQuery
+} from "../../api";
 import { FormCrudAction } from "./FormCrudAction";
+import { CrudFormProps } from "../../hooks/useCrudForm";
 
 const brandSchema = Yup.object().shape({
-  id: Yup.string(),
   title: Yup.string().required("Required")
 });
 
-interface Props {
-  input: BrandUpsertInput;
-  onReload: () => void;
-}
-
-export const BrandForm: React.FC<Props> = ({ input, onReload }) => {
+export const BrandForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
+  const { data, loading } = useBrandItemQuery({ variables: { id } });
   const handleUpsert = useBrandUpsertMutation();
   const handleDelete = useBrandDeleteMutation();
 
   const onDelete = (id: string) => {
-    handleDelete({ variables: { input: { id } } }).then(onReload);
+    handleDelete({ variables: { input: { id } } }).then(onClose);
+  };
+
+  if (loading) {
+    return <LinearProgress />;
+  }
+
+  const initialValues = {
+    id: idx(data, _ => _.brand.item.id),
+    title: idx(data, _ => _.brand.item.title) || ""
   };
 
   return (
     <Formik
-      initialValues={input}
+      initialValues={initialValues}
       validationSchema={brandSchema}
       onSubmit={(
         input: BrandUpsertInput,
@@ -46,8 +52,6 @@ export const BrandForm: React.FC<Props> = ({ input, onReload }) => {
           if (id) {
             setFieldValue("id", id);
           }
-
-          onReload();
         });
       }}
       render={({ isSubmitting, values: { id } }) => (

@@ -28,7 +28,7 @@ export const FormCrudAction: React.FC<Props> = ({ disabled, id, onDelete }) => {
 
   return (
     <DialogActions>
-      <Button disabled={disabled} color="primary" type="submit">
+      <Button disabled={disabled} variant="outlined" color="primary" type="submit">
         {id ? "Update" : "Create"}
       </Button>
       {id && (

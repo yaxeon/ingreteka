@@ -25,6 +25,7 @@ type BrandMutation {
 }
 
 type BrandQuery {
+    item(id: GraphQLObjectId!): Brand
     list: [Brand!]!
 }
 
@@ -42,6 +43,7 @@ type CategoryMutation {
 }
 
 type CategoryQuery {
+    item(id: GraphQLObjectId!): Category
     list: [Category!]!
 }
 
@@ -73,7 +75,7 @@ type Query {
 type Selection {
     brands: [Brand!]!
     categories: [Category!]!
-    createdAt: DateTime
+    createdAt: DateTime!
     id: GraphQLObjectId!
     images: [String!]!
     shops: [Shop!]!
@@ -88,6 +90,7 @@ type SelectionMutation {
 }
 
 type SelectionQuery {
+    item(id: GraphQLObjectId!): Selection
     list(includeCategories: [GraphQLObjectId!]!): [Selection!]!
 }
 
@@ -104,6 +107,7 @@ type ShopMutation {
 }
 
 type ShopQuery {
+    item(id: GraphQLObjectId!): Shop
     list: [Shop!]!
 }
 

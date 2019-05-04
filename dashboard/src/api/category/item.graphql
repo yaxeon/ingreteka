@@ -1,0 +1,11 @@
+query categoryItem($id: GraphQLObjectId!) {
+  category {
+    item(id: $id) {
+      id
+      title
+      slug
+      sort
+      image
+    }
+  }
+}

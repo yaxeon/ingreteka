@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
-import { BrandList } from "../components/BrandList";
+import { BrandList } from "../components/Lists/BrandList";
 
 export const BrandPage = () => (
   <React.Fragment>

@@ -9,7 +9,6 @@ export const createClient = (options: HttpLink.Options) => {
 
   return new ApolloClient<object>({
     link: ApolloLink.from([uploadLink]),
-    cache: new InMemoryCache({ addTypename: false }),
-    defaultOptions: { query: { fetchPolicy: "no-cache" } }
+    cache: new InMemoryCache()
   });
 };

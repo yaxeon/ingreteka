@@ -48,9 +48,10 @@ export const Menu = enhance(({ classes, open, onClose }: Props) => (
     anchor="left"
   >
     <List component="nav" onClick={onClose}>
-      <MenuItem to="/" title="Category" />
+      <MenuItem to="/" title="Selection" />
       <MenuItem to="/brand" title="Brand" />
       <MenuItem to="/shop" title="Shop" />
+      <MenuItem to="/category" title="Category" />
     </List>
   </Drawer>
 ));

@@ -1,0 +1,23 @@
+query selectionList($includeCategories: [GraphQLObjectId!]!) {
+  selection {
+    list(includeCategories: $includeCategories) {
+      id
+      title
+      text
+      images
+      createdAt
+      brands {
+        id
+        title
+      }
+      categories {
+        id
+        title
+      }
+      shops {
+        id
+        title
+      }
+    }
+  }
+}

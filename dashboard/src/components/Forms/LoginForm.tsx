@@ -11,8 +11,8 @@ import {
 import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
-import { AuthLoginMutationVariables, useAuthLoginMutation } from "../api";
-import { AuthContext } from "../containers/AuthGuard";
+import { AuthLoginMutationVariables, useAuthLoginMutation } from "../../api";
+import { AuthContext } from "../../containers/AuthGuard";
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()

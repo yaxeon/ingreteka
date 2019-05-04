@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   LinearProgress,
   Dialog,
@@ -11,13 +11,14 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
-import { useBrandListQuery } from "../api";
-import { Error } from "./Error";
-import { BrandForm } from "../forms/BrandForm";
+import { useBrandListQuery } from "../../api";
+import { Error } from "../Error";
+import { BrandForm } from "../Forms/BrandForm";
+import { useCrudForm } from "../../hooks/useCrudForm";
 
 export const BrandList = () => {
   const { data, loading, error, refetch } = useBrandListQuery();
-  const [updateId, setUpdateId] = useState();
+  const { id, visible, onCreate, onUpdate, onClose } = useCrudForm(refetch);
 
   if (loading) {
     return <LinearProgress />;
@@ -31,9 +32,6 @@ export const BrandList = () => {
     brand: { list }
   } = data;
 
-  const brand =
-    updateId === "" ? { title: "" } : list.find(({ id }) => updateId === id);
-
   return (
     <React.Fragment>
       <Table>
@@ -45,7 +43,7 @@ export const BrandList = () => {
                 size="small"
                 variant="outlined"
                 color="primary"
-                onClick={() => setUpdateId("")}
+                onClick={onCreate}
               >
                 <AddIcon />
                 Add
@@ -55,17 +53,15 @@ export const BrandList = () => {
         </TableHead>
         <TableBody>
           {list.map(({ id, title }) => (
-            <TableRow hover key={id}>
-              <TableCell colSpan={2} onClick={() => setUpdateId(id)}>
-                {title}
-              </TableCell>
+            <TableRow hover key={id} onClick={() => onUpdate(id)}>
+              <TableCell colSpan={2}>{title}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      {brand && (
-        <Dialog scroll="body" open onClose={() => setUpdateId(undefined)}>
-          <BrandForm input={brand} onReload={refetch} />
+      {visible && (
+        <Dialog scroll="body" open onClose={onClose} maxWidth="sm">
+          <BrandForm id={id} onClose={onClose} />
         </Dialog>
       )}
     </React.Fragment>

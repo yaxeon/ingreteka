@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   LinearProgress,
   Dialog,
@@ -11,14 +11,15 @@ import {
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
-import { useCategoryListQuery } from "../api";
-import { Error } from "./Error";
-import { Image } from "./Image";
-import { CategoryForm } from "../forms/CategoryForm";
+import { useCrudForm } from "../../hooks/useCrudForm";
+import { ShopForm } from "../Forms/ShopForm";
+import { useShopListQuery } from "../../api";
+import { Error } from "../Error";
+import { Image } from "../Image";
 
-export const CategoryList = () => {
-  const { data, loading, error, refetch } = useCategoryListQuery();
-  const [updateId, setUpdateId] = useState();
+export const ShopList = () => {
+  const { data, loading, error, refetch } = useShopListQuery();
+  const { id, visible, onCreate, onUpdate, onClose } = useCrudForm(refetch);
 
   if (loading) {
     return <LinearProgress />;
@@ -29,13 +30,8 @@ export const CategoryList = () => {
   }
 
   const {
-    category: { list }
+    shop: { list }
   } = data;
-
-  const category =
-    updateId === ""
-      ? { title: "", image: "", slug: "", sort: 0 }
-      : list.find(({ id }) => updateId === id);
 
   return (
     <React.Fragment>
@@ -43,14 +39,14 @@ export const CategoryList = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Slug</TableCell>
+            <TableCell>Link</TableCell>
             <TableCell style={{ width: 80 }}>Image</TableCell>
             <TableCell align="right">
               <Button
                 size="small"
                 variant="outlined"
                 color="primary"
-                onClick={() => setUpdateId("")}
+                onClick={onCreate}
               >
                 <AddIcon />
                 Add
@@ -59,10 +55,10 @@ export const CategoryList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {list.map(({ id, title, slug, image }) => (
-            <TableRow hover key={id} onClick={() => setUpdateId(id)}>
+          {list.map(({ id, title, link, image }) => (
+            <TableRow hover key={id} onClick={() => onUpdate(id)}>
               <TableCell>{title}</TableCell>
-              <TableCell>{slug}</TableCell>
+              <TableCell>{link}</TableCell>
               <TableCell>
                 <Image alt={title} src={image} />
               </TableCell>
@@ -71,9 +67,9 @@ export const CategoryList = () => {
           ))}
         </TableBody>
       </Table>
-      {category && (
-        <Dialog scroll="body" open onClose={() => setUpdateId(undefined)}>
-          <CategoryForm input={category} onReload={refetch} />
+      {visible && (
+        <Dialog scroll="body" open onClose={onClose} maxWidth="sm">
+          <ShopForm id={id} onClose={onClose} />
         </Dialog>
       )}
     </React.Fragment>

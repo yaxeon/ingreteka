@@ -1,42 +1,51 @@
 import React from "react";
 import * as Yup from "yup";
 import idx from "idx";
-import { Card, CardContent, Grid } from "@material-ui/core";
+import { Card, CardContent, Grid, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Formik, Field, Form, FormikActions } from "formik";
 
-import { ImageField } from "../components/ImageField";
+import { UploadImageField } from "../Fields/UploadImageField";
 import {
   useCategoryUpsertMutation,
   useCategoryDeleteMutation,
+  useCategoryItemQuery,
   CategoryUpsertInput
-} from "../api";
+} from "../../api";
 import { FormCrudAction } from "./FormCrudAction";
+import { CrudFormProps } from "../../hooks/useCrudForm";
 
 const categorySchema = Yup.object().shape({
-  id: Yup.string(),
   title: Yup.string().required("Required"),
   slug: Yup.string().required("Required"),
   sort: Yup.number(),
   image: Yup.string().required("Required")
 });
 
-interface Props {
-  input: CategoryUpsertInput;
-  onReload: () => void;
-}
-
-export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
+export const CategoryForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
+  const { data, loading } = useCategoryItemQuery({ variables: { id } });
   const handleUpsert = useCategoryUpsertMutation();
   const handleDelete = useCategoryDeleteMutation();
 
   const onDelete = (id: string) => {
-    handleDelete({ variables: { input: { id } } }).then(onReload);
+    handleDelete({ variables: { input: { id } } }).then(onClose);
+  };
+
+  if (loading) {
+    return <LinearProgress />;
+  }
+
+  const initialValues = {
+    id: idx(data, _ => _.category.item.id),
+    title: idx(data, _ => _.category.item.title) || "",
+    sort: idx(data, _ => _.category.item.sort) || 0,
+    slug: idx(data, _ => _.category.item.slug) || "",
+    image: idx(data, _ => _.category.item.image) || ""
   };
 
   return (
     <Formik
-      initialValues={input}
+      initialValues={initialValues}
       validationSchema={categorySchema}
       onSubmit={(
         input: CategoryUpsertInput,
@@ -50,8 +59,6 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
           if (id) {
             setFieldValue("id", id);
           }
-
-          onReload();
         });
       }}
       render={({ isSubmitting, values: { id } }) => (
@@ -65,7 +72,7 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
                 margin="normal"
                 component={TextField}
               />
-              <Grid container spacing={32}>
+              <Grid container spacing={8}>
                 <Grid item xs={6}>
                   <Field
                     name="slug"
@@ -86,7 +93,7 @@ export const CategoryForm: React.FC<Props> = ({ input, onReload }) => {
                   />
                 </Grid>
               </Grid>
-              <Field name="image" label="Image" component={ImageField} />
+              <Field name="image" label="Image" component={UploadImageField} />
             </CardContent>
             <FormCrudAction
               disabled={isSubmitting}
