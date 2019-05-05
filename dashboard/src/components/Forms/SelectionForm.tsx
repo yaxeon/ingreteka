@@ -6,9 +6,12 @@ import {
   CardContent,
   LinearProgress,
   Grid,
-  Fab
+  Fab,
+  IconButton
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Image";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
 import { TextField } from "formik-material-ui";
 import { Formik, Field, FieldArray, Form, FormikActions } from "formik";
 
@@ -19,27 +22,24 @@ import {
   useSelectionDeleteMutation,
   useSelectionUpsertMutation,
   useSelectionItemQuery,
-  useCategoryListQuery,
-  useShopListQuery,
-  useBrandListQuery,
+  useSelectionOptionsQuery,
   SelectionUpsertInput
 } from "../../api";
 import { FormCrudAction } from "./FormCrudAction";
-import { CrudFormProps, mapId, mapOptions } from "../../hooks/useCrudForm";
+import { CrudFormProps, mapId } from "../../hooks/useCrudForm";
 
 const selectionSchema = yup.object().shape({
   title: yup.string().required("Required"),
   text: yup.string().required("Required"),
   categories: yup.array(yup.string()),
   shops: yup.array(yup.string()),
-  brands: yup.array(yup.string())
+  brands: yup.array(yup.string()),
+  images: yup.array(yup.string())
 });
 
 export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
   const { data, loading } = useSelectionItemQuery({ variables: { id } });
-  const { data: dataCategory } = useCategoryListQuery();
-  const { data: dataShop } = useShopListQuery();
-  const { data: dataBrand } = useBrandListQuery();
+  const { data: dataOptions } = useSelectionOptionsQuery();
   const handleUpsert = useSelectionUpsertMutation();
   const handleDelete = useSelectionDeleteMutation();
 
@@ -61,11 +61,11 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
     brands: mapId(idx(data, _ => _.selection.item.brands))
   };
 
-  const optionsCategory = mapOptions(
-    idx(dataCategory, _ => _.category.list) || []
-  );
-  const optionsShop = mapOptions(idx(dataShop, _ => _.shop.list) || []);
-  const optionsBrand = mapOptions(idx(dataBrand, _ => _.brand.list) || []);
+  const options = {
+    category: idx(dataOptions, _ => _.category.list),
+    shop: idx(dataOptions, _ => _.shop.list),
+    brand: idx(dataOptions, _ => _.brand.list)
+  };
 
   return (
     <Formik
@@ -104,7 +104,7 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
                     name="categories"
                     label="Category"
                     component={MultiSelectField}
-                    options={optionsCategory}
+                    options={options.category}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -112,7 +112,7 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
                     name="shops"
                     label="Shop"
                     component={MultiSelectField}
-                    options={optionsShop}
+                    options={options.shop}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -120,7 +120,7 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
                     name="brands"
                     label="Brand"
                     component={MultiSelectField}
-                    options={optionsBrand}
+                    options={options.brand}
                   />
                 </Grid>
               </Grid>
@@ -136,6 +136,28 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
                             label={`Image ${index}`}
                             name={`images.${index}`}
                             component={UploadImageField}
+                            index={index}
+                            count={images.length}
+                            sortNode={
+                              <React.Fragment>
+                                <IconButton
+                                  onClick={() =>
+                                    arrayHelpers.move(index, index - 1)
+                                  }
+                                  disabled={index === 0}
+                                >
+                                  <ChevronLeft fontSize="small" />
+                                </IconButton>
+                                <IconButton
+                                  onClick={() =>
+                                    arrayHelpers.move(index, index + 1)
+                                  }
+                                  disabled={index === images.length - 1}
+                                >
+                                  <ChevronRight fontSize="small" />
+                                </IconButton>
+                              </React.Fragment>
+                            }
                             onClear={() => arrayHelpers.remove(index)}
                           />
                         </Grid>

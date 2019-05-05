@@ -418,6 +418,29 @@ export type SelectionListQuery = { __typename?: "Query" } & {
   };
 };
 
+export type SelectionOptionsQueryVariables = {};
+
+export type SelectionOptionsQuery = { __typename?: "Query" } & {
+  brand: { __typename?: "BrandQuery" } & {
+    list: Array<
+      { __typename?: "Brand" } & { value: Brand["id"]; label: Brand["title"] }
+    >;
+  };
+  shop: { __typename?: "ShopQuery" } & {
+    list: Array<
+      { __typename?: "Shop" } & { value: Shop["id"]; label: Shop["title"] }
+    >;
+  };
+  category: { __typename?: "CategoryQuery" } & {
+    list: Array<
+      { __typename?: "Category" } & {
+        value: Category["id"];
+        label: Category["title"];
+      }
+    >;
+  };
+};
+
 export type SelectionUpsertMutationVariables = {
   input: SelectionUpsertInput;
 };
@@ -1436,6 +1459,80 @@ export function useSelectionListQuery(
     SelectionListQuery,
     SelectionListQueryVariables
   >(SelectionListDocument, baseOptions);
+}
+export const SelectionOptionsDocument = gql`
+  query selectionOptions {
+    brand {
+      list {
+        value: id
+        label: title
+      }
+    }
+    shop {
+      list {
+        value: id
+        label: title
+      }
+    }
+    category {
+      list {
+        value: id
+        label: title
+      }
+    }
+  }
+`;
+
+export const SelectionOptionsComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<
+        SelectionOptionsQuery,
+        SelectionOptionsQueryVariables
+      >,
+      "query"
+    >,
+    "variables"
+  > & { variables?: SelectionOptionsQueryVariables }
+) => (
+  <ReactApollo.Query<SelectionOptionsQuery, SelectionOptionsQueryVariables>
+    query={SelectionOptionsDocument}
+    {...props}
+  />
+);
+
+export type SelectionOptionsProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<SelectionOptionsQuery, SelectionOptionsQueryVariables>
+> &
+  TChildProps;
+export function withSelectionOptions<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SelectionOptionsQuery,
+    SelectionOptionsQueryVariables,
+    SelectionOptionsProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    SelectionOptionsQuery,
+    SelectionOptionsQueryVariables,
+    SelectionOptionsProps<TChildProps>
+  >(SelectionOptionsDocument, {
+    alias: "withSelectionOptions",
+    ...operationOptions
+  });
+}
+
+export function useSelectionOptionsQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<
+    SelectionOptionsQueryVariables
+  >
+) {
+  return ReactApolloHooks.useQuery<
+    SelectionOptionsQuery,
+    SelectionOptionsQueryVariables
+  >(SelectionOptionsDocument, baseOptions);
 }
 export const SelectionUpsertDocument = gql`
   mutation selectionUpsert($input: SelectionUpsertInput!) {

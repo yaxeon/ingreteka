@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import uuid from "uuid/v1";
 import idx from "idx";
 import {
-  Button,
+  IconButton,
   WithStyles,
   CardMedia,
   Card,
@@ -10,6 +10,9 @@ import {
   CardHeader,
   withStyles
 } from "@material-ui/core";
+import AttachFile from "@material-ui/icons/AttachFile";
+import Delete from "@material-ui/icons/Delete";
+
 import { useFileUploadMutation } from "../../api";
 import { makeUrl } from "../Image";
 
@@ -23,6 +26,7 @@ export interface UploadImageProps {
   value?: ValueType;
   onChange: (image: ValueType) => void;
   onClear?: () => void;
+  sortNode?: React.ReactNode;
 }
 
 interface UploadImagePropsWithStyles
@@ -31,10 +35,10 @@ interface UploadImagePropsWithStyles
 
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    width: 200
+    width: 220
   },
   image: {
-    height: 200
+    height: 220
   }
 }));
 
@@ -45,7 +49,8 @@ export const UploadImage = enhance(
     error,
     value,
     onChange,
-    onClear
+    sortNode = null,
+    onClear = () => {}
   }: UploadImagePropsWithStyles) => {
     const handleUpload = useFileUploadMutation();
     const [htmlId] = useState(uuid());
@@ -75,9 +80,7 @@ export const UploadImage = enhance(
     const handleClear = () => {
       onChange("");
 
-      if (onClear) {
-        onClear();
-      }
+      onClear();
     };
 
     return (
@@ -96,6 +99,7 @@ export const UploadImage = enhance(
           />
         )}
         <CardActions>
+          {sortNode}
           <input
             accept="image/*"
             id={htmlId}
@@ -104,13 +108,13 @@ export const UploadImage = enhance(
             style={{ display: "none" }}
           />
           <label htmlFor={htmlId}>
-            <Button color="primary" component="span" size="small">
-              Upload
-            </Button>
+            <IconButton color="primary" component="span">
+              <AttachFile fontSize="small" />
+            </IconButton>
           </label>
-          <Button size="small" color="primary" onClick={handleClear}>
-            Clear
-          </Button>
+          <IconButton onClick={handleClear}>
+            <Delete fontSize="small" />
+          </IconButton>
         </CardActions>
       </Card>
     );

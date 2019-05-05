@@ -40,7 +40,7 @@ export const ShopList = () => {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Link</TableCell>
-            <TableCell style={{ width: 80 }}>Image</TableCell>
+            <TableCell>Image</TableCell>
             <TableCell align="right">
               <Button
                 size="small"
@@ -60,7 +60,7 @@ export const ShopList = () => {
               <TableCell>{title}</TableCell>
               <TableCell>{link}</TableCell>
               <TableCell>
-                <Image alt={title} src={image} />
+                <Image size="sm" alt={title} src={image} />
               </TableCell>
               <TableCell />
             </TableRow>

@@ -1,0 +1,20 @@
+query selectionOptions {
+  brand {
+    list {
+      value: id
+      label: title
+    }
+  }
+  shop {
+    list {
+      value: id
+      label: title
+    }
+  }
+  category {
+    list {
+      value: id
+      label: title
+    }
+  }
+}

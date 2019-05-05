@@ -45,7 +45,7 @@ export const SelectionList = () => {
             <TableCell>Category</TableCell>
             <TableCell>Brands</TableCell>
             <TableCell>Shops</TableCell>
-            <TableCell>Created at</TableCell>
+            <TableCell>Created</TableCell>
             <TableCell align="right">
               <Button
                 size="small"

@@ -40,7 +40,7 @@ export const CategoryList = () => {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Slug</TableCell>
-            <TableCell style={{ width: 80 }}>Image</TableCell>
+            <TableCell>Image</TableCell>
             <TableCell align="right">
               <Button
                 size="small"
@@ -60,7 +60,7 @@ export const CategoryList = () => {
               <TableCell>{title}</TableCell>
               <TableCell>{slug}</TableCell>
               <TableCell>
-                <Image alt={title} src={image} />
+                <Image size="sm" alt={title} src={image} />
               </TableCell>
               <TableCell />
             </TableRow>

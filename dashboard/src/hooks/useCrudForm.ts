@@ -11,11 +11,6 @@ export const mapId = <T extends Array<{ id: string }> | null | undefined>(
   field: T
 ): string[] => (field ? field.map(({ id }) => id) : []);
 
-export const mapOptions = <T extends Array<{ id: string; title: string }>>(
-  options: T
-): Array<{ value: string; label: string }> =>
-  options.map(({ id: value, title: label }) => ({ value, label }));
-
 export const useCrudForm = (reload: ReloadFn) => {
   const EMPTY_ID = "000000000000000000000000";
   const [id, setId] = useState(EMPTY_ID);
