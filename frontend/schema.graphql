@@ -14,9 +14,23 @@ type AuthQuery {
     profile: User
 }
 
+type Brand {
+    id: GraphQLObjectId!
+    title: String!
+}
+
+type BrandMutation {
+    delete(input: BrandDeleteInput!): Boolean
+    upsert(input: BrandUpsertInput!): Brand
+}
+
+type BrandQuery {
+    item(id: GraphQLObjectId!): Brand
+    list: [Brand!]!
+}
+
 type Category {
-    description: String
-    id: ID!
+    id: GraphQLObjectId!
     image: String!
     slug: String!
     sort: Int!
@@ -29,6 +43,7 @@ type CategoryMutation {
 }
 
 type CategoryQuery {
+    item(id: GraphQLObjectId!): Category
     list: [Category!]!
 }
 
@@ -42,13 +57,58 @@ type FileMutation {
 
 type Mutation {
     auth: AuthMutation!
+    brand: BrandMutation!
     category: CategoryMutation!
     file: FileMutation!
+    selection: SelectionMutation!
+    shop: ShopMutation!
 }
 
 type Query {
     auth: AuthQuery!
+    brand: BrandQuery!
     category: CategoryQuery!
+    selection: SelectionQuery!
+    shop: ShopQuery!
+}
+
+type Selection {
+    brands: [Brand!]!
+    categories: [Category!]!
+    createdAt: DateTime!
+    id: GraphQLObjectId!
+    images: [String!]!
+    shops: [Shop!]!
+    text: String!
+    title: String!
+    updatedAt: DateTime
+}
+
+type SelectionMutation {
+    delete(input: SelectionDeleteInput!): Boolean
+    upsert(input: SelectionUpsertInput!): Selection
+}
+
+type SelectionQuery {
+    item(id: GraphQLObjectId!): Selection
+    list(includeCategories: [GraphQLObjectId!]!): [Selection!]!
+}
+
+type Shop {
+    id: GraphQLObjectId!
+    image: String!
+    link: String!
+    title: String!
+}
+
+type ShopMutation {
+    delete(input: ShopDeleteInput!): Boolean
+    upsert(input: ShopUpsertInput!): Shop
+}
+
+type ShopQuery {
+    item(id: GraphQLObjectId!): Shop
+    list: [Shop!]!
 }
 
 type User {
@@ -67,18 +127,57 @@ input AuthLoginInput {
     username: String!
 }
 
+input BrandDeleteInput {
+    id: GraphQLObjectId!
+}
+
+input BrandUpsertInput {
+    id: GraphQLObjectId
+    title: String!
+}
+
 input CategoryDeleteInput {
-    id: ID!
+    id: GraphQLObjectId!
 }
 
 input CategoryUpsertInput {
-    description: String
-    id: ID
+    id: GraphQLObjectId
     image: String!
     slug: String!
     sort: Int = 0
     title: String!
 }
 
+input SelectionDeleteInput {
+    id: GraphQLObjectId!
+}
+
+input SelectionUpsertInput {
+    brands: [GraphQLObjectId!]!
+    categories: [GraphQLObjectId!]!
+    id: GraphQLObjectId
+    images: [String!]!
+    shops: [GraphQLObjectId!]!
+    text: String!
+    title: String!
+}
+
+input ShopDeleteInput {
+    id: GraphQLObjectId!
+}
+
+input ShopUpsertInput {
+    id: GraphQLObjectId
+    image: String!
+    link: String!
+    title: String!
+}
+
+
+"Mongo ObjectId id scalar type"
+scalar GraphQLObjectId
 
 scalar Upload
+
+"A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
+scalar DateTime

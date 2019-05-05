@@ -6,6 +6,6 @@ import { ApolloLink } from "apollo-link";
 export const createClient = (options: HttpLink.Options) => {
   return new ApolloClient<object>({
     link: ApolloLink.from([new HttpLink(options)]),
-    cache: new InMemoryCache({ addTypename: false })
+    cache: new InMemoryCache()
   });
 };

@@ -3,7 +3,6 @@ query categoryList {
     list {
       id
       title
-      description
       slug
       image
     }

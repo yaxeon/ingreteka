@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 
-import { HeaderLogo } from "../components/HeaderLogo";
+import { HeaderLogo } from "../components/Header/HeaderLogo";
 import { CategoryItem } from "../components/CategoryItem";
 import { useCategoryListQuery } from "../api";
 

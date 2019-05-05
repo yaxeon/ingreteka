@@ -1,34 +1,39 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography/Typography";
-import { withStyles, WithStyles, colors } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import grey from "@material-ui/core/colors/grey";
 import { Link, Route } from "react-router-dom";
+import { makeStyles } from "@material-ui/styles";
 
-import { IconFooter } from "./icons/types";
+import { IconFooterType } from "../icons/types";
 
-type ClassKey = "root";
-
-interface Props extends WithStyles<ClassKey> {
-  path: string;
-  label: string;
-  icon: IconFooter;
-}
-
-const enhance = withStyles<ClassKey>(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     textDecoration: "none",
-    color: colors.grey[900],
+    color: grey[900],
     "& > svg": {
       fontSize: 30
     }
   }
 }));
 
-export const FooterMenuItem = enhance(
-  ({ classes, path, label, icon: Icon }: Props) => (
+interface Props {
+  path: string;
+  label: string;
+  icon: IconFooterType;
+}
+
+export const FooterMenuItem: React.FC<Props> = ({
+  path,
+  label,
+  icon: Icon
+}) => {
+  const classes = useStyles();
+
+  return (
     <Route
       exact
       path={path}
@@ -39,5 +44,5 @@ export const FooterMenuItem = enhance(
         </Link>
       )}
     />
-  )
-);
+  );
+};

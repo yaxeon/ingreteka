@@ -1,19 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Typography from "@material-ui/core/Typography/Typography";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/styles";
 
 import { Image } from "./Image";
 
-type ClassKey = "wrapper" | "image" | "label";
-
-interface Props extends WithStyles<ClassKey> {
-  image: string;
-  title: string;
-  slug: string;
-}
-
-const enhance = withStyles<ClassKey>(theme => ({
+const useStyles = makeStyles(theme => ({
   wrapper: {
     display: "flex",
     alignItems: "center",
@@ -35,13 +27,21 @@ const enhance = withStyles<ClassKey>(theme => ({
   }
 }));
 
-export const CategoryItem = enhance(
-  ({ classes, image, title, slug }: Props) => (
+interface Props {
+  image: string;
+  title: string;
+  slug: string;
+}
+
+export const CategoryItem: React.FC<Props> = ({ image, title, slug }) => {
+  const classes = useStyles();
+
+  return (
     <Link className={classes.wrapper} to={`/category/${slug}`}>
       <Image className={classes.image} src={image} alt={title} />
       <Typography className={classes.label} variant="overline">
         {title}
       </Typography>
     </Link>
-  )
-);
+  );
+};

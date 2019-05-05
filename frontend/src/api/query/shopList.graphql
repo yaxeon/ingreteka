@@ -1,0 +1,10 @@
+query shopList {
+  shop {
+    list {
+      id
+      title
+      link
+      image
+    }
+  }
+}

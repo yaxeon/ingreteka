@@ -1,20 +1,18 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography/Typography";
-import { withStyles, WithStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
 import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/styles";
 
-type ClassKey = "image" | "wrapper" | "title";
-
-interface Props extends WithStyles<ClassKey> {
+interface Props {
   image: string;
   title: string;
   description: string;
   path: string;
 }
 
-const enhance = withStyles<ClassKey>(theme => ({
+const useStyles = makeStyles(theme => ({
   image: {
     height: theme.spacing.unit * 12,
     backgroundSize: "contain",
@@ -30,8 +28,15 @@ const enhance = withStyles<ClassKey>(theme => ({
   }
 }));
 
-export const SelectionItem = enhance(
-  ({ classes, image, title, description, path }: Props) => (
+export const SelectionItem: React.FC<Props> = ({
+  image,
+  title,
+  description,
+  path
+}) => {
+  const classes = useStyles();
+
+  return (
     <Grid container spacing={24} className={classes.wrapper}>
       <Grid item xs={4}>
         <CardMedia className={classes.image} image={image} title={title} />
@@ -43,5 +48,5 @@ export const SelectionItem = enhance(
         <Typography variant="body2">{description}</Typography>
       </Grid>
     </Grid>
-  )
-);
+  );
+};

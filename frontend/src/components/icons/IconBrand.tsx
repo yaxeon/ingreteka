@@ -1,9 +1,9 @@
 import React from "react";
 import SvgIcon from "@material-ui/core/SvgIcon";
 
-import { IconFooter } from "./types";
+import { IconFooterType } from "./types";
 
-export const IconBrand: IconFooter = ({ active }) => (
+export const IconBrand: IconFooterType = ({ active }) => (
   <SvgIcon viewBox="0 0 50 50">
     {active ? (
       <path

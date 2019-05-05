@@ -1,6 +1,7 @@
+import "./bootstrap";
 import React from "react";
 import ReactDOM from "react-dom";
-import { MuiThemeProvider } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ApolloProvider } from "react-apollo-hooks";
 import { Router } from "react-router-dom";
@@ -17,10 +18,10 @@ const client = createClient({ uri: "/graphql" });
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Router history={history}>
-      <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppContainer />
-      </MuiThemeProvider>
+      </ThemeProvider>
     </Router>
   </ApolloProvider>,
   document.getElementById("root")

@@ -1,5 +1,5 @@
-import { FC } from "react";
+import React from "react";
 
-export type IconFooter = FC<{
+export type IconFooterType = React.FC<{
   active: boolean;
 }>;

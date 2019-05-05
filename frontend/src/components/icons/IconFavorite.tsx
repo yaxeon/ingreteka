@@ -1,9 +1,9 @@
 import React from "react";
 import SvgIcon from "@material-ui/core/SvgIcon";
 
-import { IconFooter } from "./types";
+import { IconFooterType } from "./types";
 
-export const IconFavorite: IconFooter = ({ active }) => (
+export const IconFavorite: IconFooterType = ({ active }) => (
   <SvgIcon viewBox="0 0 50 50">
     {active ? (
       <path d="M46.27,27.44c-2.92,5.45-15.22,14.91-19.66,18.22A2.69,2.69,0,0,1,25,46.2a2.65,2.65,0,0,1-1.61-.54C19,42.35,6.65,32.89,3.74,27.44.16,20.76,2.28,12.21,8.46,8.35a12.15,12.15,0,0,1,6.45-1.87A12.61,12.61,0,0,1,25,11.69,12.58,12.58,0,0,1,35.09,6.48a12.14,12.14,0,0,1,6.44,1.87C47.71,12.21,49.84,20.76,46.27,27.44Z" />
