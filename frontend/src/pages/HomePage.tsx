@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 export const HomePage = () => {
   const { data } = useCategoryListQuery();
   const classes = useStyles();
+
   const categories = idx(data, _ => _.category.list) || [];
 
   return (

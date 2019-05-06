@@ -37,15 +37,15 @@ export const BrandPage = () => {
   return (
     <React.Fragment>
       <HeaderMenu backUri="/">Бренды</HeaderMenu>
-      <Typography gutterBottom variant="h5">
+      <Typography gutterBottom variant="h4">
         A-Z
       </Typography>
       {renderList(brandsAZ)}
-      <Typography className={classes.group} gutterBottom variant="h5">
+      <Typography className={classes.group} gutterBottom variant="h4">
         А-Я
       </Typography>
       {renderList(brandsCyrillic)}
-      <Typography className={classes.group} gutterBottom variant="h5">
+      <Typography className={classes.group} gutterBottom variant="h4">
         0-9
       </Typography>
       {renderList(brands09)}

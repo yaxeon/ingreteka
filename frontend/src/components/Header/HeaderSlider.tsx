@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
   navItem: {
     flex: "0 0 auto",
-    marginRight: "1rem",
+    margin: "1rem 1rem 1rem 0",
     "& > a": {
       color: "inherit",
       textDecoration: "none"
