@@ -7,8 +7,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: 10 * theme.spacing.unit,
     paddingBottom: 10 * theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 2,
+    paddingRight: theme.spacing.unit * 2,
     minWidth: 320
   }
 }));

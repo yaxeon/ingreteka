@@ -1,33 +1,36 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/styles";
+import idx from "idx";
 
 import { HeaderLogo } from "../components/Header/HeaderLogo";
 import { CategoryItem } from "../components/CategoryItem";
 import { useCategoryListQuery } from "../api";
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginLeft: -theme.spacing.unit,
+    marginRight: -theme.spacing.unit
+  }
+}));
+
 export const HomePage = () => {
-  const { data, loading, error } = useCategoryListQuery();
-
-  if (loading) {
-    return <LinearProgress color="secondary" />;
-  }
-
-  if (error || !data) {
-    return <Typography color="error">Error</Typography>;
-  }
+  const { data } = useCategoryListQuery();
+  const classes = useStyles();
+  const categories = idx(data, _ => _.category.list) || [];
 
   return (
     <React.Fragment>
       <HeaderLogo />
-      <Grid container spacing={16}>
-        {data.category.list.map(({ id, title, image, slug }) => (
-          <Grid item xs={4} key={id}>
-            <CategoryItem title={title} image={image} slug={slug} />
-          </Grid>
-        ))}
-      </Grid>
+      <section className={classes.root}>
+        <Grid container spacing={16}>
+          {categories.map(({ id, title, image, slug }) => (
+            <Grid item xs={4} key={id}>
+              <CategoryItem title={title} image={image} slug={slug} />
+            </Grid>
+          ))}
+        </Grid>
+      </section>
     </React.Fragment>
   );
 };
