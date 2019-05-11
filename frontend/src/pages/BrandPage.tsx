@@ -5,6 +5,7 @@ import idx from "idx";
 
 import { useBrandListQuery, Brand } from "../api";
 import { HeaderMenu } from "../components/Header/HeaderMenu";
+import { Loading } from "../components/Loading";
 
 const sortByTitle = (list: Array<Brand>) =>
   list.sort((a, b) => a.title.localeCompare(b.title));
@@ -26,8 +27,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const BrandPage = () => {
-  const { data } = useBrandListQuery();
+  const { data, loading } = useBrandListQuery();
   const classes = useStyles();
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const brands = sortByTitle(idx(data, _ => _.brand.list) || []);
   const brandsAZ = groupByRegExp(brands, /^[a-zA-Z]/);

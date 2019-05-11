@@ -10,6 +10,11 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit * 2,
     minWidth: 320
+  },
+  "@global": {
+    a: {
+      textDecoration: "none"
+    }
   }
 }));
 

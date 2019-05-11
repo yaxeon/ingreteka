@@ -18,6 +18,16 @@ export const theme = createMuiTheme({
     useNextVariants: true,
     fontSize: 14,
     fontFamily: ["Noto Sans", "Roboto", "Arial", "sans-serif"].join(","),
+    h1: {
+      fontSize: "1.2rem"
+    },
+    body2: {
+      fontSize: "0.8rem"
+    },
+    h3: {
+      fontWeight: 600,
+      fontSize: "0.8rem"
+    },
     h4: {
       fontWeight: 600,
       fontSize: "1.2rem"

@@ -159,6 +159,13 @@ export type SelectionDeleteInput = {
   id: Scalars["GraphQLObjectId"];
 };
 
+export type SelectionFilterInput = {
+  categoryId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  categorySlug?: Maybe<Array<Scalars["String"]>>;
+  brandId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  shopId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+};
+
 export type SelectionMutation = {
   upsert?: Maybe<Selection>;
   delete?: Maybe<Scalars["Boolean"]>;
@@ -178,7 +185,7 @@ export type SelectionQuery = {
 };
 
 export type SelectionQueryListArgs = {
-  includeCategories: Array<Scalars["GraphQLObjectId"]>;
+  filter?: Maybe<SelectionFilterInput>;
 };
 
 export type SelectionQueryItemArgs = {
@@ -262,6 +269,48 @@ export type CategoryListQuery = { __typename?: "Query" } & {
         Category,
         "id" | "title" | "slug" | "image"
       >
+    >;
+  };
+};
+
+export type SelectionItemQueryVariables = {
+  id: Scalars["GraphQLObjectId"];
+};
+
+export type SelectionItemQuery = { __typename?: "Query" } & {
+  selection: { __typename?: "SelectionQuery" } & {
+    item: Maybe<
+      { __typename?: "Selection" } & Pick<
+        Selection,
+        "id" | "title" | "text" | "images"
+      > & {
+          categories: Array<
+            { __typename?: "Category" } & Pick<Category, "title" | "slug">
+          >;
+          brands: Array<{ __typename?: "Brand" } & Pick<Brand, "title">>;
+          shops: Array<{ __typename?: "Shop" } & Pick<Shop, "title">>;
+        }
+    >;
+  };
+};
+
+export type SelectionListQueryVariables = {
+  filter?: Maybe<SelectionFilterInput>;
+};
+
+export type SelectionListQuery = { __typename?: "Query" } & {
+  selection: { __typename?: "SelectionQuery" } & {
+    list: Array<
+      { __typename?: "Selection" } & Pick<
+        Selection,
+        "id" | "title" | "text" | "images"
+      > & {
+          categories: Array<
+            { __typename?: "Category" } & Pick<Category, "title">
+          >;
+          brands: Array<{ __typename?: "Brand" } & Pick<Brand, "title">>;
+          shops: Array<{ __typename?: "Shop" } & Pick<Shop, "title">>;
+        }
     >;
   };
 };
@@ -397,6 +446,143 @@ export function useCategoryListQuery(
     CategoryListQuery,
     CategoryListQueryVariables
   >(CategoryListDocument, baseOptions);
+}
+export const SelectionItemDocument = gql`
+  query selectionItem($id: GraphQLObjectId!) {
+    selection {
+      item(id: $id) {
+        id
+        title
+        text
+        images
+        categories {
+          title
+          slug
+        }
+        brands {
+          title
+        }
+        shops {
+          title
+        }
+      }
+    }
+  }
+`;
+
+export const SelectionItemComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<SelectionItemQuery, SelectionItemQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables: SelectionItemQueryVariables }
+) => (
+  <ReactApollo.Query<SelectionItemQuery, SelectionItemQueryVariables>
+    query={SelectionItemDocument}
+    {...props}
+  />
+);
+
+export type SelectionItemProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<SelectionItemQuery, SelectionItemQueryVariables>
+> &
+  TChildProps;
+export function withSelectionItem<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SelectionItemQuery,
+    SelectionItemQueryVariables,
+    SelectionItemProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    SelectionItemQuery,
+    SelectionItemQueryVariables,
+    SelectionItemProps<TChildProps>
+  >(SelectionItemDocument, {
+    alias: "withSelectionItem",
+    ...operationOptions
+  });
+}
+
+export function useSelectionItemQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<SelectionItemQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<
+    SelectionItemQuery,
+    SelectionItemQueryVariables
+  >(SelectionItemDocument, baseOptions);
+}
+export const SelectionListDocument = gql`
+  query selectionList($filter: SelectionFilterInput) {
+    selection {
+      list(filter: $filter) {
+        id
+        title
+        text
+        images
+        categories {
+          title
+        }
+        brands {
+          title
+        }
+        shops {
+          title
+        }
+      }
+    }
+  }
+`;
+
+export const SelectionListComponent = (
+  props: Omit<
+    Omit<
+      ReactApollo.QueryProps<SelectionListQuery, SelectionListQueryVariables>,
+      "query"
+    >,
+    "variables"
+  > & { variables?: SelectionListQueryVariables }
+) => (
+  <ReactApollo.Query<SelectionListQuery, SelectionListQueryVariables>
+    query={SelectionListDocument}
+    {...props}
+  />
+);
+
+export type SelectionListProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<SelectionListQuery, SelectionListQueryVariables>
+> &
+  TChildProps;
+export function withSelectionList<TProps, TChildProps = {}>(
+  operationOptions?: ReactApollo.OperationOption<
+    TProps,
+    SelectionListQuery,
+    SelectionListQueryVariables,
+    SelectionListProps<TChildProps>
+  >
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    SelectionListQuery,
+    SelectionListQueryVariables,
+    SelectionListProps<TChildProps>
+  >(SelectionListDocument, {
+    alias: "withSelectionList",
+    ...operationOptions
+  });
+}
+
+export function useSelectionListQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<SelectionListQueryVariables>
+) {
+  return ReactApolloHooks.useQuery<
+    SelectionListQuery,
+    SelectionListQueryVariables
+  >(SelectionListDocument, baseOptions);
 }
 export const ShopListDocument = gql`
   query shopList {

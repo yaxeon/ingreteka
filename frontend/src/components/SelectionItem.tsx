@@ -1,52 +1,91 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import CardMedia from "@material-ui/core/CardMedia";
 import { Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
 
-interface Props {
-  image: string;
-  title: string;
-  description: string;
-  path: string;
-}
+import { Image } from "./Image";
+import { TitleList, TitleItem } from "./TitleList";
 
 const useStyles = makeStyles(theme => ({
-  image: {
-    height: theme.spacing.unit * 12,
-    backgroundSize: "contain",
-    backgroundPosition: "50% 0%"
-  },
   wrapper: {
+    display: "flex",
+    maxWidth: 600,
+    marginLeft: "auto",
+    marginRight: "auto",
     marginBottom: theme.spacing.unit * 4
   },
-  title: {
+  image: {
+    height: theme.spacing.unit * 12,
+    width: theme.spacing.unit * 12,
+    border: `1px solid ${theme.palette.grey[200]}`,
+    padding: theme.spacing.unit / 2,
+    flexShrink: 0,
+    "& img": {
+      width: "100%",
+      height: "100%"
+    }
+  },
+  body: {
     textDecoration: "none",
     display: "block",
-    marginBottom: theme.spacing.unit
+    marginLeft: theme.spacing.unit * 2
   }
 }));
 
+interface Props {
+  images: string[];
+  title: string;
+  id: string;
+  slug: string;
+  categories: TitleItem[];
+  brands: TitleItem[];
+  shops: TitleItem[];
+}
+
 export const SelectionItem: React.FC<Props> = ({
-  image,
+  images,
   title,
-  description,
-  path
+  id,
+  slug,
+  categories,
+  brands,
+  shops
 }) => {
   const classes = useStyles();
+  const [image] = images;
 
   return (
-    <Grid container spacing={24} className={classes.wrapper}>
-      <Grid item xs={4}>
-        <CardMedia className={classes.image} image={image} title={title} />
-      </Grid>
-      <Grid item xs={8}>
-        <Link to={path} className={classes.title}>
-          <Typography variant="h3">{title}</Typography>
+    <div className={classes.wrapper}>
+      <div className={classes.image}>
+        <Link to={`/selection/${slug}/${id}`}>
+          <Image src={image} alt={title} />
         </Link>
-        <Typography variant="body2">{description}</Typography>
-      </Grid>
-    </Grid>
+      </div>
+      <div className={classes.body}>
+        <Link to={`/selection/${slug}/${id}`}>
+          <Typography variant="h3" gutterBottom>
+            {title}
+          </Typography>
+        </Link>
+        <TitleList
+          gutterBottom
+          variant="body2"
+          title="Категории"
+          items={categories}
+        />
+        <TitleList
+          gutterBottom
+          variant="body2"
+          title="Магазины"
+          items={shops}
+        />
+        <TitleList
+          gutterBottom
+          variant="caption"
+          title="Бренды"
+          items={brands}
+        />
+      </div>
+    </div>
   );
 };

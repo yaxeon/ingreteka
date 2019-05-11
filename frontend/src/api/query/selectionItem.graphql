@@ -1,0 +1,20 @@
+query selectionItem($id: GraphQLObjectId!) {
+  selection {
+    item(id: $id) {
+      id
+      title
+      text
+      images
+      categories {
+        title
+        slug
+      }
+      brands {
+        title
+      }
+      shops {
+        title
+      }
+    }
+  }
+}

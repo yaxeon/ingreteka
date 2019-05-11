@@ -5,6 +5,7 @@ import idx from "idx";
 
 import { HeaderLogo } from "../components/Header/HeaderLogo";
 import { CategoryItem } from "../components/CategoryItem";
+import { Loading } from "../components/Loading";
 import { useCategoryListQuery } from "../api";
 
 const useStyles = makeStyles(theme => ({
@@ -15,8 +16,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const HomePage = () => {
-  const { data } = useCategoryListQuery();
+  const { data, loading } = useCategoryListQuery();
   const classes = useStyles();
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const categories = idx(data, _ => _.category.list) || [];
 

@@ -1,0 +1,19 @@
+query selectionList($filter: SelectionFilterInput) {
+  selection {
+    list(filter: $filter) {
+      id
+      title
+      text
+      images
+      categories {
+        title
+      }
+      brands {
+        title
+      }
+      shops {
+        title
+      }
+    }
+  }
+}
