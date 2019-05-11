@@ -1,6 +1,6 @@
-query selectionList($includeCategories: [GraphQLObjectId!]!) {
+query selectionList($filter: SelectionFilterInput) {
   selection {
-    list(includeCategories: $includeCategories) {
+    list(filter: $filter) {
       id
       title
       text

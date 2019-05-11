@@ -18,10 +18,7 @@ import { SelectionForm } from "../Forms/SelectionForm";
 import { useCrudForm } from "../../hooks/useCrudForm";
 
 export const SelectionList = () => {
-  const { data, loading, error, refetch } = useSelectionListQuery({
-    variables: { includeCategories: [] }
-  });
-
+  const { data, loading, error, refetch } = useSelectionListQuery();
   const { id, visible, onCreate, onUpdate, onClose } = useCrudForm(refetch);
 
   if (loading) {

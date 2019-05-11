@@ -159,6 +159,13 @@ export type SelectionDeleteInput = {
   id: Scalars["GraphQLObjectId"];
 };
 
+export type SelectionFilterInput = {
+  categoryId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  categorySlug?: Maybe<Array<Scalars["String"]>>;
+  brandId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  shopId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+};
+
 export type SelectionMutation = {
   upsert?: Maybe<Selection>;
   delete?: Maybe<Scalars["Boolean"]>;
@@ -178,7 +185,7 @@ export type SelectionQuery = {
 };
 
 export type SelectionQueryListArgs = {
-  includeCategories: Array<Scalars["GraphQLObjectId"]>;
+  filter?: Maybe<SelectionFilterInput>;
 };
 
 export type SelectionQueryItemArgs = {
@@ -398,7 +405,7 @@ export type SelectionItemQuery = { __typename?: "Query" } & {
 };
 
 export type SelectionListQueryVariables = {
-  includeCategories: Array<Scalars["GraphQLObjectId"]>;
+  filter?: Maybe<SelectionFilterInput>;
 };
 
 export type SelectionListQuery = { __typename?: "Query" } & {
@@ -1389,9 +1396,9 @@ export function useSelectionItemQuery(
   >(SelectionItemDocument, baseOptions);
 }
 export const SelectionListDocument = gql`
-  query selectionList($includeCategories: [GraphQLObjectId!]!) {
+  query selectionList($filter: SelectionFilterInput) {
     selection {
-      list(includeCategories: $includeCategories) {
+      list(filter: $filter) {
         id
         title
         text
@@ -1421,7 +1428,7 @@ export const SelectionListComponent = (
       "query"
     >,
     "variables"
-  > & { variables: SelectionListQueryVariables }
+  > & { variables?: SelectionListQueryVariables }
 ) => (
   <ReactApollo.Query<SelectionListQuery, SelectionListQueryVariables>
     query={SelectionListDocument}
