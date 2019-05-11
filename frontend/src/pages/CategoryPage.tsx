@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 
 import { HeaderSlider } from "../components/Header/HeaderSlider";
 import { SelectionItem } from "../components/SelectionItem";
-import { Loading } from "../components/Loading";
 import { useCategoryListQuery, useSelectionListQuery } from "../api";
 
 type PageParams = { slug: string };
@@ -22,10 +21,6 @@ export const CategoryPage: React.FC<RouteComponentProps<PageParams>> = ({
 
   const categories = idx(categoryList, _ => _.data.category.list) || [];
   const selections = idx(selectionList, _ => _.data.selection.list) || [];
-
-  if (selectionList.loading || categoryList.loading) {
-    return <Loading />;
-  }
 
   return (
     <React.Fragment>
