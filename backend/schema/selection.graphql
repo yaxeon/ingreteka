@@ -24,8 +24,15 @@ input SelectionDeleteInput {
   id: GraphQLObjectId!
 }
 
+input SelectionFilterInput {
+  categoryId: [GraphQLObjectId!]
+  categorySlug: [String!]
+  brandId: [GraphQLObjectId!]
+  shopId: [GraphQLObjectId!]
+}
+
 type SelectionQuery {
-  list(includeCategories: [GraphQLObjectId!]!): [Selection!]!
+  list(filter: SelectionFilterInput): [Selection!]!
   item(id: GraphQLObjectId!): Selection
 }
 

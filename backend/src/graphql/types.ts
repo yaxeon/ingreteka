@@ -159,6 +159,13 @@ export type SelectionDeleteInput = {
   id: Scalars["GraphQLObjectId"];
 };
 
+export type SelectionFilterInput = {
+  categoryId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  categorySlug?: Maybe<Array<Scalars["String"]>>;
+  brandId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  shopId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+};
+
 export type SelectionMutation = {
   upsert?: Maybe<Selection>;
   delete?: Maybe<Scalars["Boolean"]>;
@@ -178,7 +185,7 @@ export type SelectionQuery = {
 };
 
 export type SelectionQueryListArgs = {
-  includeCategories: Array<Scalars["GraphQLObjectId"]>;
+  filter?: Maybe<SelectionFilterInput>;
 };
 
 export type SelectionQueryItemArgs = {
@@ -338,6 +345,7 @@ export type ResolversTypes = {
   BrandQuery: BrandQuery;
   Brand: Brand;
   SelectionQuery: SelectionQuery;
+  SelectionFilterInput: SelectionFilterInput;
   Selection: Selection;
   DateTime: Scalars["DateTime"];
   Mutation: {};

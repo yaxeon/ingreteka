@@ -1,3 +1,4 @@
+import idx from "idx";
 import { SelectionMutationResolvers, SelectionQueryResolvers } from "../types";
 
 const SelectionMutation: SelectionMutationResolvers = {
@@ -20,12 +21,34 @@ const SelectionMutation: SelectionMutationResolvers = {
 };
 
 const SelectionQuery: SelectionQueryResolvers = {
-  list: async (root, { includeCategories }, { models: { Selection } }) => {
-    const query = includeCategories.length
-      ? { categories: { $in: includeCategories } }
-      : {};
+  list: async (root, { filter }, { models: { Selection, Category } }) => {
+    const query = Selection.find();
+    const categoryId = idx(filter, _ => _.categoryId);
+    const categorySlug = idx(filter, _ => _.categorySlug);
+    const shopId = idx(filter, _ => _.shopId);
+    const brandId = idx(filter, _ => _.brandId);
 
-    const list = await Selection.find(query)
+    if (categorySlug) {
+      const categoryBySlugList = await Category.find({
+        slug: { $in: categorySlug }
+      }).select("id");
+      const categoryBySlug = categoryBySlugList.map(({ id }) => id);
+      query.find({ categories: { $in: categoryBySlug } });
+    }
+
+    if (categoryId) {
+      query.find({ categories: { $in: categoryId } });
+    }
+
+    if (shopId) {
+      query.find({ shops: { $in: shopId } });
+    }
+
+    if (brandId) {
+      query.find({ brands: { $in: brandId } });
+    }
+
+    const list = await query
       .populate("categories")
       .populate("brands")
       .populate("shops");
