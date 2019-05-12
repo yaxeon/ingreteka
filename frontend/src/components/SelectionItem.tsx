@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 600,
     marginLeft: "auto",
     marginRight: "auto",
-    marginBottom: theme.spacing.unit * 4
   },
   cardHeader: {
     paddingBottom: 0
@@ -33,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between"
   },
   media: {
-    height: theme.spacing.unit * 12,
+    height: theme.spacing.unit * 14,
     backgroundSize: "contain"
   },
   expand: {
@@ -90,7 +89,7 @@ export const SelectionItem: React.FC<Props> = ({
           />
           <CardHeader
             title={title}
-            titleTypographyProps={{ variant: "h3" }}
+            titleTypographyProps={{ variant: "h2" }}
             subheaderTypographyProps={{ noWrap: true, variant: "caption" }}
             subheader={titleMap(categories)}
             classes={{ content: classes.cardContent, root: classes.cardHeader }}
