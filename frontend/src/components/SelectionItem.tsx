@@ -9,6 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import IconButton from "@material-ui/core/IconButton";
@@ -20,10 +21,11 @@ const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 600,
     marginLeft: "auto",
-    marginRight: "auto",
+    marginRight: "auto"
   },
   cardHeader: {
-    paddingBottom: 0
+    paddingBottom: 0,
+    paddingTop: 0
   },
   cardContent: {
     minWidth: 0
@@ -32,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between"
   },
   media: {
-    height: theme.spacing.unit * 14,
+    height: theme.spacing.unit * 16,
     backgroundSize: "contain"
   },
   expand: {
@@ -44,6 +46,9 @@ const useStyles = makeStyles(theme => ({
   },
   expandOpen: {
     transform: "rotate(180deg)"
+  },
+  favoriteIcon: {
+    color: theme.palette.text.primary
   }
 }));
 
@@ -98,7 +103,11 @@ export const SelectionItem: React.FC<Props> = ({
       </Link>
       <CardActions className={classes.cardActions}>
         <IconButton onClick={handleFavorite}>
-          <FavoriteIcon color={favorite ? "error" : "inherit"} />
+          {favorite ? (
+            <FavoriteIcon color="error" />
+          ) : (
+            <FavoriteBorderIcon className={classes.favoriteIcon} />
+          )}
         </IconButton>
         <IconButton
           className={classnames(classes.expand, {
