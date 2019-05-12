@@ -6,6 +6,8 @@ interface Props {
   alt: string;
 }
 
+export const makeUrl = (src: string) => `/object/${src}`;
+
 export const Image: React.FC<Props> = ({ src, alt, ...rest }) => (
-  <img alt={alt} src={`/object/${src}`} {...rest} />
+  <img alt={alt} src={makeUrl(src)} {...rest} />
 );

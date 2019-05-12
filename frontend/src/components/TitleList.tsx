@@ -10,13 +10,13 @@ interface Props extends TypographyProps {
   items: TitleItem[];
 }
 
-const titleMap = (items: TitleItem[]) =>
+export const titleMap = (items: TitleItem[]) =>
   items.map(({ title }) => title).join(", ");
 
 export const TitleList: React.FC<Props> = ({ title, items, ...rest }) => {
   return (
     <Typography {...rest}>
-      {title}: {titleMap(items)}
+      <strong>{title}:</strong> {titleMap(items)}
     </Typography>
   );
 };
