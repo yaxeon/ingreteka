@@ -8,10 +8,12 @@ interface Props {
   text: string;
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
+    textAlign: "justify",
     "& a": {
-      color: "#857C56"
+      color: "#857C56",
+      wordBreak: "break-all"
     },
     "& ul": {
       paddingLeft: 0,

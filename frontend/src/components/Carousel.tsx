@@ -7,7 +7,7 @@ import { Image } from "./Image";
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit * 1,
     borderBottom: "1px solid #ededed"
   },
   dots: {
@@ -60,14 +60,16 @@ export const Carousel: React.FC<Props> = ({ images }) => {
           </div>
         ))}
       </SwipeableViews>
-      <div className={classes.dots}>
-        {images.map((src, index) => (
-          <div
-            className={index === current ? classes.dotActive : classes.dot}
-            key={src}
-          />
-        ))}
-      </div>
+      {images.length > 1 && (
+        <div className={classes.dots}>
+          {images.map((src, index) => (
+            <div
+              className={index === current ? classes.dotActive : classes.dot}
+              key={src}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
