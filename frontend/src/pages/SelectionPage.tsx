@@ -8,6 +8,7 @@ import { HeaderMenu } from "../components/Header/HeaderMenu";
 import { Loading } from "../components/Loading";
 import { TitleList } from "../components/TitleList";
 import { DraftHtml } from "../components/DraftHtml";
+import { Carousel } from "../components/Carousel";
 
 type PageParams = { slug: string; id: string };
 
@@ -23,14 +24,17 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
     return <Loading />;
   }
 
-  const { title, text, categories, shops, brands } = selection;
+  const { title, text, categories, shops, brands, images } = selection;
   const categoryBySlug = categories.find(category => category.slug === slug);
+
+  const gallery = images.slice(1);
 
   return (
     <React.Fragment>
       <HeaderMenu backUri={`/category/${slug}`}>
         {categoryBySlug ? categoryBySlug.title : slug}
       </HeaderMenu>
+      <Carousel images={gallery} />
       <Typography variant="h1" gutterBottom>
         {title}
       </Typography>
