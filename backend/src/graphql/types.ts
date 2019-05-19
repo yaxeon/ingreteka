@@ -181,6 +181,7 @@ export type SelectionMutationDeleteArgs = {
 
 export type SelectionQuery = {
   list: Array<Selection>;
+  search: Array<Selection>;
   item?: Maybe<Selection>;
 };
 
@@ -188,8 +189,16 @@ export type SelectionQueryListArgs = {
   filter?: Maybe<SelectionFilterInput>;
 };
 
+export type SelectionQuerySearchArgs = {
+  filter: SelectionSearchInput;
+};
+
 export type SelectionQueryItemArgs = {
   id: Scalars["GraphQLObjectId"];
+};
+
+export type SelectionSearchInput = {
+  query: Scalars["String"];
 };
 
 export type SelectionUpsertInput = {
@@ -348,6 +357,7 @@ export type ResolversTypes = {
   SelectionFilterInput: SelectionFilterInput;
   Selection: Selection;
   DateTime: Scalars["DateTime"];
+  SelectionSearchInput: SelectionSearchInput;
   Mutation: {};
   AuthMutation: AuthMutation;
   AuthLoginInput: AuthLoginInput;
@@ -591,6 +601,12 @@ export type SelectionQueryResolvers<
     ParentType,
     ContextType,
     SelectionQueryListArgs
+  >;
+  search?: Resolver<
+    Array<ResolversTypes["Selection"]>,
+    ParentType,
+    ContextType,
+    SelectionQuerySearchArgs
   >;
   item?: Resolver<
     Maybe<ResolversTypes["Selection"]>,

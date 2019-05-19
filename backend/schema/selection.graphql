@@ -31,8 +31,13 @@ input SelectionFilterInput {
   shopId: [GraphQLObjectId!]
 }
 
+input SelectionSearchInput {
+  query: String!
+}
+
 type SelectionQuery {
   list(filter: SelectionFilterInput): [Selection!]!
+  search(filter: SelectionSearchInput!): [Selection!]!
   item(id: GraphQLObjectId!): Selection
 }
 

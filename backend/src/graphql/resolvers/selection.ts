@@ -55,6 +55,14 @@ const SelectionQuery: SelectionQueryResolvers = {
 
     return list.map(selection => selection.toObject());
   },
+  search: async (root, { filter: { query } }, { models: { Selection } }) => {
+    const list = await Selection.find({ $text: { $search: query } })
+      .populate("categories")
+      .populate("brands")
+      .populate("shops");
+
+    return list.map(selection => selection.toObject());
+  },
   item: async (root, { id }, { models: { Selection } }) => {
     const selection = await Selection.findById(id)
       .populate("categories")

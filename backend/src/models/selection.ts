@@ -44,6 +44,16 @@ export const SelectionSchema: Schema = new Schema(
 );
 
 SelectionSchema.set("toObject", { virtuals: true });
+SelectionSchema.index(
+  { name: "text", text: "text", title: "text" },
+  {
+    weights: {
+      title: 10,
+      text: 5
+    },
+    default_language: "russian"
+  }
+);
 
 export const Selection = model<SelectionModel>(
   "Selection",
