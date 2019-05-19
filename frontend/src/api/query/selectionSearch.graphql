@@ -1,0 +1,20 @@
+query selectionSearch($filter: SelectionSearchInput!) {
+  selection {
+    search(filter: $filter) {
+      id
+      title
+      text
+      images
+      categories {
+        title
+        slug
+      }
+      brands {
+        title
+      }
+      shops {
+        title
+      }
+    }
+  }
+}

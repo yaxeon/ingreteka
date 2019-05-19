@@ -11,6 +11,10 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing.unit * 2,
     minWidth: 320
   },
+  container: {
+    maxWidth: "600px",
+    margin: "auto"
+  },
   "@global": {
     a: {
       textDecoration: "none"
@@ -27,4 +31,10 @@ export const Layout: React.FC = ({ children }) => {
       <Footer />
     </div>
   );
+};
+
+export const Container: React.FC = ({ children }) => {
+  const classes = useStyles();
+
+  return <div className={classes.container}>{children}</div>;
 };

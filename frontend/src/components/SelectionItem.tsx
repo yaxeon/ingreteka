@@ -18,11 +18,6 @@ import { makeUrl } from "./Image";
 import { TitleList, TitleItem, titleMap } from "./TitleList";
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    maxWidth: 600,
-    marginLeft: "auto",
-    marginRight: "auto"
-  },
   cardHeader: {
     paddingBottom: 0,
     paddingTop: 0
@@ -84,7 +79,7 @@ export const SelectionItem: React.FC<Props> = ({
   };
 
   return (
-    <Card className={classes.card}>
+    <Card>
       <Link to={`/selection/${slug}/${id}`}>
         <CardActionArea>
           <CardMedia

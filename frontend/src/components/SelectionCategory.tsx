@@ -4,16 +4,21 @@ import Grid from "@material-ui/core/Grid";
 
 import { SelectionItem } from "./SelectionItem";
 import { useSelectionListQuery } from "../api";
+import { LoadingContent } from "./Loading";
 
 interface Props {
   slug: string;
 }
 
 export const SelectionCategory: React.FC<Props> = ({ slug }) => {
-  const selectionList = useSelectionListQuery({
+  const { data, loading } = useSelectionListQuery({
     variables: { filter: { categorySlug: [slug] } }
   });
-  const selections = idx(selectionList, _ => _.data.selection.list) || [];
+  const selections = idx(data, _ => _.selection.list) || [];
+
+  if (loading) {
+    return <LoadingContent />;
+  }
 
   return (
     <React.Fragment>

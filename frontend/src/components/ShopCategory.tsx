@@ -6,6 +6,7 @@ import idx from "idx";
 
 import { useShopListQuery } from "../api";
 import { Image } from "./Image";
+import { LoadingContent } from "./Loading";
 
 const useStyles = makeStyles(theme => ({
   shop: {
@@ -17,9 +18,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const ShopCategory = () => {
-  const { data } = useShopListQuery();
+  const { data, loading } = useShopListQuery();
   const classes = useStyles();
   const shops = idx(data, _ => _.shop.list) || [];
+
+  if (loading) {
+    return <LoadingContent />;
+  }
 
   return (
     <React.Fragment>

@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { HeaderSlider } from "../components/Header/HeaderSlider";
 import { SelectionCategory } from "../components/SelectionCategory";
 import { ShopCategory } from "../components/ShopCategory";
+import { Container } from "../components/Layout";
 import { useCategoryListQuery } from "../api";
 
 interface PageParams {
@@ -23,13 +24,15 @@ export const CategoryPage: React.FC<RouteComponentProps<PageParams>> = ({
   return (
     <React.Fragment>
       <HeaderSlider backUri="/" items={categories} selectedSlug={slug} />
-      <Grid container spacing={16}>
-        {slug === "shops" ? (
-          <ShopCategory />
-        ) : (
-          <SelectionCategory slug={slug} />
-        )}
-      </Grid>
+      <Container>
+        <Grid container spacing={16}>
+          {slug === "shops" ? (
+            <ShopCategory />
+          ) : (
+            <SelectionCategory slug={slug} />
+          )}
+        </Grid>
+      </Container>
     </React.Fragment>
   );
 };

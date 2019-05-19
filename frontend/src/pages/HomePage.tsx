@@ -7,6 +7,7 @@ import { HeaderLogo } from "../components/Header/HeaderLogo";
 import { CategoryItem } from "../components/CategoryItem";
 import { Loading } from "../components/Loading";
 import { useCategoryListQuery } from "../api";
+import { Container } from "../components/Layout";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,13 +30,15 @@ export const HomePage = () => {
     <React.Fragment>
       <HeaderLogo />
       <section className={classes.root}>
-        <Grid container spacing={16}>
-          {categories.map(({ id, title, image, slug }) => (
-            <Grid item xs={4} key={id}>
-              <CategoryItem title={title} image={image} slug={slug} />
-            </Grid>
-          ))}
-        </Grid>
+        <Container>
+          <Grid container spacing={16}>
+            {categories.map(({ id, title, image, slug }) => (
+              <Grid item xs={4} key={id}>
+                <CategoryItem title={title} image={image} slug={slug} />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
       </section>
     </React.Fragment>
   );

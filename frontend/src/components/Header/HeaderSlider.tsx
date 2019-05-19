@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
     overflowX: "auto",
     alignItems: "center",
     marginRight: "0.5rem",
+    height: "4rem",
     "-webkit-overflow-scrolling": "touch",
     "&::-webkit-scrollbar": {
       display: "none"
@@ -20,10 +21,11 @@ const useStyles = makeStyles(() => ({
   },
   navItem: {
     flex: "0 0 auto",
-    margin: "1rem 1rem 1rem 0",
+    marginRight: "1rem",
     "& > a": {
       color: "inherit",
-      textDecoration: "none"
+      textDecoration: "none",
+      padding: "1rem 0"
     }
   }
 }));

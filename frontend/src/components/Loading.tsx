@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
   wrapper: {
     height: `calc(100vh - ${theme.spacing.unit * 20}px)`,
     display: "flex",
+    flexGrow: 1,
     alignItems: "center",
     justifyContent: "center"
   }
@@ -26,3 +27,12 @@ export const Loading = () => {
   );
 };
 
+export const LoadingContent = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.wrapper}>
+      <CircularProgress color="secondary" />
+    </div>
+  );
+};

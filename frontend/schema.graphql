@@ -92,6 +92,7 @@ type SelectionMutation {
 type SelectionQuery {
     item(id: GraphQLObjectId!): Selection
     list(filter: SelectionFilterInput): [Selection!]!
+    search(filter: SelectionSearchInput!): [Selection!]!
 }
 
 type Shop {
@@ -157,6 +158,10 @@ input SelectionFilterInput {
     categoryId: [GraphQLObjectId!]
     categorySlug: [String!]
     shopId: [GraphQLObjectId!]
+}
+
+input SelectionSearchInput {
+    query: String!
 }
 
 input SelectionUpsertInput {

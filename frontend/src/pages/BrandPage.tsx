@@ -6,6 +6,7 @@ import idx from "idx";
 import { useBrandListQuery, Brand } from "../api";
 import { HeaderMenu } from "../components/Header/HeaderMenu";
 import { Loading } from "../components/Loading";
+import { Container } from "../components/Layout";
 
 const sortByTitle = (list: Array<Brand>) =>
   list.sort((a, b) => a.title.localeCompare(b.title));
@@ -42,18 +43,20 @@ export const BrandPage = () => {
   return (
     <React.Fragment>
       <HeaderMenu backUri="/">Бренды</HeaderMenu>
-      <Typography gutterBottom variant="h4">
-        A-Z
-      </Typography>
-      {renderList(brandsAZ)}
-      <Typography className={classes.group} gutterBottom variant="h4">
-        А-Я
-      </Typography>
-      {renderList(brandsCyrillic)}
-      <Typography className={classes.group} gutterBottom variant="h4">
-        0-9
-      </Typography>
-      {renderList(brands09)}
+      <Container>
+        <Typography gutterBottom variant="h4">
+          A-Z
+        </Typography>
+        {renderList(brandsAZ)}
+        <Typography className={classes.group} gutterBottom variant="h4">
+          А-Я
+        </Typography>
+        {renderList(brandsCyrillic)}
+        <Typography className={classes.group} gutterBottom variant="h4">
+          0-9
+        </Typography>
+        {renderList(brands09)}
+      </Container>
     </React.Fragment>
   );
 };
