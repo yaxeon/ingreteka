@@ -29,6 +29,7 @@ input SelectionFilterInput {
   categorySlug: [String!]
   brandId: [GraphQLObjectId!]
   shopId: [GraphQLObjectId!]
+  id: [GraphQLObjectId!]
 }
 
 input SelectionSearchInput {

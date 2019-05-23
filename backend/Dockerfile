@@ -1,10 +1,10 @@
-FROM node:latest
+FROM node:11
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 # Install app dependencies
 COPY . /usr/src/app
-RUN yarn
+RUN yarn install --frozen-lockfile
 RUN yarn build
 
 CMD [ "yarn", "start" ]

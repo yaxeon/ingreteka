@@ -164,6 +164,7 @@ export type SelectionFilterInput = {
   categorySlug?: Maybe<Array<Scalars["String"]>>;
   brandId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
   shopId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  id?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
 };
 
 export type SelectionMutation = {

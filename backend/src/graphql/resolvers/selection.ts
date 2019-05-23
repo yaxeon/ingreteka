@@ -27,6 +27,11 @@ const SelectionQuery: SelectionQueryResolvers = {
     const categorySlug = idx(filter, _ => _.categorySlug);
     const shopId = idx(filter, _ => _.shopId);
     const brandId = idx(filter, _ => _.brandId);
+    const id = idx(filter, _ => _.id);
+
+    if (id) {
+      query.find({ _id: { $in: id } });
+    }
 
     if (categorySlug) {
       const categoryBySlugList = await Category.find({
