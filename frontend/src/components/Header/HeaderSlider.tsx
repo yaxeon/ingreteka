@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 import { Header, HeaderProps } from "./Header";
 import { Category } from "../../api";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   nav: {
     display: "flex",
     flexWrap: "nowrap",
@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
       padding: "1rem 0"
     }
   }
-}));
+});
 
 interface Props extends HeaderProps {
   items: Array<Pick<Category, "id" | "title" | "slug">>;

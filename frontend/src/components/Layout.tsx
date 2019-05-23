@@ -1,14 +1,14 @@
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import { Footer } from "./Footer/Footer";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
   root: {
-    paddingTop: 10 * theme.spacing.unit,
-    paddingBottom: 10 * theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(10),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     minWidth: 320
   },
   container: {

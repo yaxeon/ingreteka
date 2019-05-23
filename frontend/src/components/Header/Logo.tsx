@@ -1,9 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import logo from "../../svg/logo.svg";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   wrapper: {
     display: "flex",
     justifyContent: "center",
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   image: {
     display: "block"
   }
-}));
+});
 
 export const Logo = () => {
   const classes = useStyles();

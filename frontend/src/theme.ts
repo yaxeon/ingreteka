@@ -15,7 +15,6 @@ export const theme = createMuiTheme({
     }
   },
   typography: {
-    useNextVariants: true,
     fontSize: 14,
     fontFamily: ["Noto Sans", "Roboto", "Arial", "sans-serif"].join(","),
     h1: {

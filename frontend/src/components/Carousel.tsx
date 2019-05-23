@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/styles";
+import { Theme, makeStyles } from "@material-ui/core/styles";
 import SwipeableViews from "react-swipeable-views";
 
 import { Image } from "./Image";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
   root: {
-    marginBottom: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 1,
+    marginBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
     borderBottom: "1px solid #ededed"
   },
   dots: {
     display: "flex",
-    height: theme.spacing.unit * 4,
+    height: theme.spacing(4),
     alignItems: "center",
     justifyContent: "center",
     "& > div": {
-      height: theme.spacing.unit,
-      width: theme.spacing.unit,
-      borderRadius: theme.spacing.unit,
+      height: theme.spacing(1),
+      width: theme.spacing(1),
+      borderRadius: theme.spacing(1),
       margin: "0 4px",
       transition: "border-width 0.1s ease-in-out"
     }
@@ -30,10 +30,10 @@ const useStyles = makeStyles(theme => ({
     border: "4px solid #000"
   },
   slide: {
-    maxHeight: theme.spacing.unit * 60,
+    maxHeight: theme.spacing(60),
     textAlign: "center",
     "& > img": {
-      maxHeight: theme.spacing.unit * 60,
+      maxHeight: theme.spacing(60),
       maxWidth: "100%"
     }
   }

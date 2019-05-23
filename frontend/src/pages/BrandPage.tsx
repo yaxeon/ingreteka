@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import idx from "idx";
 
 import { useBrandListQuery, Brand } from "../api";
@@ -21,9 +21,9 @@ const renderList = (list: Array<Brand>) =>
     </Typography>
   ));
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
   group: {
-    marginTop: theme.spacing.unit * 4
+    marginTop: theme.spacing(4)
   }
 }));
 

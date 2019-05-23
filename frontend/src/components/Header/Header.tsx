@@ -5,11 +5,11 @@ import IconButton from "@material-ui/core/IconButton";
 import grey from "@material-ui/core/colors/grey";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIosOutlined";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
   toolbar: {
-    height: theme.spacing.unit * 8,
+    height: theme.spacing(8),
     paddingLeft: 0,
     paddingRight: 0
   },

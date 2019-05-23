@@ -1,29 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import { Image } from "./Image";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
   wrapper: {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "center",
-    height: theme.spacing.unit * 18,
+    height: theme.spacing(18),
     textDecoration: "none"
   },
   image: {
-    width: theme.spacing.unit * 12,
-    height: theme.spacing.unit * 12,
+    width: theme.spacing(12),
+    height: theme.spacing(12),
     display: "block"
   },
   label: {
     textAlign: "center",
     lineHeight: 1.2,
-    marginTop: theme.spacing.unit,
-    height: theme.spacing.unit * 4
+    marginTop: theme.spacing(1),
+    height: theme.spacing(4),
+    color: theme.palette.text.primary
   }
 }));
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import idx from "idx";
 
 import { HeaderLogo } from "../components/Header/HeaderLogo";
@@ -9,10 +9,10 @@ import { Loading } from "../components/Loading";
 import { useCategoryListQuery } from "../api";
 import { Container } from "../components/Layout";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
   root: {
-    marginLeft: -theme.spacing.unit,
-    marginRight: -theme.spacing.unit
+    marginLeft: -theme.spacing(1),
+    marginRight: -theme.spacing(1)
   }
 }));
 
@@ -31,7 +31,7 @@ export const HomePage = () => {
       <HeaderLogo />
       <section className={classes.root}>
         <Container>
-          <Grid container spacing={16}>
+          <Grid container spacing={2}>
             {categories.map(({ id, title, image, slug }) => (
               <Grid item xs={4} key={id}>
                 <CategoryItem title={title} image={image} slug={slug} />

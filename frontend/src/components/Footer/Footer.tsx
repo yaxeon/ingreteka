@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
+import { Theme, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
@@ -9,14 +9,14 @@ import { IconSearch } from "../icons/IconSearch";
 import { IconFavorite } from "../icons/IconFavorite";
 import { FooterMenuItem } from "./FooterMenuItem";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   root: {
     top: "auto",
     bottom: 0
   },
   toolbar: {
     justifyContent: "space-between",
-    height: theme.spacing.unit * 8
+    height: theme.spacing(8)
   }
 }));
 

@@ -2,7 +2,7 @@ import React from "react";
 import { stateToHTML, Options } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import bullet from "../svg/bullet.svg";
 
@@ -10,7 +10,7 @@ interface Props {
   text: string;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   root: {
     textAlign: "justify",
     "& a": {
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
       paddingLeft: "20px"
     }
   }
-}));
+});
 
 const options: Options = {
   entityStyleFn: entity => {

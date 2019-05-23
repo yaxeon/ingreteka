@@ -25,7 +25,7 @@ export const CategoryPage: React.FC<RouteComponentProps<PageParams>> = ({
     <React.Fragment>
       <HeaderSlider backUri="/" items={categories} selectedSlug={slug} />
       <Container>
-        <Grid container spacing={16}>
+        <Grid container spacing={2}>
           {slug === "shops" ? (
             <ShopCategory />
           ) : (

@@ -2,11 +2,11 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import grey from "@material-ui/core/colors/grey";
 import { Link, Route } from "react-router-dom";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { IconFooterType } from "../icons/types";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
       fontSize: 30
     }
   }
-}));
+});
 
 interface Props {
   path: string;

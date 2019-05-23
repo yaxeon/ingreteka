@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Search from "@material-ui/icons/Search";
 import Grid from "@material-ui/core/Grid";
 import { RouteComponentProps } from "react-router-dom";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import qs from "qs";
 
 import { HeaderMenu } from "../components/Header/HeaderMenu";
@@ -12,7 +12,7 @@ import { Container } from "../components/Layout";
 import { SelectionSearch } from "../components/SelectionSearch";
 import searchImage from "../svg/search.svg";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles<Theme>(theme => ({
   wrapper: {
     display: "flex",
     alignItems: "flex-end"
@@ -58,7 +58,7 @@ export const SearchPage: React.FC<RouteComponentProps> = ({
     <React.Fragment>
       <HeaderMenu backUri="/">Поиск</HeaderMenu>
       <Container>
-        <Grid container spacing={16}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <form onSubmit={handleSubmit}>
               <div className={classes.wrapper}>
