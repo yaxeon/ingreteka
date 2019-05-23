@@ -10,6 +10,7 @@ import qs from "qs";
 import { HeaderMenu } from "../components/Header/HeaderMenu";
 import { Container } from "../components/Layout";
 import { SelectionSearch } from "../components/SelectionSearch";
+import searchImage from "../svg/search.svg";
 
 const useStyles = makeStyles(theme => ({
   wrapper: {
@@ -64,7 +65,7 @@ export const SearchPage: React.FC<RouteComponentProps> = ({
                 <TextField
                   className={classes.rootInput}
                   variant="standard"
-                  label="Поиск"
+                  label="Что будем искать?"
                   value={value}
                   onChange={handleChange}
                   InputLabelProps={{
@@ -87,7 +88,13 @@ export const SearchPage: React.FC<RouteComponentProps> = ({
               </div>
             </form>
           </Grid>
-          {query && <SelectionSearch query={query} />}
+          {query ? (
+            <SelectionSearch query={query} />
+          ) : (
+            <Grid item xs={12}>
+              <img alt="search" src={searchImage} />
+            </Grid>
+          )}
         </Grid>
       </Container>
     </React.Fragment>
