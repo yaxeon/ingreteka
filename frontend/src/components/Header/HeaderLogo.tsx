@@ -15,7 +15,7 @@ export const HeaderLogo = () => {
   const classes = useStyles();
 
   return (
-    <AppBar>
+    <AppBar color="secondary">
       <Toolbar className={classes.toolbar}>
         <Logo />
       </Toolbar>

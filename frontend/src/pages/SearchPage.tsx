@@ -1,36 +1,26 @@
 import React, { useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
+import qs from "qs";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import Search from "@material-ui/icons/Search";
 import Grid from "@material-ui/core/Grid";
-import { RouteComponentProps } from "react-router-dom";
-import { makeStyles, Theme } from "@material-ui/core/styles";
-import qs from "qs";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { HeaderMenu } from "../components/Header/HeaderMenu";
 import { Container } from "../components/Layout";
 import { SelectionSearch } from "../components/SelectionSearch";
 import searchImage from "../svg/search.svg";
 
-const useStyles = makeStyles<Theme>(theme => ({
+const useStyles = makeStyles({
   wrapper: {
     display: "flex",
     alignItems: "flex-end"
   },
   rootInput: {
     flexGrow: 1
-  },
-  labelFocused: {
-    "&&": {
-      color: theme.palette.text.primary
-    }
-  },
-  cssUnderline: {
-    "&:after": {
-      borderBottomColor: theme.palette.text.primary
-    }
   }
-}));
+});
 
 export const SearchPage: React.FC<RouteComponentProps> = ({
   location: { search },
@@ -68,16 +58,8 @@ export const SearchPage: React.FC<RouteComponentProps> = ({
                   label="Что будем искать?"
                   value={value}
                   onChange={handleChange}
-                  InputLabelProps={{
-                    classes: {
-                      focused: classes.labelFocused
-                    }
-                  }}
                   InputProps={{
                     autoFocus: true,
-                    classes: {
-                      underline: classes.cssUnderline
-                    },
                     endAdornment: (
                       <IconButton color="inherit" type="submit">
                         <Search />

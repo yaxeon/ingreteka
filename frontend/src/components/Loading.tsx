@@ -1,6 +1,7 @@
 import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import purple from "@material-ui/core/colors/purple";
 
 import { HeaderLogo } from "./Header/HeaderLogo";
 
@@ -10,7 +11,8 @@ const useStyles = makeStyles<Theme>(theme => ({
     display: "flex",
     flexGrow: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    color: purple[500]
   }
 }));
 
@@ -21,7 +23,7 @@ export const Loading = () => {
     <React.Fragment>
       <HeaderLogo />
       <div className={classes.wrapper}>
-        <CircularProgress color="secondary" />
+        <CircularProgress color="inherit" />
       </div>
     </React.Fragment>
   );
@@ -32,7 +34,7 @@ export const LoadingContent = () => {
 
   return (
     <div className={classes.wrapper}>
-      <CircularProgress color="secondary" />
+      <CircularProgress color="inherit" />
     </div>
   );
 };

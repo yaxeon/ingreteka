@@ -1,17 +1,28 @@
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
-import deepPurple from "@material-ui/core/colors/deepPurple";
 import grey from "@material-ui/core/colors/grey";
+
+const color = {
+  white: "#FFF",
+  black: "#000"
+};
 
 export const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#FFFFFF",
-      dark: grey[200]
+      light: grey[800],
+      main: grey[900],
+      dark: color.black,
+      contrastText: color.white
     },
-    secondary: deepPurple,
+    secondary: {
+      light: color.white,
+      main: color.white,
+      dark: grey[100],
+      contrastText: grey[900]
+    },
     background: {
-      default: "#FFFFFF"
+      default: color.white
     }
   },
   typography: {

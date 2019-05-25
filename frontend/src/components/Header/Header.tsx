@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ children, backUri }) => {
   const classes = useStyles();
 
   return (
-    <AppBar>
+    <AppBar color="secondary">
       <Toolbar className={classes.toolbar}>
         {backUri && (
           <Link to={backUri}>

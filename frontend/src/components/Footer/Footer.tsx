@@ -9,7 +9,7 @@ import { IconSearch } from "../icons/IconSearch";
 import { IconFavorite } from "../icons/IconFavorite";
 import { FooterMenuItem } from "./FooterMenuItem";
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles<Theme>(theme => ({
   root: {
     top: "auto",
     bottom: 0
@@ -24,7 +24,7 @@ export const Footer = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="fixed" className={classes.root}>
+    <AppBar color="secondary" position="fixed" className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <FooterMenuItem path="/" icon={IconHome} label="Главная" />
         <FooterMenuItem path="/search" icon={IconSearch} label="Поиск" />
