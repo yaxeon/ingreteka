@@ -1,6 +1,10 @@
 /* eslint-disable */
-
+import gql from "graphql-tag";
+import * as React from "react";
+import * as ReactApollo from "react-apollo";
+import * as ReactApolloHooks from "react-apollo-hooks";
 export type Maybe<T> = T | null;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -24,6 +28,7 @@ export type AuthLoginInput = {
 };
 
 export type AuthMutation = {
+  __typename?: "AuthMutation";
   login?: Maybe<Scalars["Boolean"]>;
   logout?: Maybe<Scalars["Boolean"]>;
 };
@@ -33,10 +38,12 @@ export type AuthMutationLoginArgs = {
 };
 
 export type AuthQuery = {
+  __typename?: "AuthQuery";
   profile?: Maybe<User>;
 };
 
 export type Brand = {
+  __typename?: "Brand";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
 };
@@ -46,6 +53,7 @@ export type BrandDeleteInput = {
 };
 
 export type BrandMutation = {
+  __typename?: "BrandMutation";
   upsert?: Maybe<Brand>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -59,6 +67,7 @@ export type BrandMutationDeleteArgs = {
 };
 
 export type BrandQuery = {
+  __typename?: "BrandQuery";
   list: Array<Brand>;
   item?: Maybe<Brand>;
 };
@@ -73,6 +82,7 @@ export type BrandUpsertInput = {
 };
 
 export type Category = {
+  __typename?: "Category";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
   slug: Scalars["String"];
@@ -85,6 +95,7 @@ export type CategoryDeleteInput = {
 };
 
 export type CategoryMutation = {
+  __typename?: "CategoryMutation";
   upsert?: Maybe<Category>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -98,6 +109,7 @@ export type CategoryMutationDeleteArgs = {
 };
 
 export type CategoryQuery = {
+  __typename?: "CategoryQuery";
   list: Array<Category>;
   item?: Maybe<Category>;
 };
@@ -115,10 +127,12 @@ export type CategoryUpsertInput = {
 };
 
 export type File = {
+  __typename?: "File";
   uri: Scalars["String"];
 };
 
 export type FileMutation = {
+  __typename?: "FileMutation";
   upload?: Maybe<File>;
 };
 
@@ -127,6 +141,7 @@ export type FileMutationUploadArgs = {
 };
 
 export type Mutation = {
+  __typename?: "Mutation";
   auth: AuthMutation;
   category: CategoryMutation;
   shop: ShopMutation;
@@ -136,6 +151,7 @@ export type Mutation = {
 };
 
 export type Query = {
+  __typename?: "Query";
   auth: AuthQuery;
   category: CategoryQuery;
   shop: ShopQuery;
@@ -144,6 +160,7 @@ export type Query = {
 };
 
 export type Selection = {
+  __typename?: "Selection";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
   text: Scalars["String"];
@@ -164,9 +181,11 @@ export type SelectionFilterInput = {
   categorySlug?: Maybe<Array<Scalars["String"]>>;
   brandId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
   shopId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  id?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
 };
 
 export type SelectionMutation = {
+  __typename?: "SelectionMutation";
   upsert?: Maybe<Selection>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -180,6 +199,7 @@ export type SelectionMutationDeleteArgs = {
 };
 
 export type SelectionQuery = {
+  __typename?: "SelectionQuery";
   list: Array<Selection>;
   search: Array<Selection>;
   item?: Maybe<Selection>;
@@ -212,6 +232,7 @@ export type SelectionUpsertInput = {
 };
 
 export type Shop = {
+  __typename?: "Shop";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
   link: Scalars["String"];
@@ -223,6 +244,7 @@ export type ShopDeleteInput = {
 };
 
 export type ShopMutation = {
+  __typename?: "ShopMutation";
   upsert?: Maybe<Shop>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -236,6 +258,7 @@ export type ShopMutationDeleteArgs = {
 };
 
 export type ShopQuery = {
+  __typename?: "ShopQuery";
   list: Array<Shop>;
   item?: Maybe<Shop>;
 };
@@ -252,6 +275,7 @@ export type ShopUpsertInput = {
 };
 
 export type User = {
+  __typename?: "User";
   email: Scalars["String"];
   username?: Maybe<Scalars["String"]>;
   roles: Array<Maybe<UserRole>>;
@@ -315,7 +339,7 @@ export type SelectionListQuery = { __typename?: "Query" } & {
         "id" | "title" | "text" | "images"
       > & {
           categories: Array<
-            { __typename?: "Category" } & Pick<Category, "title">
+            { __typename?: "Category" } & Pick<Category, "title" | "slug">
           >;
           brands: Array<{ __typename?: "Brand" } & Pick<Brand, "title">>;
           shops: Array<{ __typename?: "Shop" } & Pick<Shop, "title">>;
@@ -355,12 +379,6 @@ export type ShopListQuery = { __typename?: "Query" } & {
   };
 };
 
-import gql from "graphql-tag";
-import * as React from "react";
-import * as ReactApollo from "react-apollo";
-import * as ReactApolloHooks from "react-apollo-hooks";
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
 export const BrandListDocument = gql`
   query brandList {
     brand {
@@ -371,16 +389,15 @@ export const BrandListDocument = gql`
     }
   }
 `;
+export type BrandListComponentProps = Omit<
+  Omit<
+    ReactApollo.QueryProps<BrandListQuery, BrandListQueryVariables>,
+    "query"
+  >,
+  "variables"
+> & { variables?: BrandListQueryVariables };
 
-export const BrandListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<BrandListQuery, BrandListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: BrandListQueryVariables }
-) => (
+export const BrandListComponent = (props: BrandListComponentProps) => (
   <ReactApollo.Query<BrandListQuery, BrandListQueryVariables>
     query={BrandListDocument}
     {...props}
@@ -430,16 +447,15 @@ export const CategoryListDocument = gql`
     }
   }
 `;
+export type CategoryListComponentProps = Omit<
+  Omit<
+    ReactApollo.QueryProps<CategoryListQuery, CategoryListQueryVariables>,
+    "query"
+  >,
+  "variables"
+> & { variables?: CategoryListQueryVariables };
 
-export const CategoryListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<CategoryListQuery, CategoryListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: CategoryListQueryVariables }
-) => (
+export const CategoryListComponent = (props: CategoryListComponentProps) => (
   <ReactApollo.Query<CategoryListQuery, CategoryListQueryVariables>
     query={CategoryListDocument}
     {...props}
@@ -499,16 +515,15 @@ export const SelectionItemDocument = gql`
     }
   }
 `;
+export type SelectionItemComponentProps = Omit<
+  Omit<
+    ReactApollo.QueryProps<SelectionItemQuery, SelectionItemQueryVariables>,
+    "query"
+  >,
+  "variables"
+> & { variables: SelectionItemQueryVariables };
 
-export const SelectionItemComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<SelectionItemQuery, SelectionItemQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables: SelectionItemQueryVariables }
-) => (
+export const SelectionItemComponent = (props: SelectionItemComponentProps) => (
   <ReactApollo.Query<SelectionItemQuery, SelectionItemQueryVariables>
     query={SelectionItemDocument}
     {...props}
@@ -556,6 +571,7 @@ export const SelectionListDocument = gql`
         images
         categories {
           title
+          slug
         }
         brands {
           title
@@ -567,16 +583,15 @@ export const SelectionListDocument = gql`
     }
   }
 `;
+export type SelectionListComponentProps = Omit<
+  Omit<
+    ReactApollo.QueryProps<SelectionListQuery, SelectionListQueryVariables>,
+    "query"
+  >,
+  "variables"
+> & { variables?: SelectionListQueryVariables };
 
-export const SelectionListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<SelectionListQuery, SelectionListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: SelectionListQueryVariables }
-) => (
+export const SelectionListComponent = (props: SelectionListComponentProps) => (
   <ReactApollo.Query<SelectionListQuery, SelectionListQueryVariables>
     query={SelectionListDocument}
     {...props}
@@ -636,18 +651,16 @@ export const SelectionSearchDocument = gql`
     }
   }
 `;
+export type SelectionSearchComponentProps = Omit<
+  Omit<
+    ReactApollo.QueryProps<SelectionSearchQuery, SelectionSearchQueryVariables>,
+    "query"
+  >,
+  "variables"
+> & { variables: SelectionSearchQueryVariables };
 
 export const SelectionSearchComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<
-        SelectionSearchQuery,
-        SelectionSearchQueryVariables
-      >,
-      "query"
-    >,
-    "variables"
-  > & { variables: SelectionSearchQueryVariables }
+  props: SelectionSearchComponentProps
 ) => (
   <ReactApollo.Query<SelectionSearchQuery, SelectionSearchQueryVariables>
     query={SelectionSearchDocument}
@@ -698,16 +711,12 @@ export const ShopListDocument = gql`
     }
   }
 `;
+export type ShopListComponentProps = Omit<
+  Omit<ReactApollo.QueryProps<ShopListQuery, ShopListQueryVariables>, "query">,
+  "variables"
+> & { variables?: ShopListQueryVariables };
 
-export const ShopListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<ShopListQuery, ShopListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: ShopListQueryVariables }
-) => (
+export const ShopListComponent = (props: ShopListComponentProps) => (
   <ReactApollo.Query<ShopListQuery, ShopListQueryVariables>
     query={ShopListDocument}
     {...props}

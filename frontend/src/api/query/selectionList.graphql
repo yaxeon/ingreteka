@@ -7,6 +7,7 @@ query selectionList($filter: SelectionFilterInput) {
       images
       categories {
         title
+        slug
       }
       brands {
         title

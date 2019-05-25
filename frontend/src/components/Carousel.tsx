@@ -6,7 +6,6 @@ import { Image } from "./Image";
 
 const useStyles = makeStyles<Theme>(theme => ({
   root: {
-    marginBottom: theme.spacing(2),
     paddingBottom: theme.spacing(1),
     borderBottom: "1px solid #ededed"
   },

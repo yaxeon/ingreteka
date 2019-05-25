@@ -10,6 +10,15 @@ import { TitleList } from "../components/TitleList";
 import { DraftHtml } from "../components/DraftHtml";
 import { Carousel } from "../components/Carousel";
 import { Container } from "../components/Layout";
+import { Favorite } from "../components/Favorite";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  action: {
+    display: "flex",
+    justifyContent: "flex-end"
+  }
+});
 
 type PageParams = { slug: string; id: string };
 
@@ -18,6 +27,7 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
     params: { slug, id }
   }
 }) => {
+  const classes = useStyles();
   const { data, loading } = useSelectionItemQuery({ variables: { id } });
   const selection = idx(data, _ => _.selection.item);
 
@@ -27,7 +37,6 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
 
   const { title, text, categories, shops, brands, images } = selection;
   const categoryBySlug = categories.find(category => category.slug === slug);
-
   const gallery = images.slice(1);
 
   return (
@@ -37,6 +46,9 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
       </HeaderMenu>
       <Container>
         <Carousel images={gallery} />
+        <div className={classes.action}>
+          <Favorite id={id} />
+        </div>
         <Typography variant="h1" gutterBottom>
           {title}
         </Typography>
