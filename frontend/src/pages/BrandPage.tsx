@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import idx from "idx";
+import { Link } from "react-router-dom";
 
 import { useBrandListQuery, Brand } from "../api";
 import { HeaderMenu } from "../components/Header/HeaderMenu";
@@ -16,9 +17,11 @@ const groupByRegExp = (list: Array<Brand>, group: RegExp) =>
 
 const renderList = (list: Array<Brand>) =>
   list.map(({ id, title }) => (
-    <Typography key={id} variant="body1">
-      {title}
-    </Typography>
+    <Link to={`/search/?query=${encodeURI(title)}`} key={id}>
+      <Typography color="textPrimary" variant="body1">
+        {title}
+      </Typography>
+    </Link>
   ));
 
 const useStyles = makeStyles<Theme>(theme => ({
