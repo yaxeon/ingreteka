@@ -1,7 +1,7 @@
 {
   "name": "ingreteka:frontend",
   "project": "ingreteka:frontend",
-  "domain": "ingreteka.yaxeon.ru",
+  "domain": "guide.ingreteka.ru",
   "restart": "always",
   "env": {
     "BACKEND_URL": "http://backend.ingreteka:8080"
