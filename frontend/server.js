@@ -7,13 +7,19 @@ const { BACKEND_URL } = process.env;
 
 const app = express();
 
-app.use(express.static(`${__dirname}/build`));
+app.use(
+  express.static(`${__dirname}/build`, {
+    extensions: ["html"],
+    index: "index.html"
+  })
+);
 
 app.use(
   proxy(["/graphql", "/object"], {
     target: BACKEND_URL,
     changeOrigin: true,
-    onError: () => {
+    onError: e => {
+      console.error(e);
       process.exit();
     }
   })

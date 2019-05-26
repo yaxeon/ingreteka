@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import idx from "idx";
+import { Helmet } from "react-helmet";
 
 import { HeaderLogo } from "../components/Header/HeaderLogo";
 import { CategoryItem } from "../components/CategoryItem";
@@ -28,6 +29,9 @@ export const HomePage = () => {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Ингретека Гид: ваш путеводитель по натуральной косметике</title>
+      </Helmet>
       <HeaderLogo />
       <section className={classes.root}>
         <Container>

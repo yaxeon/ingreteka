@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import Typography from "@material-ui/core/Typography";
 import { RouteComponentProps } from "react-router-dom";
 import idx from "idx";
@@ -41,7 +42,10 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
 
   return (
     <React.Fragment>
-      <HeaderMenu backUri={`/category/${slug}`}>
+      <Helmet>
+        <title>Ингретека Гид - {title}</title>
+      </Helmet>
+      <HeaderMenu backUri={`/category/${slug}/`}>
         {categoryBySlug ? categoryBySlug.title : slug}
       </HeaderMenu>
       <Container>

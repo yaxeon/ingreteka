@@ -3,6 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import idx from "idx";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { useBrandListQuery, Brand } from "../api";
 import { HeaderMenu } from "../components/Header/HeaderMenu";
@@ -45,6 +46,9 @@ export const BrandPage = () => {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Ингретека Гид: бренды в натуральной косметике</title>
+      </Helmet>
       <HeaderMenu backUri="/">Бренды</HeaderMenu>
       <Container>
         <Typography gutterBottom variant="h4">

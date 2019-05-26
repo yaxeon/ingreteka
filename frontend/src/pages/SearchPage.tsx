@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import qs from "qs";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
@@ -46,6 +47,9 @@ export const SearchPage: React.FC<RouteComponentProps> = ({
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Ингретека Гид - поиск</title>
+      </Helmet>
       <HeaderMenu backUri="/">Поиск</HeaderMenu>
       <Container>
         <Grid container spacing={2}>

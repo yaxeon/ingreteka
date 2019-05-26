@@ -38,7 +38,7 @@ export const CategoryItem: React.FC<Props> = ({ image, title, slug }) => {
   const classes = useStyles();
 
   return (
-    <Link className={classes.wrapper} to={`/category/${slug}`}>
+    <Link className={classes.wrapper} to={`/category/${slug}/`}>
       <Image className={classes.image} src={image} alt={title} />
       <Typography className={classes.label} variant="overline">
         {title}

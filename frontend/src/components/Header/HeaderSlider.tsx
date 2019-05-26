@@ -68,7 +68,7 @@ export const HeaderSlider: React.FC<Props> = ({
             data-selected={selectedSlug === category.slug ? true : undefined}
             key={category.id}
           >
-            <Link to={`/category/${category.slug}`}>{category.title}</Link>
+            <Link to={`/category/${category.slug}/`}>{category.title}</Link>
           </Typography>
         ))}
       </nav>

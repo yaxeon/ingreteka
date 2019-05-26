@@ -2,7 +2,7 @@
   "name": "Ingreteka Guide",
   "short_name": "Ingreteka Guide",
   "theme_color": "#000000",
-  "background_color": "rgba(6,6,6,0)",
+  "background_color": "#FFFFFF",
   "display": "fullscreen",
   "orientation": "portrait",
   "Scope": "/",

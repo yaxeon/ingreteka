@@ -73,7 +73,7 @@ export const SelectionItem: React.FC<Props> = ({
 
   return (
     <Card>
-      <Link to={`/selection/${slug}/${id}`}>
+      <Link to={`/selection/${slug}/${id}/`}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
