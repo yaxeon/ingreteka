@@ -6,7 +6,7 @@ import { FavoriteContext } from "../containers/FavoriteContext";
 import { SelectionItem } from "./SelectionItem";
 import { useSelectionListQuery } from "../api";
 import { LoadingContent } from "./Loading";
-import empty from "../svg/empty.svg";
+import { Oops } from "./Oops";
 
 export const SelectionFavorite: React.FC = () => {
   const [favorites] = useContext(FavoriteContext);
@@ -22,7 +22,7 @@ export const SelectionFavorite: React.FC = () => {
   if (selections.length === 0) {
     return (
         <Grid item xs={12}>
-          <img alt="not found" src={empty} />
+          <Oops message="Вы пока ничего не добавили в избранное&#160;:("/>
         </Grid>
     );
   }

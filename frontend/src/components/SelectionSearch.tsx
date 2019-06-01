@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { useSelectionSearchQuery } from "../api";
 import { SelectionItem } from "./SelectionItem";
 import { LoadingContent } from "./Loading";
-import empty from "../svg/empty.svg";
+import { Oops } from "./Oops";
 
 interface Props {
   query: string;
@@ -25,7 +25,7 @@ export const SelectionSearch: React.FC<Props> = ({ query }) => {
   if (selections.length === 0) {
     return (
       <Grid item xs={12}>
-        <img alt="not found" src={empty} />
+        <Oops message="По Вашему запросу ничего не найдено&#160;:(" />
       </Grid>
     );
   }
