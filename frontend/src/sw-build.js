@@ -12,7 +12,7 @@ const buildSW = () => {
     importWorkboxFrom: "cdn",
     globDirectory: "build",
     globPatterns: ["**/*.{html,js,css,svg}"],
-    swDest: "build/sw.js",
+    swDest: "build/service-worker.js",
     runtimeCaching: [
       {
         urlPattern: new RegExp("^https://ingreteka\\.b-cdn\\.net/"),
