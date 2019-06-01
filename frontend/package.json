@@ -33,7 +33,9 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn build:app && yarn build:sw",
+    "build:app": "react-scripts build",
+    "build:sw": "node ./src/sw-build.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generate": "graphql-codegen --config codegen.yml"
@@ -65,7 +67,9 @@
     "@types/react-helmet": "^5.0.8",
     "@types/react-router-dom": "^4.3.3",
     "@types/react-swipeable-views": "^0.13.0",
+    "glob": "^7.1.4",
     "prettier": "^1.17.1",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "workbox-build": "^4.3.1"
   }
 }
