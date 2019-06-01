@@ -25,7 +25,7 @@ export const SelectionSearch: React.FC<Props> = ({ query }) => {
   if (selections.length === 0) {
     return (
       <Grid item xs={12}>
-        <Oops message="По Вашему запросу ничего не найдено&#160;:(" />
+        <Oops message="По Вашему запросу ничего не найдено" />
       </Grid>
     );
   }

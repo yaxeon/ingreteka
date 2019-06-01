@@ -22,7 +22,7 @@ export const SelectionFavorite: React.FC = () => {
   if (selections.length === 0) {
     return (
         <Grid item xs={12}>
-          <Oops message="Вы пока ничего не добавили в избранное&#160;:("/>
+          <Oops message="Вы пока ничего не добавили в избранное"/>
         </Grid>
     );
   }

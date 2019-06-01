@@ -14,7 +14,7 @@ export const Oops: React.FC<Props> = ({ message }) => (
       Ой!
     </Typography>
     <Typography align="center" variant="body1">
-      {message}
+      {message} &#128532;
     </Typography>
   </div>
 );
