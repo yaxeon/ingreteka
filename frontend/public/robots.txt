@@ -1,2 +1,2 @@
 User-Agent: *
-Disallow:/search/?
+Disallow: /search?
