@@ -13,7 +13,10 @@ import { Container } from "../components/Layout";
 const useStyles = makeStyles<Theme>(theme => ({
   root: {
     marginLeft: -theme.spacing(1),
-    marginRight: -theme.spacing(1)
+    marginRight: -theme.spacing(1),
+    display: "flex",
+    alignItems: "center",
+    minHeight: `calc(100vh - ${theme.spacing(16)}px)`
   }
 }));
 
