@@ -35,6 +35,14 @@ export const SelectionSchema: Schema = new Schema(
     images: {
       type: [String],
       required: true
+    },
+    relevanceDate: {
+      type: Date,
+      required: false
+    },
+    isPublished: {
+      type: Boolean,
+      default: false
     }
   },
   {

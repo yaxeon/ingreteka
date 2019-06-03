@@ -1,6 +1,12 @@
 import { Types } from "mongoose";
-
+import {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig
+} from "graphql";
+import { ContextGraphql } from "./context";
 export type Maybe<T> = T | null;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -24,6 +30,7 @@ export type AuthLoginInput = {
 };
 
 export type AuthMutation = {
+  __typename?: "AuthMutation";
   login?: Maybe<Scalars["Boolean"]>;
   logout?: Maybe<Scalars["Boolean"]>;
 };
@@ -33,10 +40,12 @@ export type AuthMutationLoginArgs = {
 };
 
 export type AuthQuery = {
+  __typename?: "AuthQuery";
   profile?: Maybe<User>;
 };
 
 export type Brand = {
+  __typename?: "Brand";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
 };
@@ -46,6 +55,7 @@ export type BrandDeleteInput = {
 };
 
 export type BrandMutation = {
+  __typename?: "BrandMutation";
   upsert?: Maybe<Brand>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -59,6 +69,7 @@ export type BrandMutationDeleteArgs = {
 };
 
 export type BrandQuery = {
+  __typename?: "BrandQuery";
   list: Array<Brand>;
   item?: Maybe<Brand>;
 };
@@ -73,6 +84,7 @@ export type BrandUpsertInput = {
 };
 
 export type Category = {
+  __typename?: "Category";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
   slug: Scalars["String"];
@@ -85,6 +97,7 @@ export type CategoryDeleteInput = {
 };
 
 export type CategoryMutation = {
+  __typename?: "CategoryMutation";
   upsert?: Maybe<Category>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -98,6 +111,7 @@ export type CategoryMutationDeleteArgs = {
 };
 
 export type CategoryQuery = {
+  __typename?: "CategoryQuery";
   list: Array<Category>;
   item?: Maybe<Category>;
 };
@@ -115,10 +129,12 @@ export type CategoryUpsertInput = {
 };
 
 export type File = {
+  __typename?: "File";
   uri: Scalars["String"];
 };
 
 export type FileMutation = {
+  __typename?: "FileMutation";
   upload?: Maybe<File>;
 };
 
@@ -127,6 +143,7 @@ export type FileMutationUploadArgs = {
 };
 
 export type Mutation = {
+  __typename?: "Mutation";
   auth: AuthMutation;
   category: CategoryMutation;
   shop: ShopMutation;
@@ -136,6 +153,7 @@ export type Mutation = {
 };
 
 export type Query = {
+  __typename?: "Query";
   auth: AuthQuery;
   category: CategoryQuery;
   shop: ShopQuery;
@@ -144,6 +162,7 @@ export type Query = {
 };
 
 export type Selection = {
+  __typename?: "Selection";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
   text: Scalars["String"];
@@ -153,6 +172,8 @@ export type Selection = {
   images: Array<Scalars["String"]>;
   createdAt: Scalars["DateTime"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
+  relevanceDate?: Maybe<Scalars["DateTime"]>;
+  isPublished: Scalars["Boolean"];
 };
 
 export type SelectionDeleteInput = {
@@ -168,6 +189,7 @@ export type SelectionFilterInput = {
 };
 
 export type SelectionMutation = {
+  __typename?: "SelectionMutation";
   upsert?: Maybe<Selection>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -181,6 +203,7 @@ export type SelectionMutationDeleteArgs = {
 };
 
 export type SelectionQuery = {
+  __typename?: "SelectionQuery";
   list: Array<Selection>;
   search: Array<Selection>;
   item?: Maybe<Selection>;
@@ -210,9 +233,12 @@ export type SelectionUpsertInput = {
   brands: Array<Scalars["GraphQLObjectId"]>;
   shops: Array<Scalars["GraphQLObjectId"]>;
   images: Array<Scalars["String"]>;
+  isPublished: Scalars["Boolean"];
+  relevanceDate?: Maybe<Scalars["DateTime"]>;
 };
 
 export type Shop = {
+  __typename?: "Shop";
   id: Scalars["GraphQLObjectId"];
   title: Scalars["String"];
   link: Scalars["String"];
@@ -224,6 +250,7 @@ export type ShopDeleteInput = {
 };
 
 export type ShopMutation = {
+  __typename?: "ShopMutation";
   upsert?: Maybe<Shop>;
   delete?: Maybe<Scalars["Boolean"]>;
 };
@@ -237,6 +264,7 @@ export type ShopMutationDeleteArgs = {
 };
 
 export type ShopQuery = {
+  __typename?: "ShopQuery";
   list: Array<Shop>;
   item?: Maybe<Shop>;
 };
@@ -253,6 +281,7 @@ export type ShopUpsertInput = {
 };
 
 export type User = {
+  __typename?: "User";
   email: Scalars["String"];
   username?: Maybe<Scalars["String"]>;
   roles: Array<Maybe<UserRole>>;
@@ -262,15 +291,6 @@ export enum UserRole {
   Admin = "ADMIN",
   User = "USER"
 }
-import { ContextGraphql } from "./context";
-
-import {
-  GraphQLResolveInfo,
-  GraphQLScalarType,
-  GraphQLScalarTypeConfig
-} from "graphql";
-
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -358,11 +378,11 @@ export type ResolversTypes = {
   SelectionFilterInput: SelectionFilterInput;
   Selection: Selection;
   DateTime: Scalars["DateTime"];
+  Boolean: Scalars["Boolean"];
   SelectionSearchInput: SelectionSearchInput;
   Mutation: {};
   AuthMutation: AuthMutation;
   AuthLoginInput: AuthLoginInput;
-  Boolean: Scalars["Boolean"];
   CategoryMutation: CategoryMutation;
   CategoryUpsertInput: CategoryUpsertInput;
   CategoryDeleteInput: CategoryDeleteInput;
@@ -573,6 +593,12 @@ export type SelectionResolvers<
     ParentType,
     ContextType
   >;
+  relevanceDate?: Resolver<
+    Maybe<ResolversTypes["DateTime"]>,
+    ParentType,
+    ContextType
+  >;
+  isPublished?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
 };
 
 export type SelectionMutationResolvers<
