@@ -6,6 +6,8 @@ query selectionList($filter: SelectionFilterInput) {
       text
       images
       createdAt
+      isPublished
+      relevanceDate
       brands {
         id
         title

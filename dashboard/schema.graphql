@@ -78,6 +78,8 @@ type Selection {
     createdAt: DateTime!
     id: GraphQLObjectId!
     images: [String!]!
+    isPublished: Boolean!
+    relevanceDate: DateTime
     shops: [Shop!]!
     text: String!
     title: String!
@@ -92,6 +94,7 @@ type SelectionMutation {
 type SelectionQuery {
     item(id: GraphQLObjectId!): Selection
     list(filter: SelectionFilterInput): [Selection!]!
+    search(filter: SelectionSearchInput!): [Selection!]!
 }
 
 type Shop {
@@ -156,7 +159,12 @@ input SelectionFilterInput {
     brandId: [GraphQLObjectId!]
     categoryId: [GraphQLObjectId!]
     categorySlug: [String!]
+    id: [GraphQLObjectId!]
     shopId: [GraphQLObjectId!]
+}
+
+input SelectionSearchInput {
+    query: String!
 }
 
 input SelectionUpsertInput {
@@ -164,6 +172,8 @@ input SelectionUpsertInput {
     categories: [GraphQLObjectId!]!
     id: GraphQLObjectId
     images: [String!]!
+    isPublished: Boolean!
+    relevanceDate: DateTime
     shops: [GraphQLObjectId!]!
     text: String!
     title: String!

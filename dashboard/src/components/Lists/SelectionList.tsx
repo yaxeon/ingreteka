@@ -10,6 +10,7 @@ import {
   TableBody
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import CheckIcon from "@material-ui/icons/Check";
 import dayjs from "dayjs";
 
 import { useSelectionListQuery } from "../../api";
@@ -42,6 +43,8 @@ export const SelectionList = () => {
             <TableCell>Category</TableCell>
             <TableCell>Brands</TableCell>
             <TableCell>Shops</TableCell>
+            <TableCell>Published</TableCell>
+            <TableCell>Relevance</TableCell>
             <TableCell>Created</TableCell>
             <TableCell align="right">
               <Button
@@ -57,7 +60,7 @@ export const SelectionList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {list.map(({ id, title, categories, brands, shops, createdAt }) => (
+          {list.map(({ id, title, categories, brands, shops, isPublished, relevanceDate, createdAt }) => (
             <TableRow hover key={id} onClick={() => onUpdate(id)}>
               <TableCell>{title}</TableCell>
               <TableCell>
@@ -68,6 +71,10 @@ export const SelectionList = () => {
               </TableCell>
               <TableCell>
                 {shops.map(({ title }) => title).join(", ")}
+              </TableCell>
+              <TableCell>{isPublished && <CheckIcon/>}</TableCell>
+              <TableCell>
+                {relevanceDate && dayjs(relevanceDate).format("MMMM YYYY")}
               </TableCell>
               <TableCell colSpan={2}>
                 {dayjs(createdAt).format("DD/MM/YYYY HH:mm")}

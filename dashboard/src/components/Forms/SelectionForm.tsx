@@ -7,17 +7,19 @@ import {
   LinearProgress,
   Grid,
   Fab,
-  IconButton
+  IconButton,
+  FormControlLabel
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Image";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
-import { TextField } from "formik-material-ui";
+import { TextField, Switch } from "formik-material-ui";
 import { Formik, Field, FieldArray, Form, FormikActions } from "formik";
 
 import { RichTextField } from "../Fields/RichTextField";
 import { UploadImageField } from "../Fields/UploadImageField";
 import { MultiSelectField } from "../Fields/MultiSelectField";
+import { DateField } from "../Fields/DateField";
 import {
   useSelectionDeleteMutation,
   useSelectionUpsertMutation,
@@ -34,7 +36,8 @@ const selectionSchema = yup.object().shape({
   categories: yup.array(yup.string()),
   shops: yup.array(yup.string()),
   brands: yup.array(yup.string()),
-  images: yup.array(yup.string())
+  images: yup.array(yup.string()),
+  isPublished: yup.boolean()
 });
 
 export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
@@ -58,7 +61,9 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
     categories: mapId(idx(data, _ => _.selection.item.categories)),
     images: idx(data, _ => _.selection.item.images) || [],
     shops: mapId(idx(data, _ => _.selection.item.shops)),
-    brands: mapId(idx(data, _ => _.selection.item.brands))
+    brands: mapId(idx(data, _ => _.selection.item.brands)),
+    isPublished: idx(data, _ => _.selection.item.isPublished) || false,
+    relevanceDate: idx(data, _ => _.selection.item.relevanceDate) || null
   };
 
   const options = {
@@ -90,13 +95,22 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
           <Card>
             <CardContent>
               <Grid container spacing={8}>
-                <Grid item xs={12}>
+                <Grid item xs={9}>
                   <Field
                     name="title"
                     label="Title"
                     fullWidth
                     margin="normal"
                     component={TextField}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <Field
+                    name="relevanceDate"
+                    label="Relevance"
+                    fullWidth
+                    margin="normal"
+                    component={DateField}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -121,6 +135,12 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
                     label="Brand"
                     component={MultiSelectField}
                     options={options.brand}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <FormControlLabel
+                    control={<Field name="isPublished" component={Switch} />}
+                    label="Published"
                   />
                 </Grid>
               </Grid>

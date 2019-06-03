@@ -5,6 +5,8 @@ query selectionItem($id: GraphQLObjectId!) {
       title
       text
       images
+      isPublished
+      relevanceDate
       createdAt
       brands {
         id

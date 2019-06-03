@@ -1,10 +1,10 @@
-FROM node:alpine
-# Create app directory
+FROM node:11-alpine as build-stage
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-# Install app dependencies
 COPY . /usr/src/app
-RUN yarn
+RUN yarn install --frozen-lockfile
 RUN yarn build
 
-CMD [ "yarn", "start" ]
+FROM nginx:alpine
+COPY --from=build-stage /usr/src/app/build/ /usr/share/nginx/html
+COPY --from=build-stage /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf

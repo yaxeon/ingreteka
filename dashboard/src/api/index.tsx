@@ -153,6 +153,8 @@ export type Selection = {
   images: Array<Scalars["String"]>;
   createdAt: Scalars["DateTime"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
+  relevanceDate?: Maybe<Scalars["DateTime"]>;
+  isPublished: Scalars["Boolean"];
 };
 
 export type SelectionDeleteInput = {
@@ -164,6 +166,7 @@ export type SelectionFilterInput = {
   categorySlug?: Maybe<Array<Scalars["String"]>>;
   brandId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
   shopId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  id?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
 };
 
 export type SelectionMutation = {
@@ -181,6 +184,7 @@ export type SelectionMutationDeleteArgs = {
 
 export type SelectionQuery = {
   list: Array<Selection>;
+  search: Array<Selection>;
   item?: Maybe<Selection>;
 };
 
@@ -188,8 +192,16 @@ export type SelectionQueryListArgs = {
   filter?: Maybe<SelectionFilterInput>;
 };
 
+export type SelectionQuerySearchArgs = {
+  filter: SelectionSearchInput;
+};
+
 export type SelectionQueryItemArgs = {
   id: Scalars["GraphQLObjectId"];
+};
+
+export type SelectionSearchInput = {
+  query: Scalars["String"];
 };
 
 export type SelectionUpsertInput = {
@@ -200,6 +212,8 @@ export type SelectionUpsertInput = {
   brands: Array<Scalars["GraphQLObjectId"]>;
   shops: Array<Scalars["GraphQLObjectId"]>;
   images: Array<Scalars["String"]>;
+  isPublished: Scalars["Boolean"];
+  relevanceDate?: Maybe<Scalars["DateTime"]>;
 };
 
 export type Shop = {
@@ -392,7 +406,13 @@ export type SelectionItemQuery = { __typename?: "Query" } & {
     item: Maybe<
       { __typename?: "Selection" } & Pick<
         Selection,
-        "id" | "title" | "text" | "images" | "createdAt"
+        | "id"
+        | "title"
+        | "text"
+        | "images"
+        | "isPublished"
+        | "relevanceDate"
+        | "createdAt"
       > & {
           brands: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
           categories: Array<
@@ -413,7 +433,13 @@ export type SelectionListQuery = { __typename?: "Query" } & {
     list: Array<
       { __typename?: "Selection" } & Pick<
         Selection,
-        "id" | "title" | "text" | "images" | "createdAt"
+        | "id"
+        | "title"
+        | "text"
+        | "images"
+        | "createdAt"
+        | "isPublished"
+        | "relevanceDate"
       > & {
           brands: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
           categories: Array<
@@ -1331,6 +1357,8 @@ export const SelectionItemDocument = gql`
         title
         text
         images
+        isPublished
+        relevanceDate
         createdAt
         brands {
           id
@@ -1404,6 +1432,8 @@ export const SelectionListDocument = gql`
         text
         images
         createdAt
+        isPublished
+        relevanceDate
         brands {
           id
           title
