@@ -18,6 +18,9 @@ const useStyles = makeStyles<Theme>(theme => ({
   "@global": {
     a: {
       textDecoration: "none"
+    },
+    strong: {
+      fontWeight: 600
     }
   }
 }));
