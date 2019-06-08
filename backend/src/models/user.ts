@@ -13,6 +13,7 @@ export interface UserModel extends Document {
   roles: UserRole[];
   createdAt: Date;
   verifyPassword(password: string): boolean;
+  isAdmin(): boolean;
 }
 
 export const UserSchema: Schema = new Schema(
@@ -40,6 +41,10 @@ export const UserSchema: Schema = new Schema(
 
 UserSchema.methods.verifyPassword = function(password: string) {
   return bcrypt.compareSync(password, this.password);
+};
+
+UserSchema.methods.isAdmin = function() {
+  this.roles.includes(UserRole.ADMIN);
 };
 
 export const User = model<UserModel>("User", UserSchema, "users");

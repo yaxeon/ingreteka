@@ -21,16 +21,16 @@ const SelectionMutation: SelectionMutationResolvers = {
 };
 
 const SelectionQuery: SelectionQueryResolvers = {
-  list: async (root, { filter }, { models: { Selection, Category } }) => {
-    const query = Selection.find();
+  list: async (root, { filter }, { user, models: { Selection, Category } }) => {
     const categoryId = idx(filter, _ => _.categoryId);
     const categorySlug = idx(filter, _ => _.categorySlug);
     const shopId = idx(filter, _ => _.shopId);
     const brandId = idx(filter, _ => _.brandId);
     const id = idx(filter, _ => _.id);
+    const query = Selection.find();
 
     if (id) {
-      query.find({ _id: { $in: id } });
+      query.where("_id").in(id);
     }
 
     if (categorySlug) {
@@ -38,19 +38,24 @@ const SelectionQuery: SelectionQueryResolvers = {
         slug: { $in: categorySlug }
       }).select("id");
       const categoryBySlug = categoryBySlugList.map(({ id }) => id);
-      query.find({ categories: { $in: categoryBySlug } });
+
+      query.where("categories").in(categoryBySlug);
     }
 
     if (categoryId) {
-      query.find({ categories: { $in: categoryId } });
+      query.where("categories").in(categoryId);
     }
 
     if (shopId) {
-      query.find({ shops: { $in: shopId } });
+      query.where("shops").in(shopId);
     }
 
     if (brandId) {
-      query.find({ brands: { $in: brandId } });
+      query.where("brands").in(brandId);
+    }
+
+    if (user === null || !user.isAdmin()) {
+      query.where("isPublished").equals(true);
     }
 
     const list = await query
