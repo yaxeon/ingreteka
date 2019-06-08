@@ -39,6 +39,9 @@ const useStyles = makeStyles({
     "& .code": {
       color: "#AAAAAA",
       fontStyle: "italic"
+    },
+    "& strong": {
+      fontWeight: 600
     }
   }
 });
