@@ -18,7 +18,7 @@ export interface ContextGraphql {
 }
 
 export const context = ({ req }: any): ContextGraphql => {
-  const { user } = req;
+  const { user = null } = req;
 
   return { user, req, models: { Category, Brand, Shop, Selection } };
 };
