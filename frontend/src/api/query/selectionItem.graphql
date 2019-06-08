@@ -5,6 +5,7 @@ query selectionItem($id: GraphQLObjectId!) {
       title
       text
       images
+      relevanceDate
       categories {
         title
         slug

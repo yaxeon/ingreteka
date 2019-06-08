@@ -35,11 +35,23 @@ const useStyles = makeStyles({
     },
     "& ol": {
       paddingLeft: "20px"
+    },
+    "& .code": {
+      color: "#AAAAAA",
+      fontStyle: "italic"
     }
   }
 });
 
 const options: Options = {
+  inlineStyles: {
+    CODE: {
+      element: "span",
+      attributes: {
+        class: "code"
+      }
+    }
+  },
   entityStyleFn: entity => {
     const entityType = entity.getType();
 

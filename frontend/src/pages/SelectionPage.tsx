@@ -36,9 +36,24 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
     return <Loading />;
   }
 
-  const { title, text, categories, shops, brands, images } = selection;
+  const {
+    title,
+    text,
+    categories,
+    shops,
+    brands,
+    images,
+    relevanceDate
+  } = selection;
   const categoryBySlug = categories.find(category => category.slug === slug);
   const gallery = images.slice(1);
+
+  const relevance = relevanceDate
+    ? new Date(relevanceDate).toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long"
+      })
+    : null;
 
   return (
     <React.Fragment>
@@ -60,6 +75,7 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
         <TitleList variant="body2" title="Категории" items={categories} />
         <TitleList variant="body2" title="Магазины" items={shops} />
         <DraftHtml text={text} />
+        {relevance && <Typography variant="body2">{relevance}</Typography>}
       </Container>
     </React.Fragment>
   );

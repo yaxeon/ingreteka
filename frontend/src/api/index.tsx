@@ -170,6 +170,8 @@ export type Selection = {
   images: Array<Scalars["String"]>;
   createdAt: Scalars["DateTime"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
+  relevanceDate?: Maybe<Scalars["DateTime"]>;
+  isPublished: Scalars["Boolean"];
 };
 
 export type SelectionDeleteInput = {
@@ -229,6 +231,8 @@ export type SelectionUpsertInput = {
   brands: Array<Scalars["GraphQLObjectId"]>;
   shops: Array<Scalars["GraphQLObjectId"]>;
   images: Array<Scalars["String"]>;
+  isPublished: Scalars["Boolean"];
+  relevanceDate?: Maybe<Scalars["DateTime"]>;
 };
 
 export type Shop = {
@@ -315,7 +319,7 @@ export type SelectionItemQuery = { __typename?: "Query" } & {
     item: Maybe<
       { __typename?: "Selection" } & Pick<
         Selection,
-        "id" | "title" | "text" | "images"
+        "id" | "title" | "text" | "images" | "relevanceDate"
       > & {
           categories: Array<
             { __typename?: "Category" } & Pick<Category, "title" | "slug">
@@ -501,6 +505,7 @@ export const SelectionItemDocument = gql`
         title
         text
         images
+        relevanceDate
         categories {
           title
           slug

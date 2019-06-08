@@ -58,6 +58,8 @@ const SelectionQuery: SelectionQueryResolvers = {
       query.where("isPublished").equals(true);
     }
 
+    query.sort({ relevanceDate: "desc" });
+
     const list = await query
       .populate("categories")
       .populate("brands")
