@@ -8,7 +8,6 @@ glob.sync("build/{precache*,service*}").map(fs.unlinkSync);
 const buildSW = () => {
   return workboxBuild.generateSW({
     clientsClaim: true,
-    skipWaiting: true,
     importWorkboxFrom: "cdn",
     globDirectory: "build",
     globPatterns: ["**/*.{html,js,css,svg}"],

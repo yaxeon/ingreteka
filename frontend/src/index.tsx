@@ -14,6 +14,12 @@ import * as serviceWorker from "./serviceWorker";
 const history = createBrowserHistory();
 const client = createClient({ uri: "/graphql" });
 
+history.listen((location, action) => {
+  const pageView = (window as any).pageView;
+
+  action === "PUSH" && pageView && pageView(location.pathname);
+});
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Router history={history}>
