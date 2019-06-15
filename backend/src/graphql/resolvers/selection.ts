@@ -67,8 +67,20 @@ const SelectionQuery: SelectionQueryResolvers = {
 
     return list.map(selection => selection.toObject());
   },
-  search: async (root, { filter: { query } }, { models: { Selection } }) => {
-    const list = await Selection.find({ $text: { $search: query } })
+  search: async (
+    root,
+    { filter: { query: search } },
+    { user, models: { Selection } }
+  ) => {
+    const query = Selection.find();
+
+    query.setQuery({ $text: { $search: search } });
+
+    if (user === null || !user.isAdmin()) {
+      query.where("isPublished").equals(true);
+    }
+
+    const list = await query
       .populate("categories")
       .populate("brands")
       .populate("shops");

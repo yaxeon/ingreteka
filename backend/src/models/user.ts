@@ -44,7 +44,7 @@ UserSchema.methods.verifyPassword = function(password: string) {
 };
 
 UserSchema.methods.isAdmin = function() {
-  this.roles.includes(UserRole.ADMIN);
+  return this.roles.includes(UserRole.ADMIN);
 };
 
 export const User = model<UserModel>("User", UserSchema, "users");
