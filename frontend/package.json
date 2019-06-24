@@ -26,6 +26,7 @@
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "react-quick-pinch-zoom": "^2.0.12",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.0.1",
