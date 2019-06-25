@@ -1,5 +1,6 @@
 import idx from "idx";
 import { SelectionMutationResolvers, SelectionQueryResolvers } from "../types";
+import { updateSelectionIndex } from "../../service/searchIndex";
 
 const SelectionMutation: SelectionMutationResolvers = {
   delete: async (root, { input: { id } }, { models: { Selection } }) => {
@@ -15,6 +16,10 @@ const SelectionMutation: SelectionMutationResolvers = {
     const selection = id
       ? await Selection.findByIdAndUpdate(id, rest, { upsert: true })
       : await Selection.create(rest);
+
+    if (id) {
+      await updateSelectionIndex(id);
+    }
 
     return selection ? selection.toObject() : null;
   }

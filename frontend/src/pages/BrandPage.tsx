@@ -18,7 +18,7 @@ const groupByRegExp = (list: Array<Brand>, group: RegExp) =>
 
 const renderList = (list: Array<Brand>) =>
   list.map(({ id, title }) => (
-    <Link to={`/search/?query=${encodeURI(title)}`} key={id}>
+    <Link to={`/search/?query="${encodeURI(title)}"`} key={id}>
       <Typography color="textPrimary" variant="body1">
         {title}
       </Typography>

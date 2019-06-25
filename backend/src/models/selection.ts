@@ -2,7 +2,9 @@ import { Document, model, Schema } from "mongoose";
 
 import { Omit, Selection as SelectionType } from "../graphql/types";
 
-export interface SelectionModel extends Document, Omit<SelectionType, "id"> {}
+export interface SelectionModel extends Document, Omit<SelectionType, "id"> {
+  search?: string;
+}
 
 export const SelectionSchema: Schema = new Schema(
   {
@@ -13,6 +15,9 @@ export const SelectionSchema: Schema = new Schema(
     text: {
       type: String,
       required: true
+    },
+    search: {
+      type: String
     },
     categories: [
       {
@@ -53,9 +58,10 @@ export const SelectionSchema: Schema = new Schema(
 
 SelectionSchema.set("toObject", { virtuals: true });
 SelectionSchema.index(
-  { name: "text", text: "text", title: "text" },
+  { name: "text", text: "text", title: "text", search: "text" },
   {
     weights: {
+      search: 10,
       title: 10,
       text: 5
     },

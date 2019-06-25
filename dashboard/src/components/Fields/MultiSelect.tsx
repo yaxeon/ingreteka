@@ -178,7 +178,7 @@ export const MultiSelect = enhance(
         components={components}
         options={options}
         value={selectValue}
-        onChange={nextValue => {
+        onChange={(nextValue: any) => {
           if (!nextValue) {
             onChange([]);
             return;
