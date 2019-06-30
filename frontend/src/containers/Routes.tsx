@@ -7,9 +7,11 @@ import { CategoryPage } from "../pages/CategoryPage";
 import { SelectionPage } from "../pages/SelectionPage";
 import { SearchPage } from "../pages/SearchPage";
 import { FavoritePage } from "../pages/FavoritePage";
+import { AboutPage } from "../pages/AboutPage";
 
 export const Routes = () => (
   <Switch>
+    <Route path="/about" component={AboutPage} />
     <Route path="/brands" component={BrandPage} />
     <Route path="/search" component={SearchPage} />
     <Route path="/favorite" component={FavoritePage} />

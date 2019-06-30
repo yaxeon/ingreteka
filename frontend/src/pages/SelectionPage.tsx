@@ -1,7 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
 import { RouteComponentProps } from "react-router-dom";
+import { makeStyles } from "@material-ui/core";
+
 import idx from "idx";
 
 import { useSelectionItemQuery } from "../api";
@@ -12,7 +15,7 @@ import { DraftHtml } from "../components/DraftHtml";
 import { Carousel } from "../components/Carousel";
 import { Container } from "../components/Layout";
 import { Favorite } from "../components/Favorite";
-import { makeStyles } from "@material-ui/core";
+import { InstagramIcon } from "../components/InstagramIcon";
 
 const useStyles = makeStyles({
   action: {
@@ -66,6 +69,12 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
       <Container>
         <Carousel images={gallery} />
         <div className={classes.action}>
+          <IconButton
+            href="https://www.instagram.com/ingreteka/"
+            target="_blank"
+          >
+            <InstagramIcon />
+          </IconButton>
           <Favorite id={id} />
         </div>
         <Typography variant="h1" gutterBottom>

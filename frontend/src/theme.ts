@@ -48,17 +48,6 @@ export const theme = createMuiTheme({
     h4: {
       fontWeight: 600,
       fontSize: "1.2rem"
-    },
-    h5: {
-      fontWeight: 500,
-      fontSize: "0.8rem"
-    },
-    h6: {
-      fontWeight: 600,
-      fontSize: "0.8rem",
-      paddingLeft: 2,
-      paddingRight: 2,
-      borderBottom: "2px solid #000"
     }
   }
 });

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
 import { Header, HeaderProps } from "./Header";
+import { HeaderTitle } from "./HeaderTitle";
 import { Category } from "../../api";
 
 const useStyles = makeStyles({
@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     overflowX: "auto",
     alignItems: "center",
     marginRight: "0.5rem",
+    flexGrow: 1,
     height: "4rem",
     "-webkit-overflow-scrolling": "touch",
     "&::-webkit-scrollbar": {
@@ -61,15 +62,14 @@ export const HeaderSlider: React.FC<Props> = ({
     <Header backUri={backUri}>
       <nav className={classes.nav} ref={menuEl}>
         {items.map(category => (
-          <Typography
-            component="span"
-            variant={selectedSlug === category.slug ? "h6" : "h5"}
+          <HeaderTitle
+            selected={selectedSlug === category.slug}
             className={classes.navItem}
             data-selected={selectedSlug === category.slug ? true : undefined}
             key={category.id}
           >
             <Link to={`/category/${category.slug}/`}>{category.title}</Link>
-          </Typography>
+          </HeaderTitle>
         ))}
       </nav>
     </Header>

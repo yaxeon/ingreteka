@@ -7,6 +7,8 @@ import ArrowBackIos from "@material-ui/icons/ArrowBackIosOutlined";
 import { Link } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
+import { HeaderAbout } from "./HeaderAbout";
+
 const useStyles = makeStyles<Theme>(theme => ({
   toolbar: {
     height: theme.spacing(8),
@@ -36,6 +38,7 @@ export const Header: React.FC<HeaderProps> = ({ children, backUri }) => {
           </Link>
         )}
         {children}
+        <HeaderAbout />
       </Toolbar>
     </AppBar>
   );
