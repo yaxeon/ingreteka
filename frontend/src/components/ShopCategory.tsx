@@ -33,7 +33,7 @@ export const ShopCategory = () => {
         <Grid item xs={6} key={id} className={classes.shop}>
           <Link to={`/search/?query="${encodeURI(title)}"`} key={id}>
             <Image className={classes.image} alt={title} src={image} />
-            <Typography color="textPrimary" align="center" variant="h5">
+            <Typography color="textPrimary" align="center" variant="body2">
               {title}
             </Typography>
           </Link>
