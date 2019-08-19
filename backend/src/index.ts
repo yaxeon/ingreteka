@@ -24,6 +24,8 @@ const server = new ApolloServer({
 
 const app = express();
 
+app.use(express.json({ limit: "5mb" }));
+
 app.use(sessionsConfig);
 app.use(passport.initialize());
 app.use(passport.session());
