@@ -18,7 +18,7 @@ import { Formik, Field, FieldArray, Form, FormikActions } from "formik";
 
 import { RichTextField } from "../Fields/RichTextField";
 import { UploadImageField } from "../Fields/UploadImageField";
-import { MultiSelectField } from "../Fields/MultiSelectField";
+import { SelectField } from "../Fields/SelectField";
 import { DateField } from "../Fields/DateField";
 import {
   useSelectionDeleteMutation,
@@ -43,8 +43,8 @@ const selectionSchema = yup.object().shape({
 export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
   const { data, loading } = useSelectionItemQuery({ variables: { id } });
   const { data: dataOptions } = useSelectionOptionsQuery();
-  const handleUpsert = useSelectionUpsertMutation();
-  const handleDelete = useSelectionDeleteMutation();
+  const [handleUpsert] = useSelectionUpsertMutation();
+  const [handleDelete] = useSelectionDeleteMutation();
 
   const onDelete = (id: string) => {
     handleDelete({ variables: { input: { id } } }).then(onClose);
@@ -115,25 +115,28 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
                 </Grid>
                 <Grid item xs={6}>
                   <Field
+                    multiple
                     name="categories"
                     label="Category"
-                    component={MultiSelectField}
+                    component={SelectField}
                     options={options.category}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <Field
+                    multiple
                     name="shops"
                     label="Shop"
-                    component={MultiSelectField}
+                    component={SelectField}
                     options={options.shop}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <Field
+                    multiple
                     name="brands"
                     label="Brand"
-                    component={MultiSelectField}
+                    component={SelectField}
                     options={options.brand}
                   />
                 </Grid>

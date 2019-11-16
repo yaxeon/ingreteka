@@ -4,6 +4,7 @@
   "domain": "backend.ingreteka.yaxeon.ru",
   "restart": "always",
   "hostname": "backend.ingreteka",
+  "port": "8080",
   "env": {
     "MONGO_URL": "@mongo_ingreteka",
     "COOKIE_SECRET": "@cookie_secret",
@@ -12,9 +13,6 @@
     "MINIO_HOST": "minio.infrastructure.yaxeon.ru",
     "MINIO_ACCESS_KEY": "@minio_access_key",
     "MINIO_SECRET_KEY": "@minio_secret_key"
-  },
-  "labels": {
-    "traefik.port": "8080"
   },
   "template": "dockerfile"
 }

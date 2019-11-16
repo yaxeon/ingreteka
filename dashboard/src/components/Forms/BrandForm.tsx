@@ -20,8 +20,8 @@ const brandSchema = Yup.object().shape({
 
 export const BrandForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
   const { data, loading } = useBrandItemQuery({ variables: { id } });
-  const handleUpsert = useBrandUpsertMutation();
-  const handleDelete = useBrandDeleteMutation();
+  const [handleUpsert] = useBrandUpsertMutation();
+  const [handleDelete] = useBrandDeleteMutation();
 
   const onDelete = (id: string) => {
     handleDelete({ variables: { input: { id } } }).then(onClose);

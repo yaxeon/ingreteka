@@ -27,7 +27,7 @@ const enhance = withStyles<ClassKey>({
 export const Header = enhance(({ classes }: Props) => {
   const [open, setVisible] = useState(false);
   const { onReload } = useContext(AuthContext);
-  const handleLogout = useAuthLogoutMutation();
+  const [handleLogout] = useAuthLogoutMutation();
 
   const onLogout = () => {
     handleLogout().then(onReload);

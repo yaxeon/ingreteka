@@ -25,8 +25,8 @@ interface RichTextPropsWithStyles extends WithStyles<ClassKey>, RichTextProps {}
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
     fontFamily: theme.typography.fontFamily,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 2
+    marginTop: theme.spacing(),
+    marginBottom: theme.spacing(2)
   },
   editor: {
     height: "500px"

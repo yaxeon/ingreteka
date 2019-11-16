@@ -52,7 +52,7 @@ export const UploadImage = enhance(
     sortNode = null,
     onClear = () => {}
   }: UploadImagePropsWithStyles) => {
-    const handleUpload = useFileUploadMutation();
+    const [handleUpload] = useFileUploadMutation();
     const [htmlId] = useState(uuid());
 
     const handleChange = ({

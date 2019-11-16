@@ -25,8 +25,8 @@ const shopSchema = Yup.object().shape({
 
 export const ShopForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
   const { data, loading } = useShopItemQuery({ variables: { id } });
-  const handleUpsert = useShopUpsertMutation();
-  const handleDelete = useShopDeleteMutation();
+  const [handleUpsert] = useShopUpsertMutation();
+  const [handleDelete] = useShopDeleteMutation();
 
   const onDelete = (id: string) => {
     handleDelete({ variables: { input: { id } } }).then(onClose);

@@ -1,1893 +1,1442 @@
 /* eslint-disable */
-
+import gql from 'graphql-tag';
+import * as ApolloReactCommon from '@apollo/react-common';
+import * as React from 'react';
+import * as ApolloReactComponents from '@apollo/react-components';
+import * as ApolloReactHoc from '@apollo/react-hoc';
+import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
+  ID: string,
+  String: string,
+  Boolean: boolean,
+  Int: number,
+  Float: number,
   /** Mongo ObjectId id scalar type */
-  GraphQLObjectId: string;
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+  GraphQLObjectId: string,
+  /** 
+ * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
    * `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
    * 8601 standard for representation of dates and times using the Gregorian calendar.
-   */
-  DateTime: string;
-  Upload: any;
+ **/
+  DateTime: string,
+  Upload: any,
 };
 
+
 export type AuthLoginInput = {
-  username: Scalars["String"];
-  password: Scalars["String"];
+  username: Scalars['String'],
+  password: Scalars['String'],
 };
 
 export type AuthMutation = {
-  login?: Maybe<Scalars["Boolean"]>;
-  logout?: Maybe<Scalars["Boolean"]>;
+  __typename?: 'AuthMutation',
+  login?: Maybe<Scalars['Boolean']>,
+  logout?: Maybe<Scalars['Boolean']>,
 };
 
+
 export type AuthMutationLoginArgs = {
-  input: AuthLoginInput;
+  input: AuthLoginInput
 };
 
 export type AuthQuery = {
-  profile?: Maybe<User>;
+  __typename?: 'AuthQuery',
+  profile?: Maybe<User>,
 };
 
 export type Brand = {
-  id: Scalars["GraphQLObjectId"];
-  title: Scalars["String"];
+  __typename?: 'Brand',
+  id: Scalars['GraphQLObjectId'],
+  title: Scalars['String'],
 };
 
 export type BrandDeleteInput = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId'],
 };
 
 export type BrandMutation = {
-  upsert?: Maybe<Brand>;
-  delete?: Maybe<Scalars["Boolean"]>;
+  __typename?: 'BrandMutation',
+  upsert?: Maybe<Brand>,
+  delete?: Maybe<Scalars['Boolean']>,
 };
+
 
 export type BrandMutationUpsertArgs = {
-  input: BrandUpsertInput;
+  input: BrandUpsertInput
 };
 
+
 export type BrandMutationDeleteArgs = {
-  input: BrandDeleteInput;
+  input: BrandDeleteInput
 };
 
 export type BrandQuery = {
-  list: Array<Brand>;
-  item?: Maybe<Brand>;
+  __typename?: 'BrandQuery',
+  list: Array<Brand>,
+  item?: Maybe<Brand>,
 };
 
+
 export type BrandQueryItemArgs = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
 export type BrandUpsertInput = {
-  id?: Maybe<Scalars["GraphQLObjectId"]>;
-  title: Scalars["String"];
+  id?: Maybe<Scalars['GraphQLObjectId']>,
+  title: Scalars['String'],
 };
 
 export type Category = {
-  id: Scalars["GraphQLObjectId"];
-  title: Scalars["String"];
-  slug: Scalars["String"];
-  sort: Scalars["Int"];
-  image: Scalars["String"];
+  __typename?: 'Category',
+  id: Scalars['GraphQLObjectId'],
+  title: Scalars['String'],
+  slug: Scalars['String'],
+  sort: Scalars['Int'],
+  image: Scalars['String'],
 };
 
 export type CategoryDeleteInput = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId'],
 };
 
 export type CategoryMutation = {
-  upsert?: Maybe<Category>;
-  delete?: Maybe<Scalars["Boolean"]>;
+  __typename?: 'CategoryMutation',
+  upsert?: Maybe<Category>,
+  delete?: Maybe<Scalars['Boolean']>,
 };
+
 
 export type CategoryMutationUpsertArgs = {
-  input: CategoryUpsertInput;
+  input: CategoryUpsertInput
 };
 
+
 export type CategoryMutationDeleteArgs = {
-  input: CategoryDeleteInput;
+  input: CategoryDeleteInput
 };
 
 export type CategoryQuery = {
-  list: Array<Category>;
-  item?: Maybe<Category>;
+  __typename?: 'CategoryQuery',
+  list: Array<Category>,
+  item?: Maybe<Category>,
 };
 
+
 export type CategoryQueryItemArgs = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
 export type CategoryUpsertInput = {
-  id?: Maybe<Scalars["GraphQLObjectId"]>;
-  title: Scalars["String"];
-  slug: Scalars["String"];
-  sort?: Maybe<Scalars["Int"]>;
-  image: Scalars["String"];
+  id?: Maybe<Scalars['GraphQLObjectId']>,
+  title: Scalars['String'],
+  slug: Scalars['String'],
+  sort?: Maybe<Scalars['Int']>,
+  image: Scalars['String'],
 };
 
+
 export type File = {
-  uri: Scalars["String"];
+  __typename?: 'File',
+  uri: Scalars['String'],
 };
 
 export type FileMutation = {
-  upload?: Maybe<File>;
+  __typename?: 'FileMutation',
+  upload?: Maybe<File>,
 };
+
 
 export type FileMutationUploadArgs = {
-  file: Scalars["Upload"];
+  file: Scalars['Upload']
 };
 
+
 export type Mutation = {
-  auth: AuthMutation;
-  category: CategoryMutation;
-  shop: ShopMutation;
-  brand: BrandMutation;
-  selection: SelectionMutation;
-  file: FileMutation;
+  __typename?: 'Mutation',
+  auth: AuthMutation,
+  category: CategoryMutation,
+  shop: ShopMutation,
+  brand: BrandMutation,
+  selection: SelectionMutation,
+  file: FileMutation,
 };
 
 export type Query = {
-  auth: AuthQuery;
-  category: CategoryQuery;
-  shop: ShopQuery;
-  brand: BrandQuery;
-  selection: SelectionQuery;
+  __typename?: 'Query',
+  auth: AuthQuery,
+  category: CategoryQuery,
+  shop: ShopQuery,
+  brand: BrandQuery,
+  selection: SelectionQuery,
 };
 
 export type Selection = {
-  id: Scalars["GraphQLObjectId"];
-  title: Scalars["String"];
-  text: Scalars["String"];
-  categories: Array<Category>;
-  brands: Array<Brand>;
-  shops: Array<Shop>;
-  images: Array<Scalars["String"]>;
-  createdAt: Scalars["DateTime"];
-  updatedAt?: Maybe<Scalars["DateTime"]>;
-  relevanceDate?: Maybe<Scalars["DateTime"]>;
-  isPublished: Scalars["Boolean"];
+  __typename?: 'Selection',
+  id: Scalars['GraphQLObjectId'],
+  title: Scalars['String'],
+  text: Scalars['String'],
+  categories: Array<Category>,
+  brands: Array<Brand>,
+  shops: Array<Shop>,
+  images: Array<Scalars['String']>,
+  createdAt: Scalars['DateTime'],
+  updatedAt?: Maybe<Scalars['DateTime']>,
+  relevanceDate?: Maybe<Scalars['DateTime']>,
+  isPublished: Scalars['Boolean'],
 };
 
 export type SelectionDeleteInput = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId'],
 };
 
 export type SelectionFilterInput = {
-  categoryId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
-  categorySlug?: Maybe<Array<Scalars["String"]>>;
-  brandId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
-  shopId?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
-  id?: Maybe<Array<Scalars["GraphQLObjectId"]>>;
+  categoryId?: Maybe<Array<Scalars['GraphQLObjectId']>>,
+  categorySlug?: Maybe<Array<Scalars['String']>>,
+  brandId?: Maybe<Array<Scalars['GraphQLObjectId']>>,
+  shopId?: Maybe<Array<Scalars['GraphQLObjectId']>>,
+  id?: Maybe<Array<Scalars['GraphQLObjectId']>>,
 };
 
 export type SelectionMutation = {
-  upsert?: Maybe<Selection>;
-  delete?: Maybe<Scalars["Boolean"]>;
+  __typename?: 'SelectionMutation',
+  upsert?: Maybe<Selection>,
+  delete?: Maybe<Scalars['Boolean']>,
 };
+
 
 export type SelectionMutationUpsertArgs = {
-  input: SelectionUpsertInput;
+  input: SelectionUpsertInput
 };
 
+
 export type SelectionMutationDeleteArgs = {
-  input: SelectionDeleteInput;
+  input: SelectionDeleteInput
 };
 
 export type SelectionQuery = {
-  list: Array<Selection>;
-  search: Array<Selection>;
-  item?: Maybe<Selection>;
+  __typename?: 'SelectionQuery',
+  list: Array<Selection>,
+  search: Array<Selection>,
+  item?: Maybe<Selection>,
 };
+
 
 export type SelectionQueryListArgs = {
-  filter?: Maybe<SelectionFilterInput>;
+  filter?: Maybe<SelectionFilterInput>
 };
+
 
 export type SelectionQuerySearchArgs = {
-  filter: SelectionSearchInput;
+  filter: SelectionSearchInput
 };
 
+
 export type SelectionQueryItemArgs = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
 export type SelectionSearchInput = {
-  query: Scalars["String"];
+  query: Scalars['String'],
 };
 
 export type SelectionUpsertInput = {
-  id?: Maybe<Scalars["GraphQLObjectId"]>;
-  title: Scalars["String"];
-  text: Scalars["String"];
-  categories: Array<Scalars["GraphQLObjectId"]>;
-  brands: Array<Scalars["GraphQLObjectId"]>;
-  shops: Array<Scalars["GraphQLObjectId"]>;
-  images: Array<Scalars["String"]>;
-  isPublished: Scalars["Boolean"];
-  relevanceDate?: Maybe<Scalars["DateTime"]>;
+  id?: Maybe<Scalars['GraphQLObjectId']>,
+  title: Scalars['String'],
+  text: Scalars['String'],
+  categories: Array<Scalars['GraphQLObjectId']>,
+  brands: Array<Scalars['GraphQLObjectId']>,
+  shops: Array<Scalars['GraphQLObjectId']>,
+  images: Array<Scalars['String']>,
+  isPublished: Scalars['Boolean'],
+  relevanceDate?: Maybe<Scalars['DateTime']>,
 };
 
 export type Shop = {
-  id: Scalars["GraphQLObjectId"];
-  title: Scalars["String"];
-  link: Scalars["String"];
-  image: Scalars["String"];
+  __typename?: 'Shop',
+  id: Scalars['GraphQLObjectId'],
+  title: Scalars['String'],
+  link: Scalars['String'],
+  image: Scalars['String'],
 };
 
 export type ShopDeleteInput = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId'],
 };
 
 export type ShopMutation = {
-  upsert?: Maybe<Shop>;
-  delete?: Maybe<Scalars["Boolean"]>;
+  __typename?: 'ShopMutation',
+  upsert?: Maybe<Shop>,
+  delete?: Maybe<Scalars['Boolean']>,
 };
+
 
 export type ShopMutationUpsertArgs = {
-  input: ShopUpsertInput;
+  input: ShopUpsertInput
 };
 
+
 export type ShopMutationDeleteArgs = {
-  input: ShopDeleteInput;
+  input: ShopDeleteInput
 };
 
 export type ShopQuery = {
-  list: Array<Shop>;
-  item?: Maybe<Shop>;
+  __typename?: 'ShopQuery',
+  list: Array<Shop>,
+  item?: Maybe<Shop>,
 };
 
+
 export type ShopQueryItemArgs = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
 export type ShopUpsertInput = {
-  id?: Maybe<Scalars["GraphQLObjectId"]>;
-  title: Scalars["String"];
-  link: Scalars["String"];
-  image: Scalars["String"];
+  id?: Maybe<Scalars['GraphQLObjectId']>,
+  title: Scalars['String'],
+  link: Scalars['String'],
+  image: Scalars['String'],
 };
 
+
 export type User = {
-  email: Scalars["String"];
-  username?: Maybe<Scalars["String"]>;
-  roles: Array<Maybe<UserRole>>;
+  __typename?: 'User',
+  email: Scalars['String'],
+  username?: Maybe<Scalars['String']>,
+  roles: Array<Maybe<UserRole>>,
 };
 
 export enum UserRole {
-  Admin = "ADMIN",
-  User = "USER"
+  Admin = 'ADMIN',
+  User = 'USER'
 }
 export type AuthLoginMutationVariables = {
-  username: Scalars["String"];
-  password: Scalars["String"];
+  username: Scalars['String'],
+  password: Scalars['String']
 };
 
-export type AuthLoginMutation = { __typename?: "Mutation" } & {
-  auth: { __typename?: "AuthMutation" } & Pick<AuthMutation, "login">;
-};
+
+export type AuthLoginMutation = (
+  { __typename?: 'Mutation' }
+  & { auth: (
+    { __typename?: 'AuthMutation' }
+    & Pick<AuthMutation, 'login'>
+  ) }
+);
 
 export type AuthLogoutMutationVariables = {};
 
-export type AuthLogoutMutation = { __typename?: "Mutation" } & {
-  auth: { __typename?: "AuthMutation" } & Pick<AuthMutation, "logout">;
-};
+
+export type AuthLogoutMutation = (
+  { __typename?: 'Mutation' }
+  & { auth: (
+    { __typename?: 'AuthMutation' }
+    & Pick<AuthMutation, 'logout'>
+  ) }
+);
 
 export type AuthProfileQueryVariables = {};
 
-export type AuthProfileQuery = { __typename?: "Query" } & {
-  auth: { __typename?: "AuthQuery" } & {
-    profile: Maybe<
-      { __typename?: "User" } & Pick<User, "username" | "roles" | "email">
-    >;
-  };
-};
+
+export type AuthProfileQuery = (
+  { __typename?: 'Query' }
+  & { auth: (
+    { __typename?: 'AuthQuery' }
+    & { profile: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'username' | 'roles' | 'email'>
+    )> }
+  ) }
+);
 
 export type BrandDeleteMutationVariables = {
-  input: BrandDeleteInput;
+  input: BrandDeleteInput
 };
 
-export type BrandDeleteMutation = { __typename?: "Mutation" } & {
-  brand: { __typename?: "BrandMutation" } & Pick<BrandMutation, "delete">;
-};
+
+export type BrandDeleteMutation = (
+  { __typename?: 'Mutation' }
+  & { brand: (
+    { __typename?: 'BrandMutation' }
+    & Pick<BrandMutation, 'delete'>
+  ) }
+);
 
 export type BrandItemQueryVariables = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
-export type BrandItemQuery = { __typename?: "Query" } & {
-  brand: { __typename?: "BrandQuery" } & {
-    item: Maybe<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
-  };
-};
+
+export type BrandItemQuery = (
+  { __typename?: 'Query' }
+  & { brand: (
+    { __typename?: 'BrandQuery' }
+    & { item: Maybe<(
+      { __typename?: 'Brand' }
+      & Pick<Brand, 'id' | 'title'>
+    )> }
+  ) }
+);
 
 export type BrandListQueryVariables = {};
 
-export type BrandListQuery = { __typename?: "Query" } & {
-  brand: { __typename?: "BrandQuery" } & {
-    list: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
-  };
-};
+
+export type BrandListQuery = (
+  { __typename?: 'Query' }
+  & { brand: (
+    { __typename?: 'BrandQuery' }
+    & { list: Array<(
+      { __typename?: 'Brand' }
+      & Pick<Brand, 'id' | 'title'>
+    )> }
+  ) }
+);
 
 export type BrandUpsertMutationVariables = {
-  input: BrandUpsertInput;
+  input: BrandUpsertInput
 };
 
-export type BrandUpsertMutation = { __typename?: "Mutation" } & {
-  brand: { __typename?: "BrandMutation" } & {
-    upsert: Maybe<{ __typename?: "Brand" } & Pick<Brand, "id">>;
-  };
-};
+
+export type BrandUpsertMutation = (
+  { __typename?: 'Mutation' }
+  & { brand: (
+    { __typename?: 'BrandMutation' }
+    & { upsert: Maybe<(
+      { __typename?: 'Brand' }
+      & Pick<Brand, 'id'>
+    )> }
+  ) }
+);
 
 export type CategoryDeleteMutationVariables = {
-  input: CategoryDeleteInput;
+  input: CategoryDeleteInput
 };
 
-export type CategoryDeleteMutation = { __typename?: "Mutation" } & {
-  category: { __typename?: "CategoryMutation" } & Pick<
-    CategoryMutation,
-    "delete"
-  >;
-};
+
+export type CategoryDeleteMutation = (
+  { __typename?: 'Mutation' }
+  & { category: (
+    { __typename?: 'CategoryMutation' }
+    & Pick<CategoryMutation, 'delete'>
+  ) }
+);
 
 export type CategoryItemQueryVariables = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
-export type CategoryItemQuery = { __typename?: "Query" } & {
-  category: { __typename?: "CategoryQuery" } & {
-    item: Maybe<
-      { __typename?: "Category" } & Pick<
-        Category,
-        "id" | "title" | "slug" | "sort" | "image"
-      >
-    >;
-  };
-};
+
+export type CategoryItemQuery = (
+  { __typename?: 'Query' }
+  & { category: (
+    { __typename?: 'CategoryQuery' }
+    & { item: Maybe<(
+      { __typename?: 'Category' }
+      & Pick<Category, 'id' | 'title' | 'slug' | 'sort' | 'image'>
+    )> }
+  ) }
+);
 
 export type CategoryListQueryVariables = {};
 
-export type CategoryListQuery = { __typename?: "Query" } & {
-  category: { __typename?: "CategoryQuery" } & {
-    list: Array<
-      { __typename?: "Category" } & Pick<
-        Category,
-        "id" | "title" | "slug" | "sort" | "image"
-      >
-    >;
-  };
-};
+
+export type CategoryListQuery = (
+  { __typename?: 'Query' }
+  & { category: (
+    { __typename?: 'CategoryQuery' }
+    & { list: Array<(
+      { __typename?: 'Category' }
+      & Pick<Category, 'id' | 'title' | 'slug' | 'sort' | 'image'>
+    )> }
+  ) }
+);
 
 export type CategoryUpsertMutationVariables = {
-  input: CategoryUpsertInput;
+  input: CategoryUpsertInput
 };
 
-export type CategoryUpsertMutation = { __typename?: "Mutation" } & {
-  category: { __typename?: "CategoryMutation" } & {
-    upsert: Maybe<{ __typename?: "Category" } & Pick<Category, "id">>;
-  };
-};
+
+export type CategoryUpsertMutation = (
+  { __typename?: 'Mutation' }
+  & { category: (
+    { __typename?: 'CategoryMutation' }
+    & { upsert: Maybe<(
+      { __typename?: 'Category' }
+      & Pick<Category, 'id'>
+    )> }
+  ) }
+);
 
 export type FileUploadMutationVariables = {
-  file: Scalars["Upload"];
+  file: Scalars['Upload']
 };
 
-export type FileUploadMutation = { __typename?: "Mutation" } & {
-  file: { __typename?: "FileMutation" } & {
-    upload: Maybe<{ __typename?: "File" } & Pick<File, "uri">>;
-  };
-};
+
+export type FileUploadMutation = (
+  { __typename?: 'Mutation' }
+  & { file: (
+    { __typename?: 'FileMutation' }
+    & { upload: Maybe<(
+      { __typename?: 'File' }
+      & Pick<File, 'uri'>
+    )> }
+  ) }
+);
 
 export type SelectionDeleteMutationVariables = {
-  input: SelectionDeleteInput;
+  input: SelectionDeleteInput
 };
 
-export type SelectionDeleteMutation = { __typename?: "Mutation" } & {
-  selection: { __typename?: "SelectionMutation" } & Pick<
-    SelectionMutation,
-    "delete"
-  >;
-};
+
+export type SelectionDeleteMutation = (
+  { __typename?: 'Mutation' }
+  & { selection: (
+    { __typename?: 'SelectionMutation' }
+    & Pick<SelectionMutation, 'delete'>
+  ) }
+);
 
 export type SelectionItemQueryVariables = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
-export type SelectionItemQuery = { __typename?: "Query" } & {
-  selection: { __typename?: "SelectionQuery" } & {
-    item: Maybe<
-      { __typename?: "Selection" } & Pick<
-        Selection,
-        | "id"
-        | "title"
-        | "text"
-        | "images"
-        | "isPublished"
-        | "relevanceDate"
-        | "createdAt"
-      > & {
-          brands: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
-          categories: Array<
-            { __typename?: "Category" } & Pick<Category, "id" | "title">
-          >;
-          shops: Array<{ __typename?: "Shop" } & Pick<Shop, "id" | "title">>;
-        }
-    >;
-  };
-};
+
+export type SelectionItemQuery = (
+  { __typename?: 'Query' }
+  & { selection: (
+    { __typename?: 'SelectionQuery' }
+    & { item: Maybe<(
+      { __typename?: 'Selection' }
+      & Pick<Selection, 'id' | 'title' | 'text' | 'images' | 'isPublished' | 'relevanceDate' | 'createdAt'>
+      & { brands: Array<(
+        { __typename?: 'Brand' }
+        & Pick<Brand, 'id' | 'title'>
+      )>, categories: Array<(
+        { __typename?: 'Category' }
+        & Pick<Category, 'id' | 'title'>
+      )>, shops: Array<(
+        { __typename?: 'Shop' }
+        & Pick<Shop, 'id' | 'title'>
+      )> }
+    )> }
+  ) }
+);
 
 export type SelectionListQueryVariables = {
-  filter?: Maybe<SelectionFilterInput>;
+  filter?: Maybe<SelectionFilterInput>
 };
 
-export type SelectionListQuery = { __typename?: "Query" } & {
-  selection: { __typename?: "SelectionQuery" } & {
-    list: Array<
-      { __typename?: "Selection" } & Pick<
-        Selection,
-        | "id"
-        | "title"
-        | "text"
-        | "images"
-        | "createdAt"
-        | "isPublished"
-        | "relevanceDate"
-      > & {
-          brands: Array<{ __typename?: "Brand" } & Pick<Brand, "id" | "title">>;
-          categories: Array<
-            { __typename?: "Category" } & Pick<Category, "id" | "title">
-          >;
-          shops: Array<{ __typename?: "Shop" } & Pick<Shop, "id" | "title">>;
-        }
-    >;
-  };
-};
+
+export type SelectionListQuery = (
+  { __typename?: 'Query' }
+  & { selection: (
+    { __typename?: 'SelectionQuery' }
+    & { list: Array<(
+      { __typename?: 'Selection' }
+      & Pick<Selection, 'id' | 'title' | 'text' | 'images' | 'createdAt' | 'isPublished' | 'relevanceDate'>
+      & { brands: Array<(
+        { __typename?: 'Brand' }
+        & Pick<Brand, 'id' | 'title'>
+      )>, categories: Array<(
+        { __typename?: 'Category' }
+        & Pick<Category, 'id' | 'title'>
+      )>, shops: Array<(
+        { __typename?: 'Shop' }
+        & Pick<Shop, 'id' | 'title'>
+      )> }
+    )> }
+  ) }
+);
 
 export type SelectionOptionsQueryVariables = {};
 
-export type SelectionOptionsQuery = { __typename?: "Query" } & {
-  brand: { __typename?: "BrandQuery" } & {
-    list: Array<
-      { __typename?: "Brand" } & { value: Brand["id"]; label: Brand["title"] }
-    >;
-  };
-  shop: { __typename?: "ShopQuery" } & {
-    list: Array<
-      { __typename?: "Shop" } & { value: Shop["id"]; label: Shop["title"] }
-    >;
-  };
-  category: { __typename?: "CategoryQuery" } & {
-    list: Array<
-      { __typename?: "Category" } & {
-        value: Category["id"];
-        label: Category["title"];
-      }
-    >;
-  };
-};
+
+export type SelectionOptionsQuery = (
+  { __typename?: 'Query' }
+  & { brand: (
+    { __typename?: 'BrandQuery' }
+    & { list: Array<(
+      { __typename?: 'Brand' }
+      & { value: Brand['id'], label: Brand['title'] }
+    )> }
+  ), shop: (
+    { __typename?: 'ShopQuery' }
+    & { list: Array<(
+      { __typename?: 'Shop' }
+      & { value: Shop['id'], label: Shop['title'] }
+    )> }
+  ), category: (
+    { __typename?: 'CategoryQuery' }
+    & { list: Array<(
+      { __typename?: 'Category' }
+      & { value: Category['id'], label: Category['title'] }
+    )> }
+  ) }
+);
 
 export type SelectionUpsertMutationVariables = {
-  input: SelectionUpsertInput;
+  input: SelectionUpsertInput
 };
 
-export type SelectionUpsertMutation = { __typename?: "Mutation" } & {
-  selection: { __typename?: "SelectionMutation" } & {
-    upsert: Maybe<{ __typename?: "Selection" } & Pick<Selection, "id">>;
-  };
-};
+
+export type SelectionUpsertMutation = (
+  { __typename?: 'Mutation' }
+  & { selection: (
+    { __typename?: 'SelectionMutation' }
+    & { upsert: Maybe<(
+      { __typename?: 'Selection' }
+      & Pick<Selection, 'id'>
+    )> }
+  ) }
+);
 
 export type ShopDeleteMutationVariables = {
-  input: ShopDeleteInput;
+  input: ShopDeleteInput
 };
 
-export type ShopDeleteMutation = { __typename?: "Mutation" } & {
-  shop: { __typename?: "ShopMutation" } & Pick<ShopMutation, "delete">;
-};
+
+export type ShopDeleteMutation = (
+  { __typename?: 'Mutation' }
+  & { shop: (
+    { __typename?: 'ShopMutation' }
+    & Pick<ShopMutation, 'delete'>
+  ) }
+);
 
 export type ShopItemQueryVariables = {
-  id: Scalars["GraphQLObjectId"];
+  id: Scalars['GraphQLObjectId']
 };
 
-export type ShopItemQuery = { __typename?: "Query" } & {
-  shop: { __typename?: "ShopQuery" } & {
-    item: Maybe<
-      { __typename?: "Shop" } & Pick<Shop, "id" | "title" | "link" | "image">
-    >;
-  };
-};
+
+export type ShopItemQuery = (
+  { __typename?: 'Query' }
+  & { shop: (
+    { __typename?: 'ShopQuery' }
+    & { item: Maybe<(
+      { __typename?: 'Shop' }
+      & Pick<Shop, 'id' | 'title' | 'link' | 'image'>
+    )> }
+  ) }
+);
 
 export type ShopListQueryVariables = {};
 
-export type ShopListQuery = { __typename?: "Query" } & {
-  shop: { __typename?: "ShopQuery" } & {
-    list: Array<
-      { __typename?: "Shop" } & Pick<Shop, "id" | "title" | "link" | "image">
-    >;
-  };
-};
+
+export type ShopListQuery = (
+  { __typename?: 'Query' }
+  & { shop: (
+    { __typename?: 'ShopQuery' }
+    & { list: Array<(
+      { __typename?: 'Shop' }
+      & Pick<Shop, 'id' | 'title' | 'link' | 'image'>
+    )> }
+  ) }
+);
 
 export type ShopUpsertMutationVariables = {
-  input: ShopUpsertInput;
+  input: ShopUpsertInput
 };
 
-export type ShopUpsertMutation = { __typename?: "Mutation" } & {
-  shop: { __typename?: "ShopMutation" } & {
-    upsert: Maybe<{ __typename?: "Shop" } & Pick<Shop, "id">>;
-  };
-};
 
-import gql from "graphql-tag";
-import * as React from "react";
-import * as ReactApollo from "react-apollo";
-import * as ReactApolloHooks from "react-apollo-hooks";
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type ShopUpsertMutation = (
+  { __typename?: 'Mutation' }
+  & { shop: (
+    { __typename?: 'ShopMutation' }
+    & { upsert: Maybe<(
+      { __typename?: 'Shop' }
+      & Pick<Shop, 'id'>
+    )> }
+  ) }
+);
 
 export const AuthLoginDocument = gql`
-  mutation authLogin($username: String!, $password: String!) {
-    auth {
-      login(input: { username: $username, password: $password })
-    }
+    mutation authLogin($username: String!, $password: String!) {
+  auth {
+    login(input: {username: $username, password: $password})
   }
-`;
-export type AuthLoginMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type AuthLoginMutationFn = ApolloReactCommon.MutationFunction<AuthLoginMutation, AuthLoginMutationVariables>;
+export type AuthLoginComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AuthLoginMutation, AuthLoginMutationVariables>, 'mutation'>;
+
+    export const AuthLoginComponent = (props: AuthLoginComponentProps) => (
+      <ApolloReactComponents.Mutation<AuthLoginMutation, AuthLoginMutationVariables> mutation={AuthLoginDocument} {...props} />
+    );
+    
+export type AuthLoginProps<TChildProps = {}> = ApolloReactHoc.MutateProps<AuthLoginMutation, AuthLoginMutationVariables> & TChildProps;
+export function withAuthLogin<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   AuthLoginMutation,
-  AuthLoginMutationVariables
->;
+  AuthLoginMutationVariables,
+  AuthLoginProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, AuthLoginMutation, AuthLoginMutationVariables, AuthLoginProps<TChildProps>>(AuthLoginDocument, {
+      alias: 'withAuthLogin',
+      ...operationOptions
+    });
+};
 
-export const AuthLoginComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<AuthLoginMutation, AuthLoginMutationVariables>,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: AuthLoginMutationVariables }
-) => (
-  <ReactApollo.Mutation<AuthLoginMutation, AuthLoginMutationVariables>
-    mutation={AuthLoginDocument}
-    {...props}
-  />
-);
-
-export type AuthLoginProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<AuthLoginMutation, AuthLoginMutationVariables>
-> &
-  TChildProps;
-export function withAuthLogin<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    AuthLoginMutation,
-    AuthLoginMutationVariables,
-    AuthLoginProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    AuthLoginMutation,
-    AuthLoginMutationVariables,
-    AuthLoginProps<TChildProps>
-  >(AuthLoginDocument, {
-    alias: "withAuthLogin",
-    ...operationOptions
-  });
-}
-
-export function useAuthLoginMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    AuthLoginMutation,
-    AuthLoginMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    AuthLoginMutation,
-    AuthLoginMutationVariables
-  >(AuthLoginDocument, baseOptions);
-}
+    export function useAuthLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AuthLoginMutation, AuthLoginMutationVariables>) {
+      return ApolloReactHooks.useMutation<AuthLoginMutation, AuthLoginMutationVariables>(AuthLoginDocument, baseOptions);
+    };
+export type AuthLoginMutationHookResult = ReturnType<typeof useAuthLoginMutation>;
+export type AuthLoginMutationResult = ApolloReactCommon.MutationResult<AuthLoginMutation>;
+export type AuthLoginMutationOptions = ApolloReactCommon.BaseMutationOptions<AuthLoginMutation, AuthLoginMutationVariables>;
 export const AuthLogoutDocument = gql`
-  mutation authLogout {
-    auth {
-      logout
-    }
+    mutation authLogout {
+  auth {
+    logout
   }
-`;
-export type AuthLogoutMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type AuthLogoutMutationFn = ApolloReactCommon.MutationFunction<AuthLogoutMutation, AuthLogoutMutationVariables>;
+export type AuthLogoutComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<AuthLogoutMutation, AuthLogoutMutationVariables>, 'mutation'>;
+
+    export const AuthLogoutComponent = (props: AuthLogoutComponentProps) => (
+      <ApolloReactComponents.Mutation<AuthLogoutMutation, AuthLogoutMutationVariables> mutation={AuthLogoutDocument} {...props} />
+    );
+    
+export type AuthLogoutProps<TChildProps = {}> = ApolloReactHoc.MutateProps<AuthLogoutMutation, AuthLogoutMutationVariables> & TChildProps;
+export function withAuthLogout<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   AuthLogoutMutation,
-  AuthLogoutMutationVariables
->;
+  AuthLogoutMutationVariables,
+  AuthLogoutProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, AuthLogoutMutation, AuthLogoutMutationVariables, AuthLogoutProps<TChildProps>>(AuthLogoutDocument, {
+      alias: 'withAuthLogout',
+      ...operationOptions
+    });
+};
 
-export const AuthLogoutComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        AuthLogoutMutation,
-        AuthLogoutMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: AuthLogoutMutationVariables }
-) => (
-  <ReactApollo.Mutation<AuthLogoutMutation, AuthLogoutMutationVariables>
-    mutation={AuthLogoutDocument}
-    {...props}
-  />
-);
-
-export type AuthLogoutProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<AuthLogoutMutation, AuthLogoutMutationVariables>
-> &
-  TChildProps;
-export function withAuthLogout<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    AuthLogoutMutation,
-    AuthLogoutMutationVariables,
-    AuthLogoutProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    AuthLogoutMutation,
-    AuthLogoutMutationVariables,
-    AuthLogoutProps<TChildProps>
-  >(AuthLogoutDocument, {
-    alias: "withAuthLogout",
-    ...operationOptions
-  });
-}
-
-export function useAuthLogoutMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    AuthLogoutMutation,
-    AuthLogoutMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    AuthLogoutMutation,
-    AuthLogoutMutationVariables
-  >(AuthLogoutDocument, baseOptions);
-}
+    export function useAuthLogoutMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AuthLogoutMutation, AuthLogoutMutationVariables>) {
+      return ApolloReactHooks.useMutation<AuthLogoutMutation, AuthLogoutMutationVariables>(AuthLogoutDocument, baseOptions);
+    };
+export type AuthLogoutMutationHookResult = ReturnType<typeof useAuthLogoutMutation>;
+export type AuthLogoutMutationResult = ApolloReactCommon.MutationResult<AuthLogoutMutation>;
+export type AuthLogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<AuthLogoutMutation, AuthLogoutMutationVariables>;
 export const AuthProfileDocument = gql`
-  query authProfile {
-    auth {
-      profile {
-        username
-        roles
-        email
-      }
+    query authProfile {
+  auth {
+    profile {
+      username
+      roles
+      email
     }
   }
-`;
-
-export const AuthProfileComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<AuthProfileQuery, AuthProfileQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: AuthProfileQueryVariables }
-) => (
-  <ReactApollo.Query<AuthProfileQuery, AuthProfileQueryVariables>
-    query={AuthProfileDocument}
-    {...props}
-  />
-);
-
-export type AuthProfileProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<AuthProfileQuery, AuthProfileQueryVariables>
-> &
-  TChildProps;
-export function withAuthProfile<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    AuthProfileQuery,
-    AuthProfileQueryVariables,
-    AuthProfileProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    AuthProfileQuery,
-    AuthProfileQueryVariables,
-    AuthProfileProps<TChildProps>
-  >(AuthProfileDocument, {
-    alias: "withAuthProfile",
-    ...operationOptions
-  });
 }
+    `;
+export type AuthProfileComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<AuthProfileQuery, AuthProfileQueryVariables>, 'query'>;
 
-export function useAuthProfileQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<AuthProfileQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<AuthProfileQuery, AuthProfileQueryVariables>(
-    AuthProfileDocument,
-    baseOptions
-  );
-}
+    export const AuthProfileComponent = (props: AuthProfileComponentProps) => (
+      <ApolloReactComponents.Query<AuthProfileQuery, AuthProfileQueryVariables> query={AuthProfileDocument} {...props} />
+    );
+    
+export type AuthProfileProps<TChildProps = {}> = ApolloReactHoc.DataProps<AuthProfileQuery, AuthProfileQueryVariables> & TChildProps;
+export function withAuthProfile<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  AuthProfileQuery,
+  AuthProfileQueryVariables,
+  AuthProfileProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, AuthProfileQuery, AuthProfileQueryVariables, AuthProfileProps<TChildProps>>(AuthProfileDocument, {
+      alias: 'withAuthProfile',
+      ...operationOptions
+    });
+};
+
+    export function useAuthProfileQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<AuthProfileQuery, AuthProfileQueryVariables>) {
+      return ApolloReactHooks.useQuery<AuthProfileQuery, AuthProfileQueryVariables>(AuthProfileDocument, baseOptions);
+    };
+      export function useAuthProfileLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AuthProfileQuery, AuthProfileQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<AuthProfileQuery, AuthProfileQueryVariables>(AuthProfileDocument, baseOptions);
+      };
+      
+export type AuthProfileQueryHookResult = ReturnType<typeof useAuthProfileQuery>;
+export type AuthProfileQueryResult = ApolloReactCommon.QueryResult<AuthProfileQuery, AuthProfileQueryVariables>;
 export const BrandDeleteDocument = gql`
-  mutation brandDelete($input: BrandDeleteInput!) {
-    brand {
-      delete(input: $input)
-    }
+    mutation brandDelete($input: BrandDeleteInput!) {
+  brand {
+    delete(input: $input)
   }
-`;
-export type BrandDeleteMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type BrandDeleteMutationFn = ApolloReactCommon.MutationFunction<BrandDeleteMutation, BrandDeleteMutationVariables>;
+export type BrandDeleteComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<BrandDeleteMutation, BrandDeleteMutationVariables>, 'mutation'>;
+
+    export const BrandDeleteComponent = (props: BrandDeleteComponentProps) => (
+      <ApolloReactComponents.Mutation<BrandDeleteMutation, BrandDeleteMutationVariables> mutation={BrandDeleteDocument} {...props} />
+    );
+    
+export type BrandDeleteProps<TChildProps = {}> = ApolloReactHoc.MutateProps<BrandDeleteMutation, BrandDeleteMutationVariables> & TChildProps;
+export function withBrandDelete<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   BrandDeleteMutation,
-  BrandDeleteMutationVariables
->;
+  BrandDeleteMutationVariables,
+  BrandDeleteProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, BrandDeleteMutation, BrandDeleteMutationVariables, BrandDeleteProps<TChildProps>>(BrandDeleteDocument, {
+      alias: 'withBrandDelete',
+      ...operationOptions
+    });
+};
 
-export const BrandDeleteComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        BrandDeleteMutation,
-        BrandDeleteMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: BrandDeleteMutationVariables }
-) => (
-  <ReactApollo.Mutation<BrandDeleteMutation, BrandDeleteMutationVariables>
-    mutation={BrandDeleteDocument}
-    {...props}
-  />
-);
-
-export type BrandDeleteProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<BrandDeleteMutation, BrandDeleteMutationVariables>
-> &
-  TChildProps;
-export function withBrandDelete<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    BrandDeleteMutation,
-    BrandDeleteMutationVariables,
-    BrandDeleteProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    BrandDeleteMutation,
-    BrandDeleteMutationVariables,
-    BrandDeleteProps<TChildProps>
-  >(BrandDeleteDocument, {
-    alias: "withBrandDelete",
-    ...operationOptions
-  });
-}
-
-export function useBrandDeleteMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    BrandDeleteMutation,
-    BrandDeleteMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    BrandDeleteMutation,
-    BrandDeleteMutationVariables
-  >(BrandDeleteDocument, baseOptions);
-}
+    export function useBrandDeleteMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<BrandDeleteMutation, BrandDeleteMutationVariables>) {
+      return ApolloReactHooks.useMutation<BrandDeleteMutation, BrandDeleteMutationVariables>(BrandDeleteDocument, baseOptions);
+    };
+export type BrandDeleteMutationHookResult = ReturnType<typeof useBrandDeleteMutation>;
+export type BrandDeleteMutationResult = ApolloReactCommon.MutationResult<BrandDeleteMutation>;
+export type BrandDeleteMutationOptions = ApolloReactCommon.BaseMutationOptions<BrandDeleteMutation, BrandDeleteMutationVariables>;
 export const BrandItemDocument = gql`
-  query brandItem($id: GraphQLObjectId!) {
-    brand {
-      item(id: $id) {
-        id
-        title
-      }
+    query brandItem($id: GraphQLObjectId!) {
+  brand {
+    item(id: $id) {
+      id
+      title
     }
   }
-`;
-
-export const BrandItemComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<BrandItemQuery, BrandItemQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables: BrandItemQueryVariables }
-) => (
-  <ReactApollo.Query<BrandItemQuery, BrandItemQueryVariables>
-    query={BrandItemDocument}
-    {...props}
-  />
-);
-
-export type BrandItemProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<BrandItemQuery, BrandItemQueryVariables>
-> &
-  TChildProps;
-export function withBrandItem<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    BrandItemQuery,
-    BrandItemQueryVariables,
-    BrandItemProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    BrandItemQuery,
-    BrandItemQueryVariables,
-    BrandItemProps<TChildProps>
-  >(BrandItemDocument, {
-    alias: "withBrandItem",
-    ...operationOptions
-  });
 }
+    `;
+export type BrandItemComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<BrandItemQuery, BrandItemQueryVariables>, 'query'> & ({ variables: BrandItemQueryVariables; skip?: boolean; } | { skip: boolean; });
 
-export function useBrandItemQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<BrandItemQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<BrandItemQuery, BrandItemQueryVariables>(
-    BrandItemDocument,
-    baseOptions
-  );
-}
+    export const BrandItemComponent = (props: BrandItemComponentProps) => (
+      <ApolloReactComponents.Query<BrandItemQuery, BrandItemQueryVariables> query={BrandItemDocument} {...props} />
+    );
+    
+export type BrandItemProps<TChildProps = {}> = ApolloReactHoc.DataProps<BrandItemQuery, BrandItemQueryVariables> & TChildProps;
+export function withBrandItem<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  BrandItemQuery,
+  BrandItemQueryVariables,
+  BrandItemProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, BrandItemQuery, BrandItemQueryVariables, BrandItemProps<TChildProps>>(BrandItemDocument, {
+      alias: 'withBrandItem',
+      ...operationOptions
+    });
+};
+
+    export function useBrandItemQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BrandItemQuery, BrandItemQueryVariables>) {
+      return ApolloReactHooks.useQuery<BrandItemQuery, BrandItemQueryVariables>(BrandItemDocument, baseOptions);
+    };
+      export function useBrandItemLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BrandItemQuery, BrandItemQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<BrandItemQuery, BrandItemQueryVariables>(BrandItemDocument, baseOptions);
+      };
+      
+export type BrandItemQueryHookResult = ReturnType<typeof useBrandItemQuery>;
+export type BrandItemQueryResult = ApolloReactCommon.QueryResult<BrandItemQuery, BrandItemQueryVariables>;
 export const BrandListDocument = gql`
-  query brandList {
-    brand {
-      list {
-        id
-        title
-      }
+    query brandList {
+  brand {
+    list {
+      id
+      title
     }
   }
-`;
-
-export const BrandListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<BrandListQuery, BrandListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: BrandListQueryVariables }
-) => (
-  <ReactApollo.Query<BrandListQuery, BrandListQueryVariables>
-    query={BrandListDocument}
-    {...props}
-  />
-);
-
-export type BrandListProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<BrandListQuery, BrandListQueryVariables>
-> &
-  TChildProps;
-export function withBrandList<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    BrandListQuery,
-    BrandListQueryVariables,
-    BrandListProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    BrandListQuery,
-    BrandListQueryVariables,
-    BrandListProps<TChildProps>
-  >(BrandListDocument, {
-    alias: "withBrandList",
-    ...operationOptions
-  });
 }
+    `;
+export type BrandListComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<BrandListQuery, BrandListQueryVariables>, 'query'>;
 
-export function useBrandListQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<BrandListQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<BrandListQuery, BrandListQueryVariables>(
-    BrandListDocument,
-    baseOptions
-  );
-}
+    export const BrandListComponent = (props: BrandListComponentProps) => (
+      <ApolloReactComponents.Query<BrandListQuery, BrandListQueryVariables> query={BrandListDocument} {...props} />
+    );
+    
+export type BrandListProps<TChildProps = {}> = ApolloReactHoc.DataProps<BrandListQuery, BrandListQueryVariables> & TChildProps;
+export function withBrandList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  BrandListQuery,
+  BrandListQueryVariables,
+  BrandListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, BrandListQuery, BrandListQueryVariables, BrandListProps<TChildProps>>(BrandListDocument, {
+      alias: 'withBrandList',
+      ...operationOptions
+    });
+};
+
+    export function useBrandListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BrandListQuery, BrandListQueryVariables>) {
+      return ApolloReactHooks.useQuery<BrandListQuery, BrandListQueryVariables>(BrandListDocument, baseOptions);
+    };
+      export function useBrandListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BrandListQuery, BrandListQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<BrandListQuery, BrandListQueryVariables>(BrandListDocument, baseOptions);
+      };
+      
+export type BrandListQueryHookResult = ReturnType<typeof useBrandListQuery>;
+export type BrandListQueryResult = ApolloReactCommon.QueryResult<BrandListQuery, BrandListQueryVariables>;
 export const BrandUpsertDocument = gql`
-  mutation brandUpsert($input: BrandUpsertInput!) {
-    brand {
-      upsert(input: $input) {
-        id
-      }
+    mutation brandUpsert($input: BrandUpsertInput!) {
+  brand {
+    upsert(input: $input) {
+      id
     }
   }
-`;
-export type BrandUpsertMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type BrandUpsertMutationFn = ApolloReactCommon.MutationFunction<BrandUpsertMutation, BrandUpsertMutationVariables>;
+export type BrandUpsertComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<BrandUpsertMutation, BrandUpsertMutationVariables>, 'mutation'>;
+
+    export const BrandUpsertComponent = (props: BrandUpsertComponentProps) => (
+      <ApolloReactComponents.Mutation<BrandUpsertMutation, BrandUpsertMutationVariables> mutation={BrandUpsertDocument} {...props} />
+    );
+    
+export type BrandUpsertProps<TChildProps = {}> = ApolloReactHoc.MutateProps<BrandUpsertMutation, BrandUpsertMutationVariables> & TChildProps;
+export function withBrandUpsert<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   BrandUpsertMutation,
-  BrandUpsertMutationVariables
->;
+  BrandUpsertMutationVariables,
+  BrandUpsertProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, BrandUpsertMutation, BrandUpsertMutationVariables, BrandUpsertProps<TChildProps>>(BrandUpsertDocument, {
+      alias: 'withBrandUpsert',
+      ...operationOptions
+    });
+};
 
-export const BrandUpsertComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        BrandUpsertMutation,
-        BrandUpsertMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: BrandUpsertMutationVariables }
-) => (
-  <ReactApollo.Mutation<BrandUpsertMutation, BrandUpsertMutationVariables>
-    mutation={BrandUpsertDocument}
-    {...props}
-  />
-);
-
-export type BrandUpsertProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<BrandUpsertMutation, BrandUpsertMutationVariables>
-> &
-  TChildProps;
-export function withBrandUpsert<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    BrandUpsertMutation,
-    BrandUpsertMutationVariables,
-    BrandUpsertProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    BrandUpsertMutation,
-    BrandUpsertMutationVariables,
-    BrandUpsertProps<TChildProps>
-  >(BrandUpsertDocument, {
-    alias: "withBrandUpsert",
-    ...operationOptions
-  });
-}
-
-export function useBrandUpsertMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    BrandUpsertMutation,
-    BrandUpsertMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    BrandUpsertMutation,
-    BrandUpsertMutationVariables
-  >(BrandUpsertDocument, baseOptions);
-}
+    export function useBrandUpsertMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<BrandUpsertMutation, BrandUpsertMutationVariables>) {
+      return ApolloReactHooks.useMutation<BrandUpsertMutation, BrandUpsertMutationVariables>(BrandUpsertDocument, baseOptions);
+    };
+export type BrandUpsertMutationHookResult = ReturnType<typeof useBrandUpsertMutation>;
+export type BrandUpsertMutationResult = ApolloReactCommon.MutationResult<BrandUpsertMutation>;
+export type BrandUpsertMutationOptions = ApolloReactCommon.BaseMutationOptions<BrandUpsertMutation, BrandUpsertMutationVariables>;
 export const CategoryDeleteDocument = gql`
-  mutation categoryDelete($input: CategoryDeleteInput!) {
-    category {
-      delete(input: $input)
-    }
+    mutation categoryDelete($input: CategoryDeleteInput!) {
+  category {
+    delete(input: $input)
   }
-`;
-export type CategoryDeleteMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type CategoryDeleteMutationFn = ApolloReactCommon.MutationFunction<CategoryDeleteMutation, CategoryDeleteMutationVariables>;
+export type CategoryDeleteComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CategoryDeleteMutation, CategoryDeleteMutationVariables>, 'mutation'>;
+
+    export const CategoryDeleteComponent = (props: CategoryDeleteComponentProps) => (
+      <ApolloReactComponents.Mutation<CategoryDeleteMutation, CategoryDeleteMutationVariables> mutation={CategoryDeleteDocument} {...props} />
+    );
+    
+export type CategoryDeleteProps<TChildProps = {}> = ApolloReactHoc.MutateProps<CategoryDeleteMutation, CategoryDeleteMutationVariables> & TChildProps;
+export function withCategoryDelete<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   CategoryDeleteMutation,
-  CategoryDeleteMutationVariables
->;
+  CategoryDeleteMutationVariables,
+  CategoryDeleteProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, CategoryDeleteMutation, CategoryDeleteMutationVariables, CategoryDeleteProps<TChildProps>>(CategoryDeleteDocument, {
+      alias: 'withCategoryDelete',
+      ...operationOptions
+    });
+};
 
-export const CategoryDeleteComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        CategoryDeleteMutation,
-        CategoryDeleteMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: CategoryDeleteMutationVariables }
-) => (
-  <ReactApollo.Mutation<CategoryDeleteMutation, CategoryDeleteMutationVariables>
-    mutation={CategoryDeleteDocument}
-    {...props}
-  />
-);
-
-export type CategoryDeleteProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<
-    CategoryDeleteMutation,
-    CategoryDeleteMutationVariables
-  >
-> &
-  TChildProps;
-export function withCategoryDelete<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    CategoryDeleteMutation,
-    CategoryDeleteMutationVariables,
-    CategoryDeleteProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    CategoryDeleteMutation,
-    CategoryDeleteMutationVariables,
-    CategoryDeleteProps<TChildProps>
-  >(CategoryDeleteDocument, {
-    alias: "withCategoryDelete",
-    ...operationOptions
-  });
-}
-
-export function useCategoryDeleteMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    CategoryDeleteMutation,
-    CategoryDeleteMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    CategoryDeleteMutation,
-    CategoryDeleteMutationVariables
-  >(CategoryDeleteDocument, baseOptions);
-}
+    export function useCategoryDeleteMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CategoryDeleteMutation, CategoryDeleteMutationVariables>) {
+      return ApolloReactHooks.useMutation<CategoryDeleteMutation, CategoryDeleteMutationVariables>(CategoryDeleteDocument, baseOptions);
+    };
+export type CategoryDeleteMutationHookResult = ReturnType<typeof useCategoryDeleteMutation>;
+export type CategoryDeleteMutationResult = ApolloReactCommon.MutationResult<CategoryDeleteMutation>;
+export type CategoryDeleteMutationOptions = ApolloReactCommon.BaseMutationOptions<CategoryDeleteMutation, CategoryDeleteMutationVariables>;
 export const CategoryItemDocument = gql`
-  query categoryItem($id: GraphQLObjectId!) {
-    category {
-      item(id: $id) {
-        id
-        title
-        slug
-        sort
-        image
-      }
+    query categoryItem($id: GraphQLObjectId!) {
+  category {
+    item(id: $id) {
+      id
+      title
+      slug
+      sort
+      image
     }
   }
-`;
-
-export const CategoryItemComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<CategoryItemQuery, CategoryItemQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables: CategoryItemQueryVariables }
-) => (
-  <ReactApollo.Query<CategoryItemQuery, CategoryItemQueryVariables>
-    query={CategoryItemDocument}
-    {...props}
-  />
-);
-
-export type CategoryItemProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<CategoryItemQuery, CategoryItemQueryVariables>
-> &
-  TChildProps;
-export function withCategoryItem<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    CategoryItemQuery,
-    CategoryItemQueryVariables,
-    CategoryItemProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    CategoryItemQuery,
-    CategoryItemQueryVariables,
-    CategoryItemProps<TChildProps>
-  >(CategoryItemDocument, {
-    alias: "withCategoryItem",
-    ...operationOptions
-  });
 }
+    `;
+export type CategoryItemComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<CategoryItemQuery, CategoryItemQueryVariables>, 'query'> & ({ variables: CategoryItemQueryVariables; skip?: boolean; } | { skip: boolean; });
 
-export function useCategoryItemQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<CategoryItemQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<
-    CategoryItemQuery,
-    CategoryItemQueryVariables
-  >(CategoryItemDocument, baseOptions);
-}
+    export const CategoryItemComponent = (props: CategoryItemComponentProps) => (
+      <ApolloReactComponents.Query<CategoryItemQuery, CategoryItemQueryVariables> query={CategoryItemDocument} {...props} />
+    );
+    
+export type CategoryItemProps<TChildProps = {}> = ApolloReactHoc.DataProps<CategoryItemQuery, CategoryItemQueryVariables> & TChildProps;
+export function withCategoryItem<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CategoryItemQuery,
+  CategoryItemQueryVariables,
+  CategoryItemProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CategoryItemQuery, CategoryItemQueryVariables, CategoryItemProps<TChildProps>>(CategoryItemDocument, {
+      alias: 'withCategoryItem',
+      ...operationOptions
+    });
+};
+
+    export function useCategoryItemQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CategoryItemQuery, CategoryItemQueryVariables>) {
+      return ApolloReactHooks.useQuery<CategoryItemQuery, CategoryItemQueryVariables>(CategoryItemDocument, baseOptions);
+    };
+      export function useCategoryItemLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CategoryItemQuery, CategoryItemQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<CategoryItemQuery, CategoryItemQueryVariables>(CategoryItemDocument, baseOptions);
+      };
+      
+export type CategoryItemQueryHookResult = ReturnType<typeof useCategoryItemQuery>;
+export type CategoryItemQueryResult = ApolloReactCommon.QueryResult<CategoryItemQuery, CategoryItemQueryVariables>;
 export const CategoryListDocument = gql`
-  query categoryList {
-    category {
-      list {
-        id
-        title
-        slug
-        sort
-        image
-      }
+    query categoryList {
+  category {
+    list {
+      id
+      title
+      slug
+      sort
+      image
     }
   }
-`;
-
-export const CategoryListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<CategoryListQuery, CategoryListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: CategoryListQueryVariables }
-) => (
-  <ReactApollo.Query<CategoryListQuery, CategoryListQueryVariables>
-    query={CategoryListDocument}
-    {...props}
-  />
-);
-
-export type CategoryListProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<CategoryListQuery, CategoryListQueryVariables>
-> &
-  TChildProps;
-export function withCategoryList<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    CategoryListQuery,
-    CategoryListQueryVariables,
-    CategoryListProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    CategoryListQuery,
-    CategoryListQueryVariables,
-    CategoryListProps<TChildProps>
-  >(CategoryListDocument, {
-    alias: "withCategoryList",
-    ...operationOptions
-  });
 }
+    `;
+export type CategoryListComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<CategoryListQuery, CategoryListQueryVariables>, 'query'>;
 
-export function useCategoryListQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<CategoryListQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<
-    CategoryListQuery,
-    CategoryListQueryVariables
-  >(CategoryListDocument, baseOptions);
-}
+    export const CategoryListComponent = (props: CategoryListComponentProps) => (
+      <ApolloReactComponents.Query<CategoryListQuery, CategoryListQueryVariables> query={CategoryListDocument} {...props} />
+    );
+    
+export type CategoryListProps<TChildProps = {}> = ApolloReactHoc.DataProps<CategoryListQuery, CategoryListQueryVariables> & TChildProps;
+export function withCategoryList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  CategoryListQuery,
+  CategoryListQueryVariables,
+  CategoryListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, CategoryListQuery, CategoryListQueryVariables, CategoryListProps<TChildProps>>(CategoryListDocument, {
+      alias: 'withCategoryList',
+      ...operationOptions
+    });
+};
+
+    export function useCategoryListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CategoryListQuery, CategoryListQueryVariables>) {
+      return ApolloReactHooks.useQuery<CategoryListQuery, CategoryListQueryVariables>(CategoryListDocument, baseOptions);
+    };
+      export function useCategoryListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CategoryListQuery, CategoryListQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<CategoryListQuery, CategoryListQueryVariables>(CategoryListDocument, baseOptions);
+      };
+      
+export type CategoryListQueryHookResult = ReturnType<typeof useCategoryListQuery>;
+export type CategoryListQueryResult = ApolloReactCommon.QueryResult<CategoryListQuery, CategoryListQueryVariables>;
 export const CategoryUpsertDocument = gql`
-  mutation categoryUpsert($input: CategoryUpsertInput!) {
-    category {
-      upsert(input: $input) {
-        id
-      }
+    mutation categoryUpsert($input: CategoryUpsertInput!) {
+  category {
+    upsert(input: $input) {
+      id
     }
   }
-`;
-export type CategoryUpsertMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type CategoryUpsertMutationFn = ApolloReactCommon.MutationFunction<CategoryUpsertMutation, CategoryUpsertMutationVariables>;
+export type CategoryUpsertComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<CategoryUpsertMutation, CategoryUpsertMutationVariables>, 'mutation'>;
+
+    export const CategoryUpsertComponent = (props: CategoryUpsertComponentProps) => (
+      <ApolloReactComponents.Mutation<CategoryUpsertMutation, CategoryUpsertMutationVariables> mutation={CategoryUpsertDocument} {...props} />
+    );
+    
+export type CategoryUpsertProps<TChildProps = {}> = ApolloReactHoc.MutateProps<CategoryUpsertMutation, CategoryUpsertMutationVariables> & TChildProps;
+export function withCategoryUpsert<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   CategoryUpsertMutation,
-  CategoryUpsertMutationVariables
->;
+  CategoryUpsertMutationVariables,
+  CategoryUpsertProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, CategoryUpsertMutation, CategoryUpsertMutationVariables, CategoryUpsertProps<TChildProps>>(CategoryUpsertDocument, {
+      alias: 'withCategoryUpsert',
+      ...operationOptions
+    });
+};
 
-export const CategoryUpsertComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        CategoryUpsertMutation,
-        CategoryUpsertMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: CategoryUpsertMutationVariables }
-) => (
-  <ReactApollo.Mutation<CategoryUpsertMutation, CategoryUpsertMutationVariables>
-    mutation={CategoryUpsertDocument}
-    {...props}
-  />
-);
-
-export type CategoryUpsertProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<
-    CategoryUpsertMutation,
-    CategoryUpsertMutationVariables
-  >
-> &
-  TChildProps;
-export function withCategoryUpsert<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    CategoryUpsertMutation,
-    CategoryUpsertMutationVariables,
-    CategoryUpsertProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    CategoryUpsertMutation,
-    CategoryUpsertMutationVariables,
-    CategoryUpsertProps<TChildProps>
-  >(CategoryUpsertDocument, {
-    alias: "withCategoryUpsert",
-    ...operationOptions
-  });
-}
-
-export function useCategoryUpsertMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    CategoryUpsertMutation,
-    CategoryUpsertMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    CategoryUpsertMutation,
-    CategoryUpsertMutationVariables
-  >(CategoryUpsertDocument, baseOptions);
-}
+    export function useCategoryUpsertMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CategoryUpsertMutation, CategoryUpsertMutationVariables>) {
+      return ApolloReactHooks.useMutation<CategoryUpsertMutation, CategoryUpsertMutationVariables>(CategoryUpsertDocument, baseOptions);
+    };
+export type CategoryUpsertMutationHookResult = ReturnType<typeof useCategoryUpsertMutation>;
+export type CategoryUpsertMutationResult = ApolloReactCommon.MutationResult<CategoryUpsertMutation>;
+export type CategoryUpsertMutationOptions = ApolloReactCommon.BaseMutationOptions<CategoryUpsertMutation, CategoryUpsertMutationVariables>;
 export const FileUploadDocument = gql`
-  mutation fileUpload($file: Upload!) {
-    file {
-      upload(file: $file) {
-        uri
-      }
+    mutation fileUpload($file: Upload!) {
+  file {
+    upload(file: $file) {
+      uri
     }
   }
-`;
-export type FileUploadMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type FileUploadMutationFn = ApolloReactCommon.MutationFunction<FileUploadMutation, FileUploadMutationVariables>;
+export type FileUploadComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<FileUploadMutation, FileUploadMutationVariables>, 'mutation'>;
+
+    export const FileUploadComponent = (props: FileUploadComponentProps) => (
+      <ApolloReactComponents.Mutation<FileUploadMutation, FileUploadMutationVariables> mutation={FileUploadDocument} {...props} />
+    );
+    
+export type FileUploadProps<TChildProps = {}> = ApolloReactHoc.MutateProps<FileUploadMutation, FileUploadMutationVariables> & TChildProps;
+export function withFileUpload<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   FileUploadMutation,
-  FileUploadMutationVariables
->;
+  FileUploadMutationVariables,
+  FileUploadProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, FileUploadMutation, FileUploadMutationVariables, FileUploadProps<TChildProps>>(FileUploadDocument, {
+      alias: 'withFileUpload',
+      ...operationOptions
+    });
+};
 
-export const FileUploadComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        FileUploadMutation,
-        FileUploadMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: FileUploadMutationVariables }
-) => (
-  <ReactApollo.Mutation<FileUploadMutation, FileUploadMutationVariables>
-    mutation={FileUploadDocument}
-    {...props}
-  />
-);
-
-export type FileUploadProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<FileUploadMutation, FileUploadMutationVariables>
-> &
-  TChildProps;
-export function withFileUpload<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    FileUploadMutation,
-    FileUploadMutationVariables,
-    FileUploadProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    FileUploadMutation,
-    FileUploadMutationVariables,
-    FileUploadProps<TChildProps>
-  >(FileUploadDocument, {
-    alias: "withFileUpload",
-    ...operationOptions
-  });
-}
-
-export function useFileUploadMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    FileUploadMutation,
-    FileUploadMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    FileUploadMutation,
-    FileUploadMutationVariables
-  >(FileUploadDocument, baseOptions);
-}
+    export function useFileUploadMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<FileUploadMutation, FileUploadMutationVariables>) {
+      return ApolloReactHooks.useMutation<FileUploadMutation, FileUploadMutationVariables>(FileUploadDocument, baseOptions);
+    };
+export type FileUploadMutationHookResult = ReturnType<typeof useFileUploadMutation>;
+export type FileUploadMutationResult = ApolloReactCommon.MutationResult<FileUploadMutation>;
+export type FileUploadMutationOptions = ApolloReactCommon.BaseMutationOptions<FileUploadMutation, FileUploadMutationVariables>;
 export const SelectionDeleteDocument = gql`
-  mutation selectionDelete($input: SelectionDeleteInput!) {
-    selection {
-      delete(input: $input)
-    }
+    mutation selectionDelete($input: SelectionDeleteInput!) {
+  selection {
+    delete(input: $input)
   }
-`;
-export type SelectionDeleteMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type SelectionDeleteMutationFn = ApolloReactCommon.MutationFunction<SelectionDeleteMutation, SelectionDeleteMutationVariables>;
+export type SelectionDeleteComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<SelectionDeleteMutation, SelectionDeleteMutationVariables>, 'mutation'>;
+
+    export const SelectionDeleteComponent = (props: SelectionDeleteComponentProps) => (
+      <ApolloReactComponents.Mutation<SelectionDeleteMutation, SelectionDeleteMutationVariables> mutation={SelectionDeleteDocument} {...props} />
+    );
+    
+export type SelectionDeleteProps<TChildProps = {}> = ApolloReactHoc.MutateProps<SelectionDeleteMutation, SelectionDeleteMutationVariables> & TChildProps;
+export function withSelectionDelete<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   SelectionDeleteMutation,
-  SelectionDeleteMutationVariables
->;
+  SelectionDeleteMutationVariables,
+  SelectionDeleteProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, SelectionDeleteMutation, SelectionDeleteMutationVariables, SelectionDeleteProps<TChildProps>>(SelectionDeleteDocument, {
+      alias: 'withSelectionDelete',
+      ...operationOptions
+    });
+};
 
-export const SelectionDeleteComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        SelectionDeleteMutation,
-        SelectionDeleteMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: SelectionDeleteMutationVariables }
-) => (
-  <ReactApollo.Mutation<
-    SelectionDeleteMutation,
-    SelectionDeleteMutationVariables
-  >
-    mutation={SelectionDeleteDocument}
-    {...props}
-  />
-);
-
-export type SelectionDeleteProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<
-    SelectionDeleteMutation,
-    SelectionDeleteMutationVariables
-  >
-> &
-  TChildProps;
-export function withSelectionDelete<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    SelectionDeleteMutation,
-    SelectionDeleteMutationVariables,
-    SelectionDeleteProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    SelectionDeleteMutation,
-    SelectionDeleteMutationVariables,
-    SelectionDeleteProps<TChildProps>
-  >(SelectionDeleteDocument, {
-    alias: "withSelectionDelete",
-    ...operationOptions
-  });
-}
-
-export function useSelectionDeleteMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    SelectionDeleteMutation,
-    SelectionDeleteMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    SelectionDeleteMutation,
-    SelectionDeleteMutationVariables
-  >(SelectionDeleteDocument, baseOptions);
-}
+    export function useSelectionDeleteMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SelectionDeleteMutation, SelectionDeleteMutationVariables>) {
+      return ApolloReactHooks.useMutation<SelectionDeleteMutation, SelectionDeleteMutationVariables>(SelectionDeleteDocument, baseOptions);
+    };
+export type SelectionDeleteMutationHookResult = ReturnType<typeof useSelectionDeleteMutation>;
+export type SelectionDeleteMutationResult = ApolloReactCommon.MutationResult<SelectionDeleteMutation>;
+export type SelectionDeleteMutationOptions = ApolloReactCommon.BaseMutationOptions<SelectionDeleteMutation, SelectionDeleteMutationVariables>;
 export const SelectionItemDocument = gql`
-  query selectionItem($id: GraphQLObjectId!) {
-    selection {
-      item(id: $id) {
+    query selectionItem($id: GraphQLObjectId!) {
+  selection {
+    item(id: $id) {
+      id
+      title
+      text
+      images
+      isPublished
+      relevanceDate
+      createdAt
+      brands {
         id
         title
-        text
-        images
-        isPublished
-        relevanceDate
-        createdAt
-        brands {
-          id
-          title
-        }
-        categories {
-          id
-          title
-        }
-        shops {
-          id
-          title
-        }
+      }
+      categories {
+        id
+        title
+      }
+      shops {
+        id
+        title
       }
     }
   }
-`;
-
-export const SelectionItemComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<SelectionItemQuery, SelectionItemQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables: SelectionItemQueryVariables }
-) => (
-  <ReactApollo.Query<SelectionItemQuery, SelectionItemQueryVariables>
-    query={SelectionItemDocument}
-    {...props}
-  />
-);
-
-export type SelectionItemProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<SelectionItemQuery, SelectionItemQueryVariables>
-> &
-  TChildProps;
-export function withSelectionItem<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    SelectionItemQuery,
-    SelectionItemQueryVariables,
-    SelectionItemProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    SelectionItemQuery,
-    SelectionItemQueryVariables,
-    SelectionItemProps<TChildProps>
-  >(SelectionItemDocument, {
-    alias: "withSelectionItem",
-    ...operationOptions
-  });
 }
+    `;
+export type SelectionItemComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SelectionItemQuery, SelectionItemQueryVariables>, 'query'> & ({ variables: SelectionItemQueryVariables; skip?: boolean; } | { skip: boolean; });
 
-export function useSelectionItemQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<SelectionItemQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<
-    SelectionItemQuery,
-    SelectionItemQueryVariables
-  >(SelectionItemDocument, baseOptions);
-}
+    export const SelectionItemComponent = (props: SelectionItemComponentProps) => (
+      <ApolloReactComponents.Query<SelectionItemQuery, SelectionItemQueryVariables> query={SelectionItemDocument} {...props} />
+    );
+    
+export type SelectionItemProps<TChildProps = {}> = ApolloReactHoc.DataProps<SelectionItemQuery, SelectionItemQueryVariables> & TChildProps;
+export function withSelectionItem<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  SelectionItemQuery,
+  SelectionItemQueryVariables,
+  SelectionItemProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, SelectionItemQuery, SelectionItemQueryVariables, SelectionItemProps<TChildProps>>(SelectionItemDocument, {
+      alias: 'withSelectionItem',
+      ...operationOptions
+    });
+};
+
+    export function useSelectionItemQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SelectionItemQuery, SelectionItemQueryVariables>) {
+      return ApolloReactHooks.useQuery<SelectionItemQuery, SelectionItemQueryVariables>(SelectionItemDocument, baseOptions);
+    };
+      export function useSelectionItemLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SelectionItemQuery, SelectionItemQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<SelectionItemQuery, SelectionItemQueryVariables>(SelectionItemDocument, baseOptions);
+      };
+      
+export type SelectionItemQueryHookResult = ReturnType<typeof useSelectionItemQuery>;
+export type SelectionItemQueryResult = ApolloReactCommon.QueryResult<SelectionItemQuery, SelectionItemQueryVariables>;
 export const SelectionListDocument = gql`
-  query selectionList($filter: SelectionFilterInput) {
-    selection {
-      list(filter: $filter) {
+    query selectionList($filter: SelectionFilterInput) {
+  selection {
+    list(filter: $filter) {
+      id
+      title
+      text
+      images
+      createdAt
+      isPublished
+      relevanceDate
+      brands {
         id
         title
-        text
-        images
-        createdAt
-        isPublished
-        relevanceDate
-        brands {
-          id
-          title
-        }
-        categories {
-          id
-          title
-        }
-        shops {
-          id
-          title
-        }
+      }
+      categories {
+        id
+        title
+      }
+      shops {
+        id
+        title
       }
     }
   }
-`;
-
-export const SelectionListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<SelectionListQuery, SelectionListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: SelectionListQueryVariables }
-) => (
-  <ReactApollo.Query<SelectionListQuery, SelectionListQueryVariables>
-    query={SelectionListDocument}
-    {...props}
-  />
-);
-
-export type SelectionListProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<SelectionListQuery, SelectionListQueryVariables>
-> &
-  TChildProps;
-export function withSelectionList<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    SelectionListQuery,
-    SelectionListQueryVariables,
-    SelectionListProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    SelectionListQuery,
-    SelectionListQueryVariables,
-    SelectionListProps<TChildProps>
-  >(SelectionListDocument, {
-    alias: "withSelectionList",
-    ...operationOptions
-  });
 }
+    `;
+export type SelectionListComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SelectionListQuery, SelectionListQueryVariables>, 'query'>;
 
-export function useSelectionListQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<SelectionListQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<
-    SelectionListQuery,
-    SelectionListQueryVariables
-  >(SelectionListDocument, baseOptions);
-}
+    export const SelectionListComponent = (props: SelectionListComponentProps) => (
+      <ApolloReactComponents.Query<SelectionListQuery, SelectionListQueryVariables> query={SelectionListDocument} {...props} />
+    );
+    
+export type SelectionListProps<TChildProps = {}> = ApolloReactHoc.DataProps<SelectionListQuery, SelectionListQueryVariables> & TChildProps;
+export function withSelectionList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  SelectionListQuery,
+  SelectionListQueryVariables,
+  SelectionListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, SelectionListQuery, SelectionListQueryVariables, SelectionListProps<TChildProps>>(SelectionListDocument, {
+      alias: 'withSelectionList',
+      ...operationOptions
+    });
+};
+
+    export function useSelectionListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SelectionListQuery, SelectionListQueryVariables>) {
+      return ApolloReactHooks.useQuery<SelectionListQuery, SelectionListQueryVariables>(SelectionListDocument, baseOptions);
+    };
+      export function useSelectionListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SelectionListQuery, SelectionListQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<SelectionListQuery, SelectionListQueryVariables>(SelectionListDocument, baseOptions);
+      };
+      
+export type SelectionListQueryHookResult = ReturnType<typeof useSelectionListQuery>;
+export type SelectionListQueryResult = ApolloReactCommon.QueryResult<SelectionListQuery, SelectionListQueryVariables>;
 export const SelectionOptionsDocument = gql`
-  query selectionOptions {
-    brand {
-      list {
-        value: id
-        label: title
-      }
-    }
-    shop {
-      list {
-        value: id
-        label: title
-      }
-    }
-    category {
-      list {
-        value: id
-        label: title
-      }
+    query selectionOptions {
+  brand {
+    list {
+      value: id
+      label: title
     }
   }
-`;
-
-export const SelectionOptionsComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<
-        SelectionOptionsQuery,
-        SelectionOptionsQueryVariables
-      >,
-      "query"
-    >,
-    "variables"
-  > & { variables?: SelectionOptionsQueryVariables }
-) => (
-  <ReactApollo.Query<SelectionOptionsQuery, SelectionOptionsQueryVariables>
-    query={SelectionOptionsDocument}
-    {...props}
-  />
-);
-
-export type SelectionOptionsProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<SelectionOptionsQuery, SelectionOptionsQueryVariables>
-> &
-  TChildProps;
-export function withSelectionOptions<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    SelectionOptionsQuery,
-    SelectionOptionsQueryVariables,
-    SelectionOptionsProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    SelectionOptionsQuery,
-    SelectionOptionsQueryVariables,
-    SelectionOptionsProps<TChildProps>
-  >(SelectionOptionsDocument, {
-    alias: "withSelectionOptions",
-    ...operationOptions
-  });
+  shop {
+    list {
+      value: id
+      label: title
+    }
+  }
+  category {
+    list {
+      value: id
+      label: title
+    }
+  }
 }
+    `;
+export type SelectionOptionsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SelectionOptionsQuery, SelectionOptionsQueryVariables>, 'query'>;
 
-export function useSelectionOptionsQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<
-    SelectionOptionsQueryVariables
-  >
-) {
-  return ReactApolloHooks.useQuery<
-    SelectionOptionsQuery,
-    SelectionOptionsQueryVariables
-  >(SelectionOptionsDocument, baseOptions);
-}
+    export const SelectionOptionsComponent = (props: SelectionOptionsComponentProps) => (
+      <ApolloReactComponents.Query<SelectionOptionsQuery, SelectionOptionsQueryVariables> query={SelectionOptionsDocument} {...props} />
+    );
+    
+export type SelectionOptionsProps<TChildProps = {}> = ApolloReactHoc.DataProps<SelectionOptionsQuery, SelectionOptionsQueryVariables> & TChildProps;
+export function withSelectionOptions<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  SelectionOptionsQuery,
+  SelectionOptionsQueryVariables,
+  SelectionOptionsProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, SelectionOptionsQuery, SelectionOptionsQueryVariables, SelectionOptionsProps<TChildProps>>(SelectionOptionsDocument, {
+      alias: 'withSelectionOptions',
+      ...operationOptions
+    });
+};
+
+    export function useSelectionOptionsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SelectionOptionsQuery, SelectionOptionsQueryVariables>) {
+      return ApolloReactHooks.useQuery<SelectionOptionsQuery, SelectionOptionsQueryVariables>(SelectionOptionsDocument, baseOptions);
+    };
+      export function useSelectionOptionsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SelectionOptionsQuery, SelectionOptionsQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<SelectionOptionsQuery, SelectionOptionsQueryVariables>(SelectionOptionsDocument, baseOptions);
+      };
+      
+export type SelectionOptionsQueryHookResult = ReturnType<typeof useSelectionOptionsQuery>;
+export type SelectionOptionsQueryResult = ApolloReactCommon.QueryResult<SelectionOptionsQuery, SelectionOptionsQueryVariables>;
 export const SelectionUpsertDocument = gql`
-  mutation selectionUpsert($input: SelectionUpsertInput!) {
-    selection {
-      upsert(input: $input) {
-        id
-      }
+    mutation selectionUpsert($input: SelectionUpsertInput!) {
+  selection {
+    upsert(input: $input) {
+      id
     }
   }
-`;
-export type SelectionUpsertMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type SelectionUpsertMutationFn = ApolloReactCommon.MutationFunction<SelectionUpsertMutation, SelectionUpsertMutationVariables>;
+export type SelectionUpsertComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<SelectionUpsertMutation, SelectionUpsertMutationVariables>, 'mutation'>;
+
+    export const SelectionUpsertComponent = (props: SelectionUpsertComponentProps) => (
+      <ApolloReactComponents.Mutation<SelectionUpsertMutation, SelectionUpsertMutationVariables> mutation={SelectionUpsertDocument} {...props} />
+    );
+    
+export type SelectionUpsertProps<TChildProps = {}> = ApolloReactHoc.MutateProps<SelectionUpsertMutation, SelectionUpsertMutationVariables> & TChildProps;
+export function withSelectionUpsert<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   SelectionUpsertMutation,
-  SelectionUpsertMutationVariables
->;
+  SelectionUpsertMutationVariables,
+  SelectionUpsertProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, SelectionUpsertMutation, SelectionUpsertMutationVariables, SelectionUpsertProps<TChildProps>>(SelectionUpsertDocument, {
+      alias: 'withSelectionUpsert',
+      ...operationOptions
+    });
+};
 
-export const SelectionUpsertComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        SelectionUpsertMutation,
-        SelectionUpsertMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: SelectionUpsertMutationVariables }
-) => (
-  <ReactApollo.Mutation<
-    SelectionUpsertMutation,
-    SelectionUpsertMutationVariables
-  >
-    mutation={SelectionUpsertDocument}
-    {...props}
-  />
-);
-
-export type SelectionUpsertProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<
-    SelectionUpsertMutation,
-    SelectionUpsertMutationVariables
-  >
-> &
-  TChildProps;
-export function withSelectionUpsert<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    SelectionUpsertMutation,
-    SelectionUpsertMutationVariables,
-    SelectionUpsertProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    SelectionUpsertMutation,
-    SelectionUpsertMutationVariables,
-    SelectionUpsertProps<TChildProps>
-  >(SelectionUpsertDocument, {
-    alias: "withSelectionUpsert",
-    ...operationOptions
-  });
-}
-
-export function useSelectionUpsertMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    SelectionUpsertMutation,
-    SelectionUpsertMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    SelectionUpsertMutation,
-    SelectionUpsertMutationVariables
-  >(SelectionUpsertDocument, baseOptions);
-}
+    export function useSelectionUpsertMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SelectionUpsertMutation, SelectionUpsertMutationVariables>) {
+      return ApolloReactHooks.useMutation<SelectionUpsertMutation, SelectionUpsertMutationVariables>(SelectionUpsertDocument, baseOptions);
+    };
+export type SelectionUpsertMutationHookResult = ReturnType<typeof useSelectionUpsertMutation>;
+export type SelectionUpsertMutationResult = ApolloReactCommon.MutationResult<SelectionUpsertMutation>;
+export type SelectionUpsertMutationOptions = ApolloReactCommon.BaseMutationOptions<SelectionUpsertMutation, SelectionUpsertMutationVariables>;
 export const ShopDeleteDocument = gql`
-  mutation shopDelete($input: ShopDeleteInput!) {
-    shop {
-      delete(input: $input)
-    }
+    mutation shopDelete($input: ShopDeleteInput!) {
+  shop {
+    delete(input: $input)
   }
-`;
-export type ShopDeleteMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type ShopDeleteMutationFn = ApolloReactCommon.MutationFunction<ShopDeleteMutation, ShopDeleteMutationVariables>;
+export type ShopDeleteComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<ShopDeleteMutation, ShopDeleteMutationVariables>, 'mutation'>;
+
+    export const ShopDeleteComponent = (props: ShopDeleteComponentProps) => (
+      <ApolloReactComponents.Mutation<ShopDeleteMutation, ShopDeleteMutationVariables> mutation={ShopDeleteDocument} {...props} />
+    );
+    
+export type ShopDeleteProps<TChildProps = {}> = ApolloReactHoc.MutateProps<ShopDeleteMutation, ShopDeleteMutationVariables> & TChildProps;
+export function withShopDelete<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   ShopDeleteMutation,
-  ShopDeleteMutationVariables
->;
+  ShopDeleteMutationVariables,
+  ShopDeleteProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, ShopDeleteMutation, ShopDeleteMutationVariables, ShopDeleteProps<TChildProps>>(ShopDeleteDocument, {
+      alias: 'withShopDelete',
+      ...operationOptions
+    });
+};
 
-export const ShopDeleteComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        ShopDeleteMutation,
-        ShopDeleteMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: ShopDeleteMutationVariables }
-) => (
-  <ReactApollo.Mutation<ShopDeleteMutation, ShopDeleteMutationVariables>
-    mutation={ShopDeleteDocument}
-    {...props}
-  />
-);
-
-export type ShopDeleteProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<ShopDeleteMutation, ShopDeleteMutationVariables>
-> &
-  TChildProps;
-export function withShopDelete<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    ShopDeleteMutation,
-    ShopDeleteMutationVariables,
-    ShopDeleteProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    ShopDeleteMutation,
-    ShopDeleteMutationVariables,
-    ShopDeleteProps<TChildProps>
-  >(ShopDeleteDocument, {
-    alias: "withShopDelete",
-    ...operationOptions
-  });
-}
-
-export function useShopDeleteMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    ShopDeleteMutation,
-    ShopDeleteMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    ShopDeleteMutation,
-    ShopDeleteMutationVariables
-  >(ShopDeleteDocument, baseOptions);
-}
+    export function useShopDeleteMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ShopDeleteMutation, ShopDeleteMutationVariables>) {
+      return ApolloReactHooks.useMutation<ShopDeleteMutation, ShopDeleteMutationVariables>(ShopDeleteDocument, baseOptions);
+    };
+export type ShopDeleteMutationHookResult = ReturnType<typeof useShopDeleteMutation>;
+export type ShopDeleteMutationResult = ApolloReactCommon.MutationResult<ShopDeleteMutation>;
+export type ShopDeleteMutationOptions = ApolloReactCommon.BaseMutationOptions<ShopDeleteMutation, ShopDeleteMutationVariables>;
 export const ShopItemDocument = gql`
-  query shopItem($id: GraphQLObjectId!) {
-    shop {
-      item(id: $id) {
-        id
-        title
-        link
-        image
-      }
+    query shopItem($id: GraphQLObjectId!) {
+  shop {
+    item(id: $id) {
+      id
+      title
+      link
+      image
     }
   }
-`;
-
-export const ShopItemComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<ShopItemQuery, ShopItemQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables: ShopItemQueryVariables }
-) => (
-  <ReactApollo.Query<ShopItemQuery, ShopItemQueryVariables>
-    query={ShopItemDocument}
-    {...props}
-  />
-);
-
-export type ShopItemProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<ShopItemQuery, ShopItemQueryVariables>
-> &
-  TChildProps;
-export function withShopItem<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    ShopItemQuery,
-    ShopItemQueryVariables,
-    ShopItemProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    ShopItemQuery,
-    ShopItemQueryVariables,
-    ShopItemProps<TChildProps>
-  >(ShopItemDocument, {
-    alias: "withShopItem",
-    ...operationOptions
-  });
 }
+    `;
+export type ShopItemComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<ShopItemQuery, ShopItemQueryVariables>, 'query'> & ({ variables: ShopItemQueryVariables; skip?: boolean; } | { skip: boolean; });
 
-export function useShopItemQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<ShopItemQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<ShopItemQuery, ShopItemQueryVariables>(
-    ShopItemDocument,
-    baseOptions
-  );
-}
+    export const ShopItemComponent = (props: ShopItemComponentProps) => (
+      <ApolloReactComponents.Query<ShopItemQuery, ShopItemQueryVariables> query={ShopItemDocument} {...props} />
+    );
+    
+export type ShopItemProps<TChildProps = {}> = ApolloReactHoc.DataProps<ShopItemQuery, ShopItemQueryVariables> & TChildProps;
+export function withShopItem<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  ShopItemQuery,
+  ShopItemQueryVariables,
+  ShopItemProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, ShopItemQuery, ShopItemQueryVariables, ShopItemProps<TChildProps>>(ShopItemDocument, {
+      alias: 'withShopItem',
+      ...operationOptions
+    });
+};
+
+    export function useShopItemQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ShopItemQuery, ShopItemQueryVariables>) {
+      return ApolloReactHooks.useQuery<ShopItemQuery, ShopItemQueryVariables>(ShopItemDocument, baseOptions);
+    };
+      export function useShopItemLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ShopItemQuery, ShopItemQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<ShopItemQuery, ShopItemQueryVariables>(ShopItemDocument, baseOptions);
+      };
+      
+export type ShopItemQueryHookResult = ReturnType<typeof useShopItemQuery>;
+export type ShopItemQueryResult = ApolloReactCommon.QueryResult<ShopItemQuery, ShopItemQueryVariables>;
 export const ShopListDocument = gql`
-  query shopList {
-    shop {
-      list {
-        id
-        title
-        link
-        image
-      }
+    query shopList {
+  shop {
+    list {
+      id
+      title
+      link
+      image
     }
   }
-`;
-
-export const ShopListComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.QueryProps<ShopListQuery, ShopListQueryVariables>,
-      "query"
-    >,
-    "variables"
-  > & { variables?: ShopListQueryVariables }
-) => (
-  <ReactApollo.Query<ShopListQuery, ShopListQueryVariables>
-    query={ShopListDocument}
-    {...props}
-  />
-);
-
-export type ShopListProps<TChildProps = {}> = Partial<
-  ReactApollo.DataProps<ShopListQuery, ShopListQueryVariables>
-> &
-  TChildProps;
-export function withShopList<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    ShopListQuery,
-    ShopListQueryVariables,
-    ShopListProps<TChildProps>
-  >
-) {
-  return ReactApollo.withQuery<
-    TProps,
-    ShopListQuery,
-    ShopListQueryVariables,
-    ShopListProps<TChildProps>
-  >(ShopListDocument, {
-    alias: "withShopList",
-    ...operationOptions
-  });
 }
+    `;
+export type ShopListComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<ShopListQuery, ShopListQueryVariables>, 'query'>;
 
-export function useShopListQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<ShopListQueryVariables>
-) {
-  return ReactApolloHooks.useQuery<ShopListQuery, ShopListQueryVariables>(
-    ShopListDocument,
-    baseOptions
-  );
-}
+    export const ShopListComponent = (props: ShopListComponentProps) => (
+      <ApolloReactComponents.Query<ShopListQuery, ShopListQueryVariables> query={ShopListDocument} {...props} />
+    );
+    
+export type ShopListProps<TChildProps = {}> = ApolloReactHoc.DataProps<ShopListQuery, ShopListQueryVariables> & TChildProps;
+export function withShopList<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
+  ShopListQuery,
+  ShopListQueryVariables,
+  ShopListProps<TChildProps>>) {
+    return ApolloReactHoc.withQuery<TProps, ShopListQuery, ShopListQueryVariables, ShopListProps<TChildProps>>(ShopListDocument, {
+      alias: 'withShopList',
+      ...operationOptions
+    });
+};
+
+    export function useShopListQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ShopListQuery, ShopListQueryVariables>) {
+      return ApolloReactHooks.useQuery<ShopListQuery, ShopListQueryVariables>(ShopListDocument, baseOptions);
+    };
+      export function useShopListLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ShopListQuery, ShopListQueryVariables>) {
+        return ApolloReactHooks.useLazyQuery<ShopListQuery, ShopListQueryVariables>(ShopListDocument, baseOptions);
+      };
+      
+export type ShopListQueryHookResult = ReturnType<typeof useShopListQuery>;
+export type ShopListQueryResult = ApolloReactCommon.QueryResult<ShopListQuery, ShopListQueryVariables>;
 export const ShopUpsertDocument = gql`
-  mutation shopUpsert($input: ShopUpsertInput!) {
-    shop {
-      upsert(input: $input) {
-        id
-      }
+    mutation shopUpsert($input: ShopUpsertInput!) {
+  shop {
+    upsert(input: $input) {
+      id
     }
   }
-`;
-export type ShopUpsertMutationFn = ReactApollo.MutationFn<
+}
+    `;
+export type ShopUpsertMutationFn = ApolloReactCommon.MutationFunction<ShopUpsertMutation, ShopUpsertMutationVariables>;
+export type ShopUpsertComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<ShopUpsertMutation, ShopUpsertMutationVariables>, 'mutation'>;
+
+    export const ShopUpsertComponent = (props: ShopUpsertComponentProps) => (
+      <ApolloReactComponents.Mutation<ShopUpsertMutation, ShopUpsertMutationVariables> mutation={ShopUpsertDocument} {...props} />
+    );
+    
+export type ShopUpsertProps<TChildProps = {}> = ApolloReactHoc.MutateProps<ShopUpsertMutation, ShopUpsertMutationVariables> & TChildProps;
+export function withShopUpsert<TProps, TChildProps = {}>(operationOptions?: ApolloReactHoc.OperationOption<
+  TProps,
   ShopUpsertMutation,
-  ShopUpsertMutationVariables
->;
+  ShopUpsertMutationVariables,
+  ShopUpsertProps<TChildProps>>) {
+    return ApolloReactHoc.withMutation<TProps, ShopUpsertMutation, ShopUpsertMutationVariables, ShopUpsertProps<TChildProps>>(ShopUpsertDocument, {
+      alias: 'withShopUpsert',
+      ...operationOptions
+    });
+};
 
-export const ShopUpsertComponent = (
-  props: Omit<
-    Omit<
-      ReactApollo.MutationProps<
-        ShopUpsertMutation,
-        ShopUpsertMutationVariables
-      >,
-      "mutation"
-    >,
-    "variables"
-  > & { variables?: ShopUpsertMutationVariables }
-) => (
-  <ReactApollo.Mutation<ShopUpsertMutation, ShopUpsertMutationVariables>
-    mutation={ShopUpsertDocument}
-    {...props}
-  />
-);
-
-export type ShopUpsertProps<TChildProps = {}> = Partial<
-  ReactApollo.MutateProps<ShopUpsertMutation, ShopUpsertMutationVariables>
-> &
-  TChildProps;
-export function withShopUpsert<TProps, TChildProps = {}>(
-  operationOptions?: ReactApollo.OperationOption<
-    TProps,
-    ShopUpsertMutation,
-    ShopUpsertMutationVariables,
-    ShopUpsertProps<TChildProps>
-  >
-) {
-  return ReactApollo.withMutation<
-    TProps,
-    ShopUpsertMutation,
-    ShopUpsertMutationVariables,
-    ShopUpsertProps<TChildProps>
-  >(ShopUpsertDocument, {
-    alias: "withShopUpsert",
-    ...operationOptions
-  });
-}
-
-export function useShopUpsertMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    ShopUpsertMutation,
-    ShopUpsertMutationVariables
-  >
-) {
-  return ReactApolloHooks.useMutation<
-    ShopUpsertMutation,
-    ShopUpsertMutationVariables
-  >(ShopUpsertDocument, baseOptions);
-}
+    export function useShopUpsertMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<ShopUpsertMutation, ShopUpsertMutationVariables>) {
+      return ApolloReactHooks.useMutation<ShopUpsertMutation, ShopUpsertMutationVariables>(ShopUpsertDocument, baseOptions);
+    };
+export type ShopUpsertMutationHookResult = ReturnType<typeof useShopUpsertMutation>;
+export type ShopUpsertMutationResult = ApolloReactCommon.MutationResult<ShopUpsertMutation>;
+export type ShopUpsertMutationOptions = ApolloReactCommon.BaseMutationOptions<ShopUpsertMutation, ShopUpsertMutationVariables>;

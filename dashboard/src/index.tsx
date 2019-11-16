@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { MuiThemeProvider } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ApolloProvider } from "react-apollo-hooks";
+import { ApolloProvider } from "react-apollo";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 

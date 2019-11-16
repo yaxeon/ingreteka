@@ -15,7 +15,7 @@ const enhance = withStyles<ClassKey>(theme => ({
   },
   content: {
     marginTop: theme.mixins.toolbar.minHeight,
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing(3)
   }
 }));
 

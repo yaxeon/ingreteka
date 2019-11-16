@@ -26,7 +26,7 @@ const loginSchema = Yup.object().shape({
 
 export const LoginForm = () => {
   const { onReload } = useContext(AuthContext);
-  const handleLogin = useAuthLoginMutation();
+  const [handleLogin] = useAuthLoginMutation();
 
   return (
     <Formik

@@ -10,7 +10,6 @@ export const theme = createMuiTheme({
     secondary: red
   },
   typography: {
-    useNextVariants: true,
     fontFamily: ["Noto Sans", "Roboto", "Arial", "sans-serif"].join(",")
   }
 });

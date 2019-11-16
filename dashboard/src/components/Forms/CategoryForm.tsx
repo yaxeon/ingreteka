@@ -24,8 +24,8 @@ const categorySchema = Yup.object().shape({
 
 export const CategoryForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
   const { data, loading } = useCategoryItemQuery({ variables: { id } });
-  const handleUpsert = useCategoryUpsertMutation();
-  const handleDelete = useCategoryDeleteMutation();
+  const [handleUpsert] = useCategoryUpsertMutation();
+  const [handleDelete] = useCategoryDeleteMutation();
 
   const onDelete = (id: string) => {
     handleDelete({ variables: { input: { id } } }).then(onClose);
