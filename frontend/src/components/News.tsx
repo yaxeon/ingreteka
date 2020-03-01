@@ -37,6 +37,12 @@ const useStyles = makeStyles<Theme>(theme => ({
       width: theme.spacing(4),
       height: theme.spacing(4)
     }
+  },
+  avatarItem: {
+    minWidth: theme.spacing(10)
+  },
+  avatar: {
+    width: theme.spacing(8)
   }
 }));
 
@@ -112,8 +118,9 @@ export const News = () => {
                       history.push(`/selection/${categories[0].slug}/${id}/`)
                     }
                   >
-                    <ListItemAvatar>
+                    <ListItemAvatar className={classes.avatarItem}>
                       <Avatar
+                        className={classes.avatar}
                         variant="square"
                         alt={title}
                         src={makeUrl(images[0])}
