@@ -1,0 +1,15 @@
+query selectionNews($limit: Int!) {
+  selection {
+    news(limit: $limit) {
+      id
+      title
+      updateTitle
+      relevanceDate
+      images
+      categories {
+        title
+        slug
+      }
+    }
+  }
+}

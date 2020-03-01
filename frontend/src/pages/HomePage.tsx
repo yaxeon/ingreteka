@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 import { HeaderLogo } from "../components/Header/HeaderLogo";
 import { CategoryItem } from "../components/CategoryItem";
 import { Loading } from "../components/Loading";
+import { News } from "../components/News";
 import { useCategoryListQuery } from "../api";
 import { Container } from "../components/Layout";
 
@@ -15,8 +16,7 @@ const useStyles = makeStyles<Theme>(theme => ({
     marginLeft: -theme.spacing(1),
     marginRight: -theme.spacing(1),
     display: "flex",
-    alignItems: "center",
-    minHeight: `calc(100vh - ${theme.spacing(16)}px)`
+    alignItems: "center"
   }
 }));
 
@@ -47,6 +47,7 @@ export const HomePage = () => {
           </Grid>
         </Container>
       </section>
+      <News />
     </React.Fragment>
   );
 };

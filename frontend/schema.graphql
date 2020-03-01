@@ -83,6 +83,7 @@ type Selection {
     shops: [Shop!]!
     text: String!
     title: String!
+    updateTitle: String
     updatedAt: DateTime
 }
 
@@ -94,6 +95,7 @@ type SelectionMutation {
 type SelectionQuery {
     item(id: GraphQLObjectId!): Selection
     list(filter: SelectionFilterInput): [Selection!]!
+    news(limit: Int!): [Selection!]!
     search(filter: SelectionSearchInput!): [Selection!]!
 }
 
@@ -177,6 +179,7 @@ input SelectionUpsertInput {
     shops: [GraphQLObjectId!]!
     text: String!
     title: String!
+    updateTitle: String
 }
 
 input ShopDeleteInput {

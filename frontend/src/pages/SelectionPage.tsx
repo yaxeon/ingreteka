@@ -59,7 +59,6 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
   const handleScroll = () => {
     const offset = document.documentElement.scrollTop + window.innerHeight;
     const height = document.documentElement.offsetHeight;
-    console.log("set");
     setDonate(offset + 30 > height);
   };
 
@@ -69,7 +68,6 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
 
     return () => {
       window.removeEventListener("scroll", handle);
-      console.log("cancel");
       handle.cancel();
     };
   }, []);

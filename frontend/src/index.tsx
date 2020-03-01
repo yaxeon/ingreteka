@@ -2,9 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ApolloProvider } from "react-apollo-hooks";
+import { ApolloProvider } from '@apollo/react-hooks';
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import "./animate.css";
 
 import { AppContainer } from "./containers/AppContainer";
 import { createClient } from "./api/client";

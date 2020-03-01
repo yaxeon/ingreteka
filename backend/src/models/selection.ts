@@ -45,6 +45,9 @@ export const SelectionSchema: Schema = new Schema(
       type: Date,
       required: false
     },
+    updateTitle: {
+      type: String
+    },
     isPublished: {
       type: Boolean,
       default: false

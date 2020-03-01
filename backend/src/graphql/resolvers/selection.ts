@@ -99,6 +99,18 @@ const SelectionQuery: SelectionQueryResolvers = {
       .populate("shops");
 
     return selection ? selection.toObject() : null;
+  },
+  news: async (root, { limit }, { models: { Selection } }) => {
+    const query = Selection.find({ isPublished: true })
+      .sort({ relevanceDate: -1 })
+      .limit(limit);
+
+    const list = await query
+      .populate("categories")
+      .populate("brands")
+      .populate("shops");
+
+    return list.map(selection => selection.toObject());
   }
 };
 

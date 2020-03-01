@@ -173,6 +173,7 @@ export type Selection = {
   createdAt: Scalars["DateTime"];
   updatedAt?: Maybe<Scalars["DateTime"]>;
   relevanceDate?: Maybe<Scalars["DateTime"]>;
+  updateTitle?: Maybe<Scalars["String"]>;
   isPublished: Scalars["Boolean"];
 };
 
@@ -207,6 +208,7 @@ export type SelectionQuery = {
   list: Array<Selection>;
   search: Array<Selection>;
   item?: Maybe<Selection>;
+  news: Array<Selection>;
 };
 
 export type SelectionQueryListArgs = {
@@ -219,6 +221,10 @@ export type SelectionQuerySearchArgs = {
 
 export type SelectionQueryItemArgs = {
   id: Scalars["GraphQLObjectId"];
+};
+
+export type SelectionQueryNewsArgs = {
+  limit: Scalars["Int"];
 };
 
 export type SelectionSearchInput = {
@@ -235,6 +241,7 @@ export type SelectionUpsertInput = {
   images: Array<Scalars["String"]>;
   isPublished: Scalars["Boolean"];
   relevanceDate?: Maybe<Scalars["DateTime"]>;
+  updateTitle?: Maybe<Scalars["String"]>;
 };
 
 export type Shop = {
@@ -598,6 +605,11 @@ export type SelectionResolvers<
     ParentType,
     ContextType
   >;
+  updateTitle?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
   isPublished?: Resolver<ResolversTypes["Boolean"], ParentType, ContextType>;
 };
 
@@ -640,6 +652,12 @@ export type SelectionQueryResolvers<
     ParentType,
     ContextType,
     SelectionQueryItemArgs
+  >;
+  news?: Resolver<
+    Array<ResolversTypes["Selection"]>,
+    ParentType,
+    ContextType,
+    SelectionQueryNewsArgs
   >;
 };
 

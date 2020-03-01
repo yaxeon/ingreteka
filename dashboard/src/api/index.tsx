@@ -185,6 +185,7 @@ export type Selection = {
   createdAt: Scalars['DateTime'],
   updatedAt?: Maybe<Scalars['DateTime']>,
   relevanceDate?: Maybe<Scalars['DateTime']>,
+  updateTitle?: Maybe<Scalars['String']>,
   isPublished: Scalars['Boolean'],
 };
 
@@ -252,6 +253,7 @@ export type SelectionUpsertInput = {
   images: Array<Scalars['String']>,
   isPublished: Scalars['Boolean'],
   relevanceDate?: Maybe<Scalars['DateTime']>,
+  updateTitle?: Maybe<Scalars['String']>,
 };
 
 export type Shop = {
@@ -509,7 +511,7 @@ export type SelectionItemQuery = (
     { __typename?: 'SelectionQuery' }
     & { item: Maybe<(
       { __typename?: 'Selection' }
-      & Pick<Selection, 'id' | 'title' | 'text' | 'images' | 'isPublished' | 'relevanceDate' | 'createdAt'>
+      & Pick<Selection, 'id' | 'title' | 'text' | 'images' | 'isPublished' | 'relevanceDate' | 'updateTitle' | 'createdAt'>
       & { brands: Array<(
         { __typename?: 'Brand' }
         & Pick<Brand, 'id' | 'title'>
@@ -1115,6 +1117,7 @@ export const SelectionItemDocument = gql`
       images
       isPublished
       relevanceDate
+      updateTitle
       createdAt
       brands {
         id

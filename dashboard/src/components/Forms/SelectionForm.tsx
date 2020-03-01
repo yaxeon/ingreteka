@@ -63,7 +63,8 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
     shops: mapId(idx(data, _ => _.selection.item.shops)),
     brands: mapId(idx(data, _ => _.selection.item.brands)),
     isPublished: idx(data, _ => _.selection.item.isPublished) || false,
-    relevanceDate: idx(data, _ => _.selection.item.relevanceDate) || null
+    relevanceDate: idx(data, _ => _.selection.item.relevanceDate) || null,
+    updateTitle: idx(data, _ => _.selection.item.updateTitle) || ""
   };
 
   const options = {
@@ -95,10 +96,19 @@ export const SelectionForm: React.FC<CrudFormProps> = ({ id, onClose }) => {
           <Card>
             <CardContent>
               <Grid container spacing={8}>
-                <Grid item xs={9}>
+                <Grid item xs={12}>
                   <Field
                     name="title"
                     label="Title"
+                    fullWidth
+                    margin="normal"
+                    component={TextField}
+                  />
+                </Grid>
+                <Grid item xs={9}>
+                  <Field
+                    name="updateTitle"
+                    label="News title"
                     fullWidth
                     margin="normal"
                     component={TextField}

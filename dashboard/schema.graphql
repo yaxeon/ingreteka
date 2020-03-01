@@ -83,6 +83,7 @@ type Selection {
     shops: [Shop!]!
     text: String!
     title: String!
+    updateTitle: String
     updatedAt: DateTime
 }
 
@@ -177,6 +178,7 @@ input SelectionUpsertInput {
     shops: [GraphQLObjectId!]!
     text: String!
     title: String!
+    updateTitle: String
 }
 
 input ShopDeleteInput {

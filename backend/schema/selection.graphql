@@ -9,6 +9,7 @@ type Selection {
   createdAt: GraphQLDateTime!
   updatedAt: GraphQLDateTime
   relevanceDate: GraphQLDateTime
+  updateTitle: String
   isPublished: Boolean!
 }
 
@@ -22,6 +23,7 @@ input SelectionUpsertInput {
   images: [String!]!
   isPublished: Boolean!
   relevanceDate: GraphQLDateTime
+  updateTitle: String
 }
 
 input SelectionDeleteInput {
@@ -44,6 +46,7 @@ type SelectionQuery {
   list(filter: SelectionFilterInput): [Selection!]!
   search(filter: SelectionSearchInput!): [Selection!]!
   item(id: GraphQLObjectId!): Selection
+  news(limit: Int!): [Selection!]!
 }
 
 type SelectionMutation {
