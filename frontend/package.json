@@ -35,7 +35,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "yarn build:app && yarn build:sw",
+    "build": "yarn build:app",
     "build:app": "react-scripts build",
     "build:sw": "node ./src/sw-build.js",
     "test": "react-scripts test",
