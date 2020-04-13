@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { stateToHTML, Options } from "draft-js-export-html";
 import { convertFromRaw } from "draft-js";
 import Typography from "@material-ui/core/Typography";
@@ -70,6 +70,10 @@ const options: Options = {
 };
 
 export const DraftHtml: React.FC<Props> = ({ text }) => {
+  useEffect(() => {
+    // @ts-ignore
+    window.priceWidgetInit();
+  }, []);
   const html = stateToHTML(convertFromRaw(JSON.parse(text)), options);
   const classes = useStyles();
 

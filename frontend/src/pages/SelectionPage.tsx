@@ -39,6 +39,7 @@ const useStyles = makeStyles({
     transform: "rotate(0deg) scale(1)"
   },
   donateHide: {
+    pointerEvents: "none",
     opacity: 0,
     transform: "rotate(360deg) scale(0.5)"
   }
