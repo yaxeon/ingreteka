@@ -222,6 +222,7 @@ export type SelectionQuery = {
   list: Array<Selection>,
   search: Array<Selection>,
   item?: Maybe<Selection>,
+  news: Array<Selection>,
 };
 
 
@@ -237,6 +238,11 @@ export type SelectionQuerySearchArgs = {
 
 export type SelectionQueryItemArgs = {
   id: Scalars['GraphQLObjectId']
+};
+
+
+export type SelectionQueryNewsArgs = {
+  limit: Scalars['Int']
 };
 
 export type SelectionSearchInput = {
@@ -543,7 +549,7 @@ export type SelectionListQuery = (
         & Pick<Brand, 'id' | 'title'>
       )>, categories: Array<(
         { __typename?: 'Category' }
-        & Pick<Category, 'id' | 'title'>
+        & Pick<Category, 'id' | 'title' | 'image'>
       )>, shops: Array<(
         { __typename?: 'Shop' }
         & Pick<Shop, 'id' | 'title'>
@@ -1180,6 +1186,7 @@ export const SelectionListDocument = gql`
       categories {
         id
         title
+        image
       }
       shops {
         id

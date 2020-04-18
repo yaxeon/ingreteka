@@ -15,6 +15,7 @@ query selectionList($filter: SelectionFilterInput) {
       categories {
         id
         title
+        image
       }
       shops {
         id

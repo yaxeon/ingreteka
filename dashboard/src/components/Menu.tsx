@@ -52,6 +52,7 @@ export const Menu = enhance(({ classes, open, onClose }: Props) => (
       <MenuItem to="/brand" title="Brand" />
       <MenuItem to="/shop" title="Shop" />
       <MenuItem to="/category" title="Category" />
+      <MenuItem to="/pdf" title="PDF" />
     </List>
   </Drawer>
 ));
