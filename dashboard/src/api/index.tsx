@@ -549,7 +549,7 @@ export type SelectionListQuery = (
         & Pick<Brand, 'id' | 'title'>
       )>, categories: Array<(
         { __typename?: 'Category' }
-        & Pick<Category, 'id' | 'title' | 'image'>
+        & Pick<Category, 'id' | 'title' | 'sort' | 'slug' | 'image'>
       )>, shops: Array<(
         { __typename?: 'Shop' }
         & Pick<Shop, 'id' | 'title'>
@@ -1186,6 +1186,8 @@ export const SelectionListDocument = gql`
       categories {
         id
         title
+        sort
+        slug
         image
       }
       shops {

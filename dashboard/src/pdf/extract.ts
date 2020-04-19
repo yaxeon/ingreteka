@@ -53,11 +53,16 @@ export const getProduct = (id: string): Promise<ProductType | null> =>
   });
 
 export const makeSelection = async (shop: string, data: Array<any>) => {
-  const elements: Array<{ type: string; data: any }> = [];
+  const elements: Array<{
+    type: string;
+    data: any;
+    height: number;
+    maxHeight: number;
+  }> = [];
 
   const list = data
     .filter(item => item.isPublished)
-    .sort((a, b) => a.categories[0].title.localeCompare(b.categories[0].title))
+    .sort((a, b) => a.categories[0].sort - b.categories[0].sort)
     .map(item => ({
       title: item.title,
       category: item.categories[0],
@@ -76,14 +81,48 @@ export const makeSelection = async (shop: string, data: Array<any>) => {
     })
   );
 
+  const usedCategories: Array<string> = [];
+
   listWithPrice
     .filter(({ products }) => products.length > 0)
-    .forEach(({ products, ...rest }) => {
-      elements.push({ type: "title", data: rest });
+    .forEach(({ products, category, title }) => {
+      if (usedCategories.indexOf(category.id) === -1) {
+        usedCategories.push(category.id);
+        elements.push({
+          type: "category",
+          data: category,
+          height: 90,
+          maxHeight: 280
+        });
+      }
+      elements.push({ type: "title", data: title, height: 36, maxHeight: 190 });
       chunk(products, 2).forEach(row => {
-        elements.push({ type: "row", data: row });
+        elements.push({ type: "row", data: row, height: 150, maxHeight: 150 });
       });
     });
 
-  return chunk(elements, 5);
+  const pages: Array<Array<any>> = [];
+  const maxPageHeight = 750;
+  let pageIndex = 0;
+  let pageHeight = 0;
+
+  elements.forEach(element => {
+    if (maxPageHeight - pageHeight <= element.maxHeight) {
+      pageIndex++;
+      pageHeight = 0;
+    }
+
+    pageHeight += element.height;
+
+    if (!pages[pageIndex]) {
+      pages[pageIndex] = [];
+    }
+    pages[pageIndex].push(element);
+  });
+
+  return {
+    pages: pages,
+    date: formatDate(new Date().toISOString()),
+    shop
+  };
 };

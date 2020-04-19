@@ -33,7 +33,7 @@ export const PdfPage = () => {
       </Select>
       {selectionData && (
         <PDFViewer width="100%" height="600px">
-          <SectionPDF data={selectionData} />
+          <SectionPDF {...selectionData} />
         </PDFViewer>
       )}
     </React.Fragment>

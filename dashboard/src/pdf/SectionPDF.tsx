@@ -4,9 +4,9 @@ import {
   Page,
   Text,
   View,
-  StyleSheet,
   Font,
-  Image
+  Image,
+  Link
 } from "@react-pdf/renderer";
 
 Font.register({
@@ -22,94 +22,184 @@ Font.register({
   fonts: [{ src: "/fonts/Roboto-Bold.ttf" }]
 });
 
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: "#FFFFFF",
-    padding: 20,
-    fontFamily: "NotoSans"
-  },
-  sectionTitle: {
-    fontSize: 10,
-    fontWeight: "bold",
-    marginBottom: 15
-  },
-  productTitle: {
-    fontSize: 10
-  },
-  productPrice: {
-    fontSize: 12,
-    marginTop: 10,
-    fontFamily: "Roboto"
-  },
-  row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  productItem: {
-    width: 260,
-    height: 120,
-    marginBottom: 30,
-    flexDirection: "row",
-    display: "flex"
-  },
-  productImage: {
-    width: 100,
-    paddingRight: 10
-  },
-  productInfo: {
-    width: 160
-  },
-  image: {
-    objectFit: "contain",
-    objectPosition: "center top"
-  }
-});
-
 const makeUrl = (url: string) =>
-  `https://abwynsuxfo.cloudimg.io/v7/${url.replace(/https?:\/\//, "")}?trim=5`;
+  url
+    ? `https://abwynsuxfo.cloudimg.io/v7/${url.replace(
+        /https?:\/\//,
+        ""
+      )}?trim=5`
+    : "/images/empty.jpg";
 
 const SelectionTitle: React.FC<{ title: string }> = ({ title }) => (
   <View>
-    <Text style={styles.sectionTitle}>{title}</Text>
+    <Text
+      style={{
+        fontSize: 12,
+        fontWeight: "bold",
+        marginBottom: 20
+      }}
+    >
+      {title}
+    </Text>
   </View>
 );
 
 const SelectionRow: React.FC<{ products: Array<any> }> = ({ products }) => (
-  <View style={styles.row}>
+  <View
+    style={{
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between"
+    }}
+  >
     {products.map(product => (
-      <View key={product.title} style={styles.productItem}>
-        <View style={styles.productImage}>
-          <Image style={styles.image} src={makeUrl(product.image)} />
+      <View
+        key={product.title}
+        style={{
+          width: 260,
+          height: 120,
+          marginBottom: 30,
+          flexDirection: "row",
+          display: "flex"
+        }}
+      >
+        <View
+          style={{
+            width: 100,
+            paddingRight: 10
+          }}
+        >
+          <Image
+            style={{
+              objectFit: "contain",
+              objectPosition: "center top"
+            }}
+            src={makeUrl(product.image)}
+          />
         </View>
-        <View style={styles.productInfo}>
-          <Text style={styles.productTitle}>{product.title}</Text>
-          <Text style={styles.productPrice}>{product.price}</Text>
+        <View
+          style={{
+            width: 160
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 10
+            }}
+          >
+            {product.title}
+          </Text>
+          <Link src={product.url}>
+            <Text
+              style={{
+                fontSize: 12,
+                marginTop: 10,
+                fontFamily: "Roboto"
+              }}
+            >
+              {product.price || "Узнать цену"}
+            </Text>
+          </Link>
         </View>
       </View>
     ))}
   </View>
 );
 
+const SelectionCategory: React.FC<{ category: any }> = ({ category }) => (
+  <View style={{ marginBottom: 20 }}>
+    <Image
+      style={{
+        width: 350,
+        height: 70,
+        objectFit: "contain",
+        objectPosition: "0 0"
+      }}
+      src={`/images/${category.slug}.png`}
+    />
+  </View>
+);
+
 type RowType = { type: string; data: any };
 
 export const SectionPDF: React.FC<{
-  data: Array<Array<RowType>>;
-}> = ({ data }) => {
-  console.log(data);
-
+  shop: string;
+  date: string;
+  pages: Array<Array<RowType>>;
+}> = ({ pages, shop, date }) => {
   return (
     <Document>
-      {data.map((page, index) => (
-        <Page size="A4" style={styles.page} key={index}>
+      {pages.map((page, index) => (
+        <Page
+          size="A4"
+          style={{
+            backgroundColor: "#FFFFFF",
+            paddingTop: 25,
+            paddingRight: 30,
+            paddingLeft: 30,
+            paddingBottom: 25,
+            fontFamily: "NotoSans"
+          }}
+          key={index}
+        >
+          <Image
+            style={{
+              width: 60,
+              height: 60,
+              position: "absolute",
+              top: 10,
+              right: 10
+            }}
+            src="/images/flower.png"
+          />
+          <Image
+            style={{
+              width: 100,
+              position: "absolute",
+              left: 30,
+              bottom: 10
+            }}
+            src="/images/dots.png"
+          />
+          <View
+            style={{
+              position: "absolute",
+              bottom: 10,
+              right: 30
+            }}
+          >
+            <Text
+              style={{
+                color: "#666",
+                fontSize: 10
+              }}
+            >
+              {shop}
+            </Text>
+            <Text
+              style={{
+                color: "#666",
+                fontSize: 10
+              }}
+            >
+              {date}
+            </Text>
+          </View>
+
           {page.map(({ type, data }, indexRow) => {
             if (type === "title") {
-              return <SelectionTitle key={indexRow} title={data.title} />;
+              return <SelectionTitle key={indexRow} title={data} />;
             }
 
             if (type === "row") {
               return <SelectionRow key={indexRow} products={data} />;
             }
+
+            if (type === "category") {
+              return <SelectionCategory key={indexRow} category={data} />;
+            }
+
+            return null;
           })}
         </Page>
       ))}

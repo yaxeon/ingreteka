@@ -1121,10 +1121,10 @@
   dependencies:
     "@hapi/hoek" "6.x.x"
 
-"@ingreteka/market-widget@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@ingreteka/market-widget/-/market-widget-1.0.9.tgz#691b1892d767765034f96e7150a4d464c78f9e10"
-  integrity sha512-qWo6qRTjMJxQPy2Cz84xqRM5Ijeiz9d1oY23om9C2my8q2Jj3mqbqefhUqrykHfPIPe/US3n0g1bb4ngwhlaaw==
+"@ingreteka/market-widget@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@ingreteka/market-widget/-/market-widget-1.0.11.tgz#03526d30f7b2954de530bdbb8d4903cd6b4c7c42"
+  integrity sha512-kxL8pbKfLJwxTS7qz/MvDZHlwLl3wLiUIBclIjKLMusCor1ZzVvOLOet6WODjP7o/bppI+TeLqsSWlYyXMOosQ==
 
 "@jest/console@^24.7.1":
   version "24.7.1"
