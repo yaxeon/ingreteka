@@ -30,6 +30,9 @@ export const PdfPage = () => {
       <Select fullWidth value={shop} onChange={handleChange}>
         <MenuItem value="ozon.ru">ozon.ru</MenuItem>
         <MenuItem value="wildberries.ru">wildberries.ru</MenuItem>
+        <MenuItem value="4fresh.ru">4fresh.ru</MenuItem>
+        <MenuItem value="beru.ru">beru.ru</MenuItem>
+        <MenuItem value="ru.iherb.com">ru.iherb.com</MenuItem>
       </Select>
       {selectionData && (
         <PDFViewer width="100%" height="600px">
