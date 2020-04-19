@@ -100,6 +100,22 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
     isDonate ? classes.donateShow : classes.donateHide
   }`;
 
+  const handleEventMoney = () => {
+    window.goalEvent({
+      action: "clicked_to_money",
+      category: "selection",
+      label: "money"
+    });
+  };
+
+  const handleEventInstagram = () => {
+    window.goalEvent({
+      action: "clicked_to_instagram",
+      category: "selection",
+      label: "instagram"
+    });
+  };
+
   return (
     <React.Fragment>
       <Helmet>
@@ -109,7 +125,10 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
         {categoryBySlug ? categoryBySlug.title : slug}
       </HeaderMenu>
       <div className={donateClass}>
-        <a href="https://money.yandex.ru/to/410015427968355?_openstat=iget%3Bbill%3Bicon">
+        <a
+          onClick={handleEventMoney}
+          href="https://money.yandex.ru/to/410015427968355?_openstat=iget%3Bbill%3Bicon"
+        >
           <img alt="Поддержать!" src={donate} />
         </a>
       </div>
@@ -117,6 +136,7 @@ export const SelectionPage: React.FC<RouteComponentProps<PageParams>> = ({
         <Carousel images={gallery} />
         <div className={classes.action}>
           <IconButton
+            onClick={handleEventInstagram}
             href="https://www.instagram.com/ingreteka/"
             target="_blank"
           >

@@ -31,6 +31,23 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/57205978" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+    <script>
+      function goalEvent(event) {
+        try {
+          gtag("event", event.action, {
+            event_category: event.category,
+            event_label: event.label
+          });
+
+          ym(57205978, "reachGoal", event.action, {
+            event_category: event.category,
+            event_label: event.label
+          });
+        } catch (e) {
+          console.error(e.message);
+        }
+      }
+    </script>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <link
@@ -41,11 +58,14 @@
       name="viewport"
       content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no"
     />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Ингретека Гид: ваш путеводитель по натуральной косметике</title>
-    <meta name="description" content="Каталог косметической продукции с проверенными на наличие критичных ингредиентов составами. Никакого гринвошинга! Зашли, почитали описание, состав, перешли на сайт магазина, купили. Быстро и удобно!"/>
+    <meta
+      name="description"
+      content="Каталог косметической продукции с проверенными на наличие критичных ингредиентов составами. Никакого гринвошинга! Зашли, почитали описание, состав, перешли на сайт магазина, купили. Быстро и удобно!"
+    />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

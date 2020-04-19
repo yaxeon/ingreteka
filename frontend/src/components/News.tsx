@@ -68,6 +68,11 @@ export const News = () => {
   };
 
   const handleOpen = () => {
+    window.goalEvent({
+      action: "clicked_to_news",
+      category: "homepage",
+      label: "news"
+    });
     setOpen(true);
   };
 
