@@ -4,3 +4,5 @@ Disallow: /product
 Disallow: /*?
 Disallow: /*&
 Disallow: /*@
+
+Sitemap: https://guide.ingreteka.ru/sitemap.xml
