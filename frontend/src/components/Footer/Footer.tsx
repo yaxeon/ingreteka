@@ -27,10 +27,10 @@ export const Footer = () => {
     <AppBar color="secondary" position="fixed" className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <FooterMenuItem path="/" icon={IconHome} label="Главная" />
-        <FooterMenuItem path="/search" icon={IconSearch} label="Поиск" />
-        <FooterMenuItem path="/brands" icon={IconBrand} label="Бренды" />
+        <FooterMenuItem path="/search/" icon={IconSearch} label="Поиск" />
+        <FooterMenuItem path="/brands/" icon={IconBrand} label="Бренды" />
         <FooterMenuItem
-          path="/favorite"
+          path="/favorite/"
           icon={IconFavorite}
           label="Избранное"
         />

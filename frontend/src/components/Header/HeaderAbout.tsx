@@ -48,10 +48,12 @@ export const HeaderAbout: React.FC = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Link to="/about">Обо мне</Link>
+          <Link to="/about/">Обо мне</Link>
         </MenuItem>
-        <MenuItem target="_blank" href="https://www.instagram.com/ingreteka/">
-          @ingreteka
+        <MenuItem onClick={handleClose}>
+          <a target="_blank" href="https://www.instagram.com/ingreteka/">
+            @ingreteka
+          </a>
         </MenuItem>
       </Menu>
     </div>
