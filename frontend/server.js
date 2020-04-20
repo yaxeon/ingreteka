@@ -2,7 +2,7 @@ const express = require("express");
 const prerender = require("prerender-node");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const path = require("path");
-const { generateSitemap } = require("./sitemap/generate");
+require("./sitemap/generate");
 
 const app = express();
 
@@ -11,12 +11,6 @@ app.use(
     target: "http://backend.ingreteka:8080"
   })
 );
-
-app.get("/make-sitemap", (req, res) => {
-  generateSitemap().then(status => {
-    res.send(status);
-  });
-});
 
 app.use(
   prerender
