@@ -7,14 +7,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-79268407-2');
-
-      function pageView(pagePath) {
-        gtag('config', 'UA-79268407-2', {
-          'page_path': pagePath,
-        })
-      }
     </script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
@@ -47,6 +40,13 @@
           console.error(e.message);
         }
       }
+
+      function pageView(pagePath) {
+        gtag('config', 'UA-79268407-2', {
+          'page_path': pagePath,
+        });
+        ym(57205978, 'hit', pagePath);
+      }
     </script>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -61,6 +61,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <meta name="yandex-verification" content="57462b8377603b79" />
     <title>Ингретека Гид: ваш путеводитель по натуральной косметике</title>
     <meta
       name="description"

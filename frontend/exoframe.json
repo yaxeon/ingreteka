@@ -4,5 +4,8 @@
   "domain": "guide.ingreteka.ru",
   "restart": "always",
   "port": "8080",
-  "template": "dockerfile"
+  "template": "dockerfile",
+  "env": {
+    "PRERENDER_TOKEN": "@prerender"
+  }
 }

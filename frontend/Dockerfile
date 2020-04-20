@@ -1,10 +1,9 @@
 FROM node:11-alpine as build-stage
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+WORKDIR /app
+COPY package.json /app
+COPY yarn.lock /app
 RUN yarn install --frozen-lockfile
+COPY . /app
 RUN REACT_APP_CDN=https://ingreteka.b-cdn.net GENERATE_SOURCEMAP=false yarn build
-
-FROM nginx:alpine
-COPY --from=build-stage /usr/src/app/build/ /usr/share/nginx/html
-COPY --from=build-stage /usr/src/app/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 8080
+CMD [ "node", "server.js" ]
