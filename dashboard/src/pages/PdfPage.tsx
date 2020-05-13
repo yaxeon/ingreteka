@@ -32,7 +32,11 @@ export const PdfPage = () => {
         <MenuItem value="wildberries.ru">wildberries.ru</MenuItem>
         <MenuItem value="4fresh.ru">4fresh.ru</MenuItem>
         <MenuItem value="beru.ru">beru.ru</MenuItem>
-        <MenuItem value="ru.iherb.com">ru.iherb.com</MenuItem>
+        <MenuItem value="iherb.com">iherb.com</MenuItem>
+        <MenuItem value="utkonos.ru">utkonos.ru</MenuItem>
+        <MenuItem value="perekrestok.ru">perekrestok.ru</MenuItem>
+        <MenuItem value="auchan.ru">auchan.ru</MenuItem>
+        <MenuItem value="globus.ru">globus.ru</MenuItem>
       </Select>
       {selectionData && (
         <PDFViewer width="100%" height="600px">

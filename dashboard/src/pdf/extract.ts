@@ -1,16 +1,39 @@
 import { formatDate, formatPrice, formatUrl } from "@ingreteka/market-widget";
 import chunk from "lodash/chunk";
 
+type OfferType = {
+  price?: number;
+  host: string;
+  url: string;
+  priceCurrency?: string;
+  image?: string;
+};
+
 type ProductType = {
   title: string;
   lastUpdate: string;
-  offers: Array<{
-    price?: number;
-    host: string;
-    url: string;
-    priceCurrency?: string;
-    image?: string;
-  }>;
+  offers: Array<OfferType>;
+};
+
+const getImage = (offers: Array<OfferType>) => {
+  const sortedOffers = offers
+    .map(offer => ({
+      ...offer,
+      position: [
+        "utkonos.ru",
+        "auchan.ru",
+        "perekrestok.ru",
+        "ozon.ru",
+        "wildberries.ru"
+      ].findIndex(shop => offer.host.indexOf(shop) !== -1)
+    }))
+    .sort((a, b) => {
+      return b.position - a.position;
+    });
+
+  const offer = sortedOffers.find(offer => !!offer.image);
+
+  return offer ? offer.image : null;
 };
 
 const parseProduct = (product: ProductType, shop: string) => {
@@ -20,20 +43,18 @@ const parseProduct = (product: ProductType, shop: string) => {
     return null;
   }
 
-  const offer = offers.find(offer => offer.host === shop);
+  const offer = offers.find(offer => offer.host.indexOf(shop) !== -1);
 
   if (!offer) {
     return null;
   }
-
-  const offerImage = offers.find(offer => !!offer.image);
 
   return {
     title,
     price: formatPrice(offer.price, offer.priceCurrency),
     date: formatDate(product.lastUpdate),
     url: formatUrl(offer.url),
-    image: offer.image || (offerImage ? offerImage.image : null)
+    image: getImage(offers)
   };
 };
 
