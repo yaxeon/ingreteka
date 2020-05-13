@@ -128,7 +128,7 @@ export const makeSelection = async (shop: string, data: Array<any>) => {
   let pageHeight = 0;
 
   elements.forEach(element => {
-    if (maxPageHeight - pageHeight <= element.maxHeight) {
+    if (maxPageHeight - pageHeight < element.maxHeight) {
       pageIndex++;
       pageHeight = 0;
     }
