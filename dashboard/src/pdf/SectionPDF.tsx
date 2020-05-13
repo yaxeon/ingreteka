@@ -44,7 +44,10 @@ const SelectionTitle: React.FC<{ title: string }> = ({ title }) => (
   </View>
 );
 
-const SelectionRow: React.FC<{ products: Array<any> }> = ({ products }) => (
+const SelectionRow: React.FC<{ products: Array<any>; first: boolean }> = ({
+  products,
+  first
+}) => (
   <View
     style={{
       display: "flex",
@@ -52,7 +55,7 @@ const SelectionRow: React.FC<{ products: Array<any> }> = ({ products }) => (
       justifyContent: "space-between"
     }}
   >
-    {products.map(product => (
+    {products.map((product, index) => (
       <View
         key={product.title}
         style={{
@@ -79,7 +82,7 @@ const SelectionRow: React.FC<{ products: Array<any> }> = ({ products }) => (
         </View>
         <View
           style={{
-            width: 160
+            width: first && index === 1 ? 120 : 160
           }}
         >
           <Text
@@ -192,7 +195,13 @@ export const SectionPDF: React.FC<{
             }
 
             if (type === "row") {
-              return <SelectionRow key={indexRow} products={data} />;
+              return (
+                <SelectionRow
+                  key={indexRow}
+                  first={indexRow === 0}
+                  products={data}
+                />
+              );
             }
 
             if (type === "category") {
