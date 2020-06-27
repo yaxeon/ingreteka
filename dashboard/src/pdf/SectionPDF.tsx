@@ -57,7 +57,7 @@ const SelectionRow: React.FC<{ products: Array<any>; first: boolean }> = ({
   >
     {products.map((product, index) => (
       <View
-        key={product.title}
+        key={index}
         style={{
           width: 260,
           height: 120,
@@ -137,10 +137,10 @@ export const SectionPDF: React.FC<{
           size="A4"
           style={{
             backgroundColor: "#FFFFFF",
-            paddingTop: 25,
+            paddingTop: 30,
             paddingRight: 30,
             paddingLeft: 30,
-            paddingBottom: 25,
+            paddingBottom: 30,
             fontFamily: "NotoSans"
           }}
           key={index}

@@ -12,6 +12,7 @@ type OfferType = {
 type ProductType = {
   title: string;
   lastUpdate: string;
+  image?: string;
   offers: Array<OfferType>;
 };
 
@@ -37,7 +38,7 @@ const getImage = (offers: Array<OfferType>) => {
 };
 
 const parseProduct = (product: ProductType, shop: string) => {
-  const { title, offers } = product;
+  const { title, offers, image } = product;
 
   if (!offers) {
     return null;
@@ -54,7 +55,7 @@ const parseProduct = (product: ProductType, shop: string) => {
     price: formatPrice(offer.price, offer.priceCurrency),
     date: formatDate(product.lastUpdate),
     url: formatUrl(offer.url),
-    image: getImage(offers)
+    image: image || getImage(offers)
   };
 };
 
