@@ -23,12 +23,7 @@ Font.register({
 });
 
 const makeUrl = (url: string) =>
-  url
-    ? `https://abwynsuxfo.cloudimg.io/v7/${url.replace(
-        /https?:\/\//,
-        ""
-      )}?trim=5`
-    : "/images/empty.jpg";
+  url ? `https://abwynsuxfo.cloudimg.io/v7/${url}?trim=5` : "/images/empty.jpg";
 
 const SelectionTitle: React.FC<{ title: string }> = ({ title }) => (
   <View>
