@@ -37,6 +37,7 @@ export const PdfPage = () => {
         <MenuItem value="perekrestok.ru">perekrestok.ru</MenuItem>
         <MenuItem value="auchan.ru">auchan.ru</MenuItem>
         <MenuItem value="globus.ru">globus.ru</MenuItem>
+        <MenuItem value="lamoda.ru">lamoda.ru</MenuItem>
       </Select>
       {selectionData && (
         <PDFViewer width="100%" height="600px">
